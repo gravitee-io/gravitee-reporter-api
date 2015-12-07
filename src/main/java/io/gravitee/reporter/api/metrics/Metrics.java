@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.gateway.api.reporter.metrics;
+package io.gravitee.reporter.api.metrics;
 
 import io.gravitee.common.http.HttpMethod;
-import io.gravitee.gateway.api.reporter.Reportable;
+import io.gravitee.reporter.api.Reportable;
 
 import java.time.Instant;
 

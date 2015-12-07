@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.gateway.api.reporter.monitor;
+package io.gravitee.reporter.api.monitor;
 
-import io.gravitee.gateway.api.reporter.Reportable;
+import io.gravitee.reporter.api.Reportable;
 
 import java.time.Instant;
 
