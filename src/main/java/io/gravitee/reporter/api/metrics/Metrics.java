@@ -29,7 +29,9 @@ public class Metrics implements Reportable {
 
     private long apiResponseTimeMs = -1;
 
-    private String apiName;
+    private String api;
+
+    private String application;
 
     private String apiKey;
 
@@ -73,12 +75,12 @@ public class Metrics implements Reportable {
         this.apiKey = apiKey;
     }
 
-    public String getApiName() {
-        return apiName;
+    public String getApi() {
+        return api;
     }
 
-    public void setApiName(String apiName) {
-        this.apiName = apiName;
+    public void setApi(String api) {
+        this.api = api;
     }
 
     public long getApiResponseTimeMs() {
@@ -188,5 +190,13 @@ public class Metrics implements Reportable {
     @Override
     public Instant timestamp() {
         return this.requestTimestamp;
+    }
+
+    public String getApplication() {
+        return application;
+    }
+
+    public void setApplication(String application) {
+        this.application = application;
     }
 }
