@@ -43,6 +43,8 @@ public class Metrics implements Reportable {
 
     private String requestPath;
 
+    private String requestUri;
+
     private String requestLocalAddress;
 
     private String requestRemoteAddress;
@@ -198,5 +200,13 @@ public class Metrics implements Reportable {
 
     public void setApplication(String application) {
         this.application = application;
+    }
+
+    public String getRequestUri() {
+        return requestUri;
+    }
+
+    public void setRequestUri(String requestUri) {
+        this.requestUri = requestUri;
     }
 }
