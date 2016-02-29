@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.metrics;
+package io.gravitee.reporter.api.http;
 
 import io.gravitee.common.http.HttpMethod;
-import io.gravitee.reporter.api.Reportable;
-
-import java.time.Instant;
+import io.gravitee.reporter.api.AbstractMetrics;
 
 /**
  * @author David BRASSELY (brasseld at gmail.com)
  */
-public class Metrics implements Reportable {
+public final class RequestMetrics extends AbstractMetrics {
 
     private long proxyResponseTimeMs = -1;
 
@@ -36,8 +34,6 @@ public class Metrics implements Reportable {
     private String apiKey;
 
     private String requestId;
-
-    private Instant requestTimestamp;
 
     private HttpMethod requestHttpMethod;
 
@@ -61,12 +57,8 @@ public class Metrics implements Reportable {
 
     private String endpoint;
 
-    public Instant getRequestTimestamp() {
-        return requestTimestamp;
-    }
-
-    public void setRequestTimestamp(Instant requestTimestamp) {
-        this.requestTimestamp = requestTimestamp;
+    private RequestMetrics(long timestamp) {
+        super(timestamp);
     }
 
     public String getApiKey() {
@@ -189,11 +181,6 @@ public class Metrics implements Reportable {
         this.endpoint = endpoint;
     }
 
-    @Override
-    public Instant timestamp() {
-        return this.requestTimestamp;
-    }
-
     public String getApplication() {
         return application;
     }
@@ -208,5 +195,22 @@ public class Metrics implements Reportable {
 
     public void setRequestUri(String requestUri) {
         this.requestUri = requestUri;
+    }
+
+    public static Builder on(long timestamp) {
+        return new Builder(timestamp);
+    }
+
+    public static class Builder {
+
+        private final long timestamp;
+
+        private Builder(long timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public RequestMetrics build() {
+            return new RequestMetrics(timestamp);
+        }
     }
 }
