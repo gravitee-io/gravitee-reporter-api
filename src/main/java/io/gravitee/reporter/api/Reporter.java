@@ -19,8 +19,13 @@ import io.gravitee.common.service.Service;
 
 /**
  * @author David BRASSELY (brasseld at gmail.com)
+ * @author GraviteeSource Team
  */
 public interface Reporter extends Service {
 
     void report(Reportable data);
+
+    default boolean canHandle(Reportable reportable) {
+        return true;
+    }
 }
