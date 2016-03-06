@@ -58,7 +58,7 @@ public final class RequestMetrics extends AbstractMetrics {
     private String endpoint;
 
     private RequestMetrics(long timestamp) {
-        super(timestamp);
+        super("unknown", timestamp);
     }
 
     public String getApiKey() {

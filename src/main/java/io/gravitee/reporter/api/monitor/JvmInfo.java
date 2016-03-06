@@ -40,15 +40,22 @@ public final class JvmInfo {
         public long nonHeapUsed;
 
         public MemoryPool[] pools = new MemoryPool[0];
+
+        public short getHeapUsedPercent() {
+            if (heapMax == 0) {
+                return -1;
+            }
+            return (short) (heapUsed * 100 / heapMax);
+        }
     }
 
     public static class MemoryPool {
-        String name;
-        long used;
-        long max;
+        public String name;
+        public long used;
+        public long max;
 
-        long peakUsed;
-        long peakMax;
+        public long peakUsed;
+        public long peakMax;
 
         public MemoryPool(String name, long used, long max, long peakUsed, long peakMax) {
             this.name = name;
@@ -57,11 +64,23 @@ public final class JvmInfo {
             this.peakUsed = peakUsed;
             this.peakMax = peakMax;
         }
+
+        public String getName() {
+            return this.name;
+        }
     }
 
     public static class Threads {
         public int count;
         public int peakCount;
+
+        public int getCount() {
+            return count;
+        }
+
+        public int getPeakCount() {
+            return peakCount;
+        }
     }
 
     public static class GarbageCollectors {
@@ -72,5 +91,13 @@ public final class JvmInfo {
         public String name;
         public long collectionCount;
         public long collectionTime;
+
+        public String getName() {
+            return this.name;
+        }
+
+        public long getCollectionCount() {
+            return this.collectionCount;
+        }
     }
 }

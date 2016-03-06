@@ -24,13 +24,19 @@ import java.time.Instant;
 public abstract class AbstractMetrics implements Reportable {
 
     private final long timestamp;
+    private final String gateway;
 
-    public AbstractMetrics(long timestamp) {
+    public AbstractMetrics(String gateway, long timestamp) {
+        this.gateway = gateway;
         this.timestamp = timestamp;
     }
 
     @Override
     public Instant timestamp() {
         return Instant.ofEpochMilli(timestamp);
+    }
+
+    public String gateway() {
+        return gateway;
     }
 }

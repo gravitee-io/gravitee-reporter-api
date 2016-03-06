@@ -32,15 +32,47 @@ public class OsInfo {
     public static class Cpu {
         public short percent = -1;
         public double[] loadAverage = null;
+
+        public short getPercent() {
+            return percent;
+        }
+
+        public double[] getLoadAverage() {
+            return loadAverage;
+        }
     }
 
     public static class Mem {
         public long total = -1;
         public long free = -1;
+
+        public long getTotal() {
+            return total;
+        }
+
+        public long getUsed() {
+            return total - free;
+        }
+
+        public short getUsedPercent() {
+            return calculatePercentage(getUsed(), getTotal());
+        }
+
+        public long getFree() {
+            return free;
+        }
+
+        public short getFreePercent() {
+            return calculatePercentage(getFree(), getTotal());
+        }
     }
 
     public static class Swap {
         public long total = -1;
         public long free = -1;
+    }
+
+    private static short calculatePercentage(long used, long max) {
+        return max <= 0 ? 0 : (short) (Math.round((100d * used) / max));
     }
 }
