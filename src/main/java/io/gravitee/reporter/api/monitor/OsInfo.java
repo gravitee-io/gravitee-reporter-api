@@ -13,13 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.metrics;
+package io.gravitee.reporter.api.monitor;
 
 /**
  * @author David BRASSELY (brasseld at gmail.com)
  * @author GraviteeSource Team
  */
-public interface Gauge<T> extends Metric {
+public class OsInfo {
 
-    T getValue();
+    public long timestamp;
+
+    public Cpu cpu = null;
+
+    public Mem mem = null;
+
+    public Swap swap = null;
+
+    public static class Cpu {
+        public short percent = -1;
+        public double[] loadAverage = null;
+    }
+
+    public static class Mem {
+        public long total = -1;
+        public long free = -1;
+    }
+
+    public static class Swap {
+        public long total = -1;
+        public long free = -1;
+    }
 }

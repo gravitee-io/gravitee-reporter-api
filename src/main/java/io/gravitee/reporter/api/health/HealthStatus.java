@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.monitor;
+package io.gravitee.reporter.api.health;
 
 import io.gravitee.reporter.api.Reportable;
 

@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.metrics;
+package io.gravitee.reporter.api.monitor;
 
 /**
  * @author David BRASSELY (brasseld at gmail.com)
  * @author GraviteeSource Team
  */
-public interface Metric {
+public class ProcessInfo {
+
+    public long timestamp = -1;
+
+    public long openFileDescriptors = -1;
+    public long maxFileDescriptors = -1;
 }
