@@ -15,53 +15,77 @@
  */
 package io.gravitee.reporter.api.health;
 
-import io.gravitee.reporter.api.Reportable;
-
-import java.time.Instant;
+import io.gravitee.common.http.HttpMethod;
+import io.gravitee.reporter.api.AbstractMetrics;
 
 /**
- * @author David BRASSELY (brasseld at gmail.com)
+ * @author David BRASSELY (david at gravitee.io)
+ * @author GraviteeSource Team
  */
-public class HealthStatus implements Reportable {
+public class HealthStatus extends AbstractMetrics {
 
     private final String api;
-    private final long timestamp;
-    private int status;
 
-    private HealthStatus(String api, long timestamp) {
+    private String url;
+    private HttpMethod method;
+    private String message;
+    private int status;
+    private boolean success;
+
+    private HealthStatus(long timestamp,
+                         String api,
+                         String url,
+                         HttpMethod httpMethod,
+                         int status,
+                         boolean success,
+                         String message) {
+        super("unknown", timestamp);
         this.api = api;
-        this.timestamp = timestamp;
+        this.url = url;
+        this.method = httpMethod;
+        this.status = status;
+        this.success = success;
+        this.message = message;
     }
 
     public String getApi() {
         return api;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public int getStatus() {
         return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public HttpMethod getMethod() {
+        return method;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public static Builder forApi(String api) {
         return new Builder(api);
     }
 
-    @Override
-    public Instant timestamp() {
-        return Instant.ofEpochMilli(timestamp);
-    }
-
     public static class Builder {
 
         private final String api;
         private long timestamp;
+
+        private String url;
+        private HttpMethod method;
+        private String message;
+        private int status;
+        private boolean success = true;
 
         private Builder(String api) {
             this.api = api;
@@ -72,8 +96,42 @@ public class HealthStatus implements Reportable {
             return this;
         }
 
+        public Builder status(int status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder method(HttpMethod method) {
+            this.method = method;
+            return this;
+        }
+
+        public Builder success(boolean success) {
+            this.success = success;
+            return this;
+        }
+
+        public Builder success() {
+            return success(true);
+        }
+
+        public Builder fail() {
+            return success(false);
+        }
+
+        public Builder url(String url) {
+            this.url = url;
+            return this;
+        }
+
         public HealthStatus build() {
-            return new HealthStatus(api, timestamp);
+            return new HealthStatus(
+                    timestamp, api, url, method, status, success, message);
         }
     }
 }
