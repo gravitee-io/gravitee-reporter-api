@@ -26,11 +26,23 @@ public class HealthStatus extends AbstractMetrics {
 
     private final String api;
 
+    // HTTP Request URL
     private String url;
+
+    // HTTP Request method
     private HttpMethod method;
-    private String message;
-    private int status;
+
+    // Health was a success or not
     private boolean success;
+
+    // Defect message in case of fail
+    private String message;
+
+    // HTTP Response Status code
+    private int status;
+
+    // Endpoint state
+    private int state;
 
     private HealthStatus(long timestamp,
                          String api,
@@ -38,6 +50,7 @@ public class HealthStatus extends AbstractMetrics {
                          HttpMethod httpMethod,
                          int status,
                          boolean success,
+                         int state,
                          String message) {
         super("unknown", timestamp);
         this.api = api;
@@ -45,6 +58,7 @@ public class HealthStatus extends AbstractMetrics {
         this.method = httpMethod;
         this.status = status;
         this.success = success;
+        this.state = state;
         this.message = message;
     }
 
@@ -72,6 +86,10 @@ public class HealthStatus extends AbstractMetrics {
         return url;
     }
 
+    public int getState() {
+        return state;
+    }
+
     public static Builder forApi(String api) {
         return new Builder(api);
     }
@@ -85,6 +103,7 @@ public class HealthStatus extends AbstractMetrics {
         private HttpMethod method;
         private String message;
         private int status;
+        private int state;
         private boolean success = true;
 
         private Builder(String api) {
@@ -98,6 +117,11 @@ public class HealthStatus extends AbstractMetrics {
 
         public Builder status(int status) {
             this.status = status;
+            return this;
+        }
+
+        public Builder state(int state) {
+            this.state = state;
             return this;
         }
 
@@ -129,9 +153,13 @@ public class HealthStatus extends AbstractMetrics {
             return this;
         }
 
+        public boolean isSuccess() {
+            return this.success;
+        }
+
         public HealthStatus build() {
             return new HealthStatus(
-                    timestamp, api, url, method, status, success, message);
+                    timestamp, api, url, method, status, success, state, message);
         }
     }
 }
