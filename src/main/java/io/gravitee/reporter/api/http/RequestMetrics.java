@@ -25,6 +25,8 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private long proxyResponseTimeMs = -1;
 
+    private long proxyLatencyMs = -1;
+
     private long apiResponseTimeMs = -1;
 
     private String api;
@@ -123,6 +125,14 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public void setProxyResponseTimeMs(long proxyResponseTimeMs) {
         this.proxyResponseTimeMs = proxyResponseTimeMs;
+    }
+
+    public long getProxyLatencyMs() {
+        return proxyLatencyMs;
+    }
+
+    public void setProxyLatencyMs(long proxyLatencyMs) {
+        this.proxyLatencyMs = proxyLatencyMs;
     }
 
     public String getRequestRemoteAddress() {
