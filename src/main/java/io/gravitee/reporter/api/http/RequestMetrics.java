@@ -19,7 +19,8 @@ import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractMetrics;
 
 /**
- * @author David BRASSELY (brasseld at gmail.com)
+ * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author GraviteeSource Team
  */
 public final class RequestMetrics extends AbstractMetrics {
 
@@ -34,6 +35,10 @@ public final class RequestMetrics extends AbstractMetrics {
     private String application;
 
     private String apiKey;
+
+    private String subscription;
+
+    private String plan;
 
     private String requestId;
 
@@ -201,6 +206,22 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public String getRequestUri() {
         return requestUri;
+    }
+
+    public String getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(String subscription) {
+        this.subscription = subscription;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
     public void setRequestUri(String requestUri) {
