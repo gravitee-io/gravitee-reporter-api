@@ -64,6 +64,8 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String endpoint;
 
+    private String transactionId;
+
     private RequestMetrics(long timestamp) {
         super("unknown", timestamp);
     }
@@ -222,6 +224,14 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public void setPlan(String plan) {
         this.plan = plan;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     public void setRequestUri(String requestUri) {
