@@ -36,7 +36,7 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String apiKey;
 
-    private String subscription;
+    private String userId;
 
     private String plan;
 
@@ -210,12 +210,12 @@ public final class RequestMetrics extends AbstractMetrics {
         return requestUri;
     }
 
-    public String getSubscription() {
-        return subscription;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setSubscription(String subscription) {
-        this.subscription = subscription;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPlan() {
