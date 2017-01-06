@@ -54,13 +54,13 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String requestContentType;
 
-    private long requestContentLength = -1;
+    private long requestContentLength = 0;
 
     private int responseHttpStatus;
 
     private String responseContentType;
 
-    private long responseContentLength = -1;
+    private long responseContentLength = 0;
 
     private String endpoint;
 
