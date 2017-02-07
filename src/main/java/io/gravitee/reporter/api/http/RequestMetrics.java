@@ -66,6 +66,8 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String transactionId;
 
+    private String tenant;
+
     private RequestMetrics(long timestamp) {
         super("unknown", timestamp);
     }
@@ -236,6 +238,14 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public void setRequestUri(String requestUri) {
         this.requestUri = requestUri;
+    }
+
+    public String getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(String tenant) {
+        this.tenant = tenant;
     }
 
     public static Builder on(long timestamp) {
