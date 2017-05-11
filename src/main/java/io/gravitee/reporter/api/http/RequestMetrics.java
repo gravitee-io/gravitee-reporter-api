@@ -15,6 +15,7 @@
  */
 package io.gravitee.reporter.api.http;
 
+import io.gravitee.common.http.HttpHeaders;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractMetrics;
 
@@ -34,9 +35,12 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String application;
 
-    private String apiKey;
-
+    /**
+     * SubscriptionId (in case of api-key) or remote IP (key-less)
+     */
     private String userId;
+
+    private String apiKey;
 
     private String plan;
 
@@ -52,13 +56,9 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String requestRemoteAddress;
 
-    private String requestContentType;
-
     private long requestContentLength = 0;
 
     private int responseHttpStatus;
-
-    private String responseContentType;
 
     private long responseContentLength = 0;
 
@@ -68,16 +68,16 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String tenant;
 
+    private HttpHeaders clientRequestHeaders;
+
+    private HttpHeaders clientResponseHeaders;
+
+    private HttpHeaders proxyRequestHeaders;
+
+    private HttpHeaders proxyResponseHeaders;
+
     private RequestMetrics(long timestamp) {
         super("unknown", timestamp);
-    }
-
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
     }
 
     public String getApi() {
@@ -160,28 +160,12 @@ public final class RequestMetrics extends AbstractMetrics {
         this.responseContentLength = responseContentLength;
     }
 
-    public String getResponseContentType() {
-        return responseContentType;
-    }
-
-    public void setResponseContentType(String responseContentType) {
-        this.responseContentType = responseContentType;
-    }
-
     public long getRequestContentLength() {
         return requestContentLength;
     }
 
     public void setRequestContentLength(long requestContentLength) {
         this.requestContentLength = requestContentLength;
-    }
-
-    public String getRequestContentType() {
-        return requestContentType;
-    }
-
-    public void setRequestContentType(String requestContentType) {
-        this.requestContentType = requestContentType;
     }
 
     public String getRequestId() {
@@ -246,6 +230,46 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public void setTenant(String tenant) {
         this.tenant = tenant;
+    }
+
+    public HttpHeaders getClientRequestHeaders() {
+        return clientRequestHeaders;
+    }
+
+    public void setClientRequestHeaders(HttpHeaders clientRequestHeaders) {
+        this.clientRequestHeaders = clientRequestHeaders;
+    }
+
+    public HttpHeaders getClientResponseHeaders() {
+        return clientResponseHeaders;
+    }
+
+    public void setClientResponseHeaders(HttpHeaders clientResponseHeaders) {
+        this.clientResponseHeaders = clientResponseHeaders;
+    }
+
+    public HttpHeaders getProxyRequestHeaders() {
+        return proxyRequestHeaders;
+    }
+
+    public void setProxyRequestHeaders(HttpHeaders proxyRequestHeaders) {
+        this.proxyRequestHeaders = proxyRequestHeaders;
+    }
+
+    public HttpHeaders getProxyResponseHeaders() {
+        return proxyResponseHeaders;
+    }
+
+    public void setProxyResponseHeaders(HttpHeaders proxyResponseHeaders) {
+        this.proxyResponseHeaders = proxyResponseHeaders;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public static Builder on(long timestamp) {
