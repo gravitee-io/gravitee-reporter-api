@@ -27,8 +27,8 @@ public class Monitor extends AbstractMetrics {
     OsInfo os;
     ProcessInfo process;
 
-    public Monitor(String gateway, long timestamp) {
-        super(gateway, timestamp);
+    public Monitor(long timestamp) {
+        super(timestamp);
     }
 
     public JvmInfo getJvm() {
@@ -44,7 +44,7 @@ public class Monitor extends AbstractMetrics {
     }
 
     public static Builder on(String gateway) {
-        return new Builder(gateway);
+        return new Builder();
     }
 
     public static class Builder {
@@ -53,11 +53,6 @@ public class Monitor extends AbstractMetrics {
         private OsInfo os;
         private JvmInfo jvm;
         private ProcessInfo process;
-        private final String gateway;
-
-        private Builder(String gateway) {
-            this.gateway = gateway;
-        }
 
         public Builder at(long timestamp) {
             this.timestamp = timestamp;
@@ -80,7 +75,7 @@ public class Monitor extends AbstractMetrics {
         }
 
         public Monitor build() {
-            Monitor metrics = new Monitor(gateway, timestamp);
+            Monitor metrics = new Monitor(timestamp);
             metrics.os = os;
             metrics.jvm = jvm;
             metrics.process = process;
