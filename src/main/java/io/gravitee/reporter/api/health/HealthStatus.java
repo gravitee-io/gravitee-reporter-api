@@ -52,7 +52,7 @@ public class HealthStatus extends AbstractMetrics {
                          boolean success,
                          int state,
                          String message) {
-        super("unknown", timestamp);
+        super(timestamp);
         this.api = api;
         this.url = url;
         this.method = httpMethod;

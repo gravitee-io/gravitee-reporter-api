@@ -77,7 +77,7 @@ public final class RequestMetrics extends AbstractMetrics {
     private HttpHeaders proxyResponseHeaders;
 
     private RequestMetrics(long timestamp) {
-        super("unknown", timestamp);
+        super(timestamp);
     }
 
     public String getApi() {
