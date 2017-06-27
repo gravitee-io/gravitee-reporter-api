@@ -76,6 +76,8 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private HttpHeaders proxyResponseHeaders;
 
+    private String message;
+
     private RequestMetrics(long timestamp) {
         super(timestamp);
     }
@@ -270,6 +272,14 @@ public final class RequestMetrics extends AbstractMetrics {
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static Builder on(long timestamp) {
