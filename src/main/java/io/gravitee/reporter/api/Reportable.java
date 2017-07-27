@@ -18,7 +18,8 @@ package io.gravitee.reporter.api;
 import java.time.Instant;
 
 /**
- * @author David BRASSELY (brasseld at gmail.com)
+ * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author GraviteeSource Team
  */
 public interface Reportable {
 
