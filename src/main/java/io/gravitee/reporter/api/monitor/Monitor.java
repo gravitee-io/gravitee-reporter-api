@@ -18,7 +18,7 @@ package io.gravitee.reporter.api.monitor;
 import io.gravitee.reporter.api.AbstractMetrics;
 
 /**
- * @author David BRASSELY (brasseld at gmail.com)
+ * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
 public class Monitor extends AbstractMetrics {
