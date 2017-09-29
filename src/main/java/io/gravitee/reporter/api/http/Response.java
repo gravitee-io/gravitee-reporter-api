@@ -29,6 +29,9 @@ public class Response {
 
     private String body;
 
+    public Response() {
+    }
+
     public Response(final int status) {
         this.status = status;
     }

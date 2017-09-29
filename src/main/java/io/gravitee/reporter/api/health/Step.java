@@ -15,33 +15,19 @@
  */
 package io.gravitee.reporter.api.health;
 
-import io.gravitee.common.http.HttpMethod;
+import io.gravitee.reporter.api.http.Request;
+import io.gravitee.reporter.api.http.Response;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class StepResult {
+public class Step {
 
     /**
      * Step name
      */
-    private final String step;
-
-    /**
-     * HTTP Request URL
-     */
-    private String url;
-
-    /**
-     * HTTP Request method
-     */
-    private HttpMethod method;
-
-    /**
-     * HTTP Response Status code
-     */
-    private int status;
+    private final String name;
 
     /**
      * Was a success or not
@@ -54,40 +40,20 @@ public class StepResult {
     private String message;
 
     /**
-     * Response time in ms
+     * HealthResponse time in ms
      */
     private long responseTime;
 
-    StepResult(String step) {
-        this.step = step;
+    private Request request;
+
+    private Response response;
+
+    Step(String name) {
+        this.name = name;
     }
 
-    public String getStep() {
-        return step;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public HttpMethod getMethod() {
-        return method;
-    }
-
-    public void setMethod(HttpMethod method) {
-        this.method = method;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    public String getName() {
+        return name;
     }
 
     public boolean isSuccess() {
@@ -112,5 +78,21 @@ public class StepResult {
 
     public void setResponseTime(long responseTime) {
         this.responseTime = responseTime;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 }
