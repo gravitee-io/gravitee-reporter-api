@@ -17,6 +17,8 @@ package io.gravitee.reporter.api.health;
 
 import io.gravitee.common.utils.UUID;
 import io.gravitee.reporter.api.AbstractMetrics;
+import io.gravitee.reporter.api.http.Request;
+import io.gravitee.reporter.api.http.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ import java.util.List;
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class EndpointHealthStatus extends AbstractMetrics {
+public class EndpointStatus extends AbstractMetrics {
 
     /**
      * Health-check identifier
@@ -65,18 +67,18 @@ public class EndpointHealthStatus extends AbstractMetrics {
     /**
      * Health-check steps result.
      */
-    private final List<StepResult> steps;
+    private final List<Step> steps;
 
-    private EndpointHealthStatus(long timestamp,
-                                 String api,
-                                 String endpoint,
-                                 List<StepResult> steps) {
+    private EndpointStatus(long timestamp,
+                           String api,
+                           String endpoint,
+                           List<Step> steps) {
         super(timestamp);
         this.id = UUID.random().toString();
         this.api = api;
         this.endpoint = endpoint;
         this.steps = steps;
-        this.success = steps.stream().allMatch(StepResult::isSuccess);
+        this.success = steps.stream().allMatch(Step::isSuccess);
     }
 
     public String getId() {
@@ -99,7 +101,7 @@ public class EndpointHealthStatus extends AbstractMetrics {
         return endpoint;
     }
 
-    public List<StepResult> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
@@ -138,7 +140,7 @@ public class EndpointHealthStatus extends AbstractMetrics {
 
         private long timestamp;
 
-        private List<StepResult> steps = new ArrayList<>();
+        private List<Step> steps = new ArrayList<>();
 
         private Builder(String api, String endpoint) {
             this.api = api;
@@ -150,13 +152,13 @@ public class EndpointHealthStatus extends AbstractMetrics {
             return this;
         }
 
-        public Builder step(StepResult stepResult) {
-            this.steps.add(stepResult);
+        public Builder step(Step step) {
+            this.steps.add(step);
             return this;
         }
 
-        public EndpointHealthStatus build() {
-            return new EndpointHealthStatus(
+        public EndpointStatus build() {
+            return new EndpointStatus(
                     timestamp, api, endpoint, steps);
         }
     }
@@ -164,18 +166,14 @@ public class EndpointHealthStatus extends AbstractMetrics {
     public static class StepBuilder {
 
         private final String step;
-        private int status;
         private boolean success = true;
         private String message;
         private long responseTime;
+        private Request request;
+        private Response response;
 
         private StepBuilder(String step) {
             this.step = step;
-        }
-
-        public StepBuilder status(int status) {
-            this.status = status;
-            return this;
         }
 
         public StepBuilder success() {
@@ -194,10 +192,25 @@ public class EndpointHealthStatus extends AbstractMetrics {
             return this;
         }
 
-        public StepResult build() {
-            StepResult result = new StepResult(step);
+        public StepBuilder request(Request request) {
+            this.request = request;
+            return this;
+        }
+
+        public StepBuilder response(Response response) {
+            this.response = response;
+            return this;
+        }
+
+        public boolean isSuccess() {
+            return this.success;
+        }
+
+        public Step build() {
+            Step result = new Step(step);
             result.setSuccess(success);
-            result.setStatus(status);
+            result.setRequest(request);
+            result.setResponse(response);
             result.setMessage(message);
             result.setResponseTime(responseTime);
             return result;
