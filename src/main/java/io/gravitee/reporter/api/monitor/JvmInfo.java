@@ -68,6 +68,22 @@ public final class JvmInfo {
         public String getName() {
             return this.name;
         }
+
+        public long getUsed() {
+            return used;
+        }
+
+        public long getMax() {
+            return max;
+        }
+
+        public long getPeakUsed() {
+            return peakUsed;
+        }
+
+        public long getPeakMax() {
+            return peakMax;
+        }
     }
 
     public static class Threads {
@@ -94,6 +110,10 @@ public final class JvmInfo {
 
         public String getName() {
             return this.name;
+        }
+
+        public long getCollectionTime() {
+            return collectionTime;
         }
 
         public long getCollectionCount() {
