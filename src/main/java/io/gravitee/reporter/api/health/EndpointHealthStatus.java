@@ -15,22 +15,28 @@
  */
 package io.gravitee.reporter.api.health;
 
-import io.gravitee.common.utils.UUID;
-import io.gravitee.reporter.api.AbstractMetrics;
-
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
+
+import io.gravitee.common.utils.UUID;
+import io.gravitee.reporter.api.Reportable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class EndpointHealthStatus extends AbstractMetrics {
+@Data
+@AllArgsConstructor
+public class EndpointHealthStatus implements Reportable {
 
+	private long timestamp;
+	
     /**
      * Health-check identifier
      */
-    private final String id;
+    private final String id = UUID.random().toString();
 
     /**
      * API identifier.
@@ -67,140 +73,13 @@ public class EndpointHealthStatus extends AbstractMetrics {
      */
     private final List<StepResult> steps;
 
-    private EndpointHealthStatus(long timestamp,
-                                 String api,
-                                 String endpoint,
-                                 List<StepResult> steps) {
-        super(timestamp);
-        this.id = UUID.random().toString();
-        this.api = api;
-        this.endpoint = endpoint;
-        this.steps = steps;
-        this.success = steps.stream().allMatch(StepResult::isSuccess);
-    }
 
-    public String getId() {
-        return id;
+    @Override
+    public Instant getTimestamp() {
+        return Instant.ofEpochMilli(timestamp);
     }
-
-    public String getApi() {
-        return api;
-    }
-
+    
     public boolean isSuccess() {
-        return success;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public List<StepResult> getSteps() {
-        return steps;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public long getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(long responseTime) {
-        this.responseTime = responseTime;
-    }
-
-    public static Builder forEndpoint(String api, String endpoint) {
-        return new Builder(api, endpoint);
-    }
-
-    public static StepBuilder forStep(String step) {
-        return new StepBuilder(step);
-    }
-
-    public static class Builder {
-
-        private final String api;
-        private final String endpoint;
-
-        private long timestamp;
-
-        private List<StepResult> steps = new ArrayList<>();
-
-        private Builder(String api, String endpoint) {
-            this.api = api;
-            this.endpoint = endpoint;
-        }
-
-        public Builder on(long timestamp) {
-            this.timestamp = timestamp;
-            return this;
-        }
-
-        public Builder step(StepResult stepResult) {
-            this.steps.add(stepResult);
-            return this;
-        }
-
-        public EndpointHealthStatus build() {
-            return new EndpointHealthStatus(
-                    timestamp, api, endpoint, steps);
-        }
-    }
-
-    public static class StepBuilder {
-
-        private final String step;
-        private int status;
-        private boolean success = true;
-        private String message;
-        private long responseTime;
-
-        private StepBuilder(String step) {
-            this.step = step;
-        }
-
-        public StepBuilder status(int status) {
-            this.status = status;
-            return this;
-        }
-
-        public StepBuilder success() {
-            this.success = true;
-            return this;
-        }
-
-        public StepBuilder fail(String message) {
-            this.success = false;
-            this.message = message;
-            return this;
-        }
-
-        public StepBuilder responseTime(long responseTime) {
-            this.responseTime = responseTime;
-            return this;
-        }
-
-        public StepResult build() {
-            StepResult result = new StepResult(step);
-            result.setSuccess(success);
-            result.setStatus(status);
-            result.setMessage(message);
-            result.setResponseTime(responseTime);
-            return result;
-        }
+    	return steps.stream().allMatch(StepResult::isSuccess);
     }
 }

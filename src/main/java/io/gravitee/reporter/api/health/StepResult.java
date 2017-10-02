@@ -16,17 +16,25 @@
 package io.gravitee.reporter.api.health;
 
 import io.gravitee.common.http.HttpMethod;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StepResult {
 
     /**
      * Step name
      */
-    private final String step;
+    private String step;
 
     /**
      * HTTP Request URL
@@ -51,66 +59,19 @@ public class StepResult {
     /**
      * Defect message in case of health-check failure
      */
-    private String message;
+    private String failMessage;
 
     /**
      * Response time in ms
      */
     private long responseTime;
-
-    StepResult(String step) {
+    
+    StepResult(final String step) {
         this.step = step;
     }
-
-    public String getStep() {
-        return step;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public HttpMethod getMethod() {
-        return method;
-    }
-
-    public void setMethod(HttpMethod method) {
-        this.method = method;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public long getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(long responseTime) {
-        this.responseTime = responseTime;
+    
+    public void setFailMessage(final String message) {
+    	this.failMessage = message;
+    	this.success = false;
     }
 }

@@ -13,35 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.monitor;
+package io.gravitee.reporter.api.monitor.jvminfo;
 
-import java.time.Instant;
-
-import io.gravitee.reporter.api.Reportable;
-import io.gravitee.reporter.api.monitor.jvminfo.JvmInfo;
-import io.gravitee.reporter.api.monitor.osinfo.OsInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author David BRASSELY (david.brassely at graviteesource.com)
- * @author GraviteeSource Team
- */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Monitor implements Reportable {
+@NoArgsConstructor
+public class MemoryPool {
+	private String name;
+	private long used;
+	private long max;
 
-	private long timestamp;
-    private JvmInfo jvm;
-    private OsInfo os;
-    private ProcessInfo process;
-
-    @Override
-    public Instant getTimestamp() {
-        return Instant.ofEpochMilli(timestamp);
-    }
+	private long peakUsed;
+	private long peakMax;
 }

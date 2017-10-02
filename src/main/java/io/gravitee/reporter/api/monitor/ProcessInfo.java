@@ -15,14 +15,16 @@
  */
 package io.gravitee.reporter.api.monitor;
 
+import lombok.Data;
+
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@Data
 public class ProcessInfo {
 
-    public long timestamp = -1;
-
-    public long openFileDescriptors = -1;
-    public long maxFileDescriptors = -1;
+    private long timestamp = -1;
+    private long openFileDescriptors = -1;
+    private long maxFileDescriptors = -1;
 }
