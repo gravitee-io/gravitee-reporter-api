@@ -15,7 +15,6 @@
  */
 package io.gravitee.reporter.api.http;
 
-import io.gravitee.common.http.HttpHeaders;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractMetrics;
 
@@ -68,13 +67,9 @@ public final class RequestMetrics extends AbstractMetrics {
 
     private String tenant;
 
-    private HttpHeaders clientRequestHeaders;
+    private Request clientRequest, proxyRequest;
 
-    private HttpHeaders clientResponseHeaders;
-
-    private HttpHeaders proxyRequestHeaders;
-
-    private HttpHeaders proxyResponseHeaders;
+    private Response clientResponse, proxyResponse;
 
     private String message;
 
@@ -234,36 +229,36 @@ public final class RequestMetrics extends AbstractMetrics {
         this.tenant = tenant;
     }
 
-    public HttpHeaders getClientRequestHeaders() {
-        return clientRequestHeaders;
+    public Request getClientRequest() {
+        return clientRequest;
     }
 
-    public void setClientRequestHeaders(HttpHeaders clientRequestHeaders) {
-        this.clientRequestHeaders = clientRequestHeaders;
+    public void setClientRequest(Request clientRequest) {
+        this.clientRequest = clientRequest;
     }
 
-    public HttpHeaders getClientResponseHeaders() {
-        return clientResponseHeaders;
+    public Request getProxyRequest() {
+        return proxyRequest;
     }
 
-    public void setClientResponseHeaders(HttpHeaders clientResponseHeaders) {
-        this.clientResponseHeaders = clientResponseHeaders;
+    public void setProxyRequest(Request proxyRequest) {
+        this.proxyRequest = proxyRequest;
     }
 
-    public HttpHeaders getProxyRequestHeaders() {
-        return proxyRequestHeaders;
+    public Response getClientResponse() {
+        return clientResponse;
     }
 
-    public void setProxyRequestHeaders(HttpHeaders proxyRequestHeaders) {
-        this.proxyRequestHeaders = proxyRequestHeaders;
+    public void setClientResponse(Response clientResponse) {
+        this.clientResponse = clientResponse;
     }
 
-    public HttpHeaders getProxyResponseHeaders() {
-        return proxyResponseHeaders;
+    public Response getProxyResponse() {
+        return proxyResponse;
     }
 
-    public void setProxyResponseHeaders(HttpHeaders proxyResponseHeaders) {
-        this.proxyResponseHeaders = proxyResponseHeaders;
+    public void setProxyResponse(Response proxyResponse) {
+        this.proxyResponse = proxyResponse;
     }
 
     public String getApiKey() {
