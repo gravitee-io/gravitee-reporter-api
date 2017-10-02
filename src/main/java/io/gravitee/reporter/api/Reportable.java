@@ -23,5 +23,5 @@ import java.time.Instant;
  */
 public interface Reportable {
 
-    Instant timestamp();
+    Instant getTimestamp();
 }

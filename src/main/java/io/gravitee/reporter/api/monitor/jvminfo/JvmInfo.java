@@ -13,24 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api;
+package io.gravitee.reporter.api.monitor.jvminfo;
 
-import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public abstract class AbstractMetrics implements Reportable {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public final class JvmInfo {
 
-    private final long timestamp;
-
-    public AbstractMetrics(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public Instant timestamp() {
-        return Instant.ofEpochMilli(timestamp);
-    }
+    private long timestamp = -1;
+    private long uptime;
+    private Mem mem;
+    private Threads threads;
+    private GarbageCollectors gc; // TODO use list ? and remove this object
+  
+    
+    public static class GarbageCollectors {
+        public GarbageCollector[] collectors;
+    }    
 }
