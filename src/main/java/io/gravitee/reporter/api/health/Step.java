@@ -15,8 +15,8 @@
  */
 package io.gravitee.reporter.api.health;
 
-import io.gravitee.reporter.api.http.Request;
-import io.gravitee.reporter.api.http.Response;
+import io.gravitee.reporter.api.common.Request;
+import io.gravitee.reporter.api.common.Response;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
