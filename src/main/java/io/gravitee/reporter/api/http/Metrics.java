@@ -53,8 +53,6 @@ public final class Metrics extends AbstractMetrics {
 
     private HttpMethod httpMethod;
 
-    private String path;
-
     private String uri;
 
     private long requestContentLength = 0;
@@ -165,14 +163,6 @@ public final class Metrics extends AbstractMetrics {
 
     public void setHttpMethod(HttpMethod httpMethod) {
         this.httpMethod = httpMethod;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public String getUri() {
