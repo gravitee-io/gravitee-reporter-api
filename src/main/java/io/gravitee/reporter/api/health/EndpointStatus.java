@@ -69,6 +69,11 @@ public class EndpointStatus extends AbstractMetrics {
      */
     private final List<Step> steps;
 
+    /**
+     * True if state changed, false otherwise
+     */
+    private boolean transition = false;
+
     private EndpointStatus(long timestamp,
                            String api,
                            String endpoint,
@@ -123,6 +128,14 @@ public class EndpointStatus extends AbstractMetrics {
 
     public void setResponseTime(long responseTime) {
         this.responseTime = responseTime;
+    }
+
+    public boolean isTransition() {
+        return transition;
+    }
+
+    public void setTransition(boolean transition) {
+        this.transition = transition;
     }
 
     public static Builder forEndpoint(String api, String endpoint) {
