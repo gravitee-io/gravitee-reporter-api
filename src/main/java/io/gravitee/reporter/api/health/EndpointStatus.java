@@ -79,7 +79,7 @@ public class EndpointStatus extends AbstractMetrics {
                            String endpoint,
                            List<Step> steps) {
         super(timestamp);
-        this.id = UUID.random().toString();
+        this.id = UUID.toString(UUID.random());
         this.api = api;
         this.endpoint = endpoint;
         this.steps = steps;
