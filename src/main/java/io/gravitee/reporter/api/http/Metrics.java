@@ -21,49 +21,33 @@ import io.gravitee.reporter.api.log.Log;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author Azize ELAMRANI (azize.elamrani at graviteesource.com)
  * @author GraviteeSource Team
  */
 public final class Metrics extends AbstractMetrics {
 
     private long proxyResponseTimeMs = -1;
-
     private long proxyLatencyMs = -1;
-
     private long apiResponseTimeMs = -1;
-
     private String requestId;
-
     private String api;
-
     private String application;
-
     private String transactionId;
-
     private String tenant;
-
     private String message;
-
     private String apiKey;
-
     private String plan;
-
     private String localAddress;
-
     private String remoteAddress;
-
     private HttpMethod httpMethod;
-
     private String uri;
-
     private long requestContentLength = 0;
-
     private long responseContentLength = 0;
-
     private int status;
-
     private String endpoint;
-
     private Log log;
+    private String path;
+    private String mappedPath;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -227,6 +211,22 @@ public final class Metrics extends AbstractMetrics {
 
     public void setLog(Log log) {
         this.log = log;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getMappedPath() {
+        return mappedPath;
+    }
+
+    public void setMappedPath(String mappedPath) {
+        this.mappedPath = mappedPath;
     }
 
     public static Builder on(long timestamp) {
