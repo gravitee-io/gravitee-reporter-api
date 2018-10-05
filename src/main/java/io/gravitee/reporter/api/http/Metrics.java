@@ -40,6 +40,7 @@ public final class Metrics extends AbstractMetrics {
     private String localAddress;
     private String remoteAddress;
     private HttpMethod httpMethod;
+    private String host;
     private String uri;
     private long requestContentLength = 0;
     private long responseContentLength = 0;
@@ -227,6 +228,14 @@ public final class Metrics extends AbstractMetrics {
 
     public void setMappedPath(String mappedPath) {
         this.mappedPath = mappedPath;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public static Builder on(long timestamp) {
