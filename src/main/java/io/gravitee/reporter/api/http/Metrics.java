@@ -49,6 +49,7 @@ public final class Metrics extends AbstractMetrics {
     private Log log;
     private String path;
     private String mappedPath;
+    private String userAgent;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -236,6 +237,14 @@ public final class Metrics extends AbstractMetrics {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
 
     public static Builder on(long timestamp) {
