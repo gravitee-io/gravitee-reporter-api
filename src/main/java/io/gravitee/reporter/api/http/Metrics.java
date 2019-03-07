@@ -50,6 +50,7 @@ public final class Metrics extends AbstractMetrics {
     private String path;
     private String mappedPath;
     private String userAgent;
+    private String user;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -245,6 +246,14 @@ public final class Metrics extends AbstractMetrics {
 
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public static Builder on(long timestamp) {
