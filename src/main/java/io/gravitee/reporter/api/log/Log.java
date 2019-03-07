@@ -25,6 +25,8 @@ import io.gravitee.reporter.api.common.Response;
  */
 public class Log extends AbstractMetrics {
 
+    private String api;
+
     /**
      * Log identifier is equivalent to the request identifier
      */
@@ -36,6 +38,14 @@ public class Log extends AbstractMetrics {
 
     public Log(long timestamp) {
         super(timestamp);
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        this.api = api;
     }
 
     public String getRequestId() {
