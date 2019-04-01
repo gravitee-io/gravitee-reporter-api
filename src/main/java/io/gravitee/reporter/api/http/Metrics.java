@@ -35,7 +35,6 @@ public final class Metrics extends AbstractMetrics {
     private String transactionId;
     private String tenant;
     private String message;
-    private String apiKey;
     private String plan;
     private String localAddress;
     private String remoteAddress;
@@ -51,6 +50,8 @@ public final class Metrics extends AbstractMetrics {
     private String mappedPath;
     private String userAgent;
     private String user;
+    private SecurityType securityType;
+    private String securityToken;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -126,14 +127,6 @@ public final class Metrics extends AbstractMetrics {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
     }
 
     public String getPlan() {
@@ -254,6 +247,22 @@ public final class Metrics extends AbstractMetrics {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public SecurityType getSecurityType() {
+        return securityType;
+    }
+
+    public void setSecurityType(SecurityType securityType) {
+        this.securityType = securityType;
+    }
+
+    public String getSecurityToken() {
+        return securityToken;
+    }
+
+    public void setSecurityToken(String securityToken) {
+        this.securityToken = securityToken;
     }
 
     public static Builder on(long timestamp) {
