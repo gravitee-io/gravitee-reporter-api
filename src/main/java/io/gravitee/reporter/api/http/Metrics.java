@@ -52,6 +52,7 @@ public final class Metrics extends AbstractMetrics {
     private String user;
     private SecurityType securityType;
     private String securityToken;
+    private String errorKey;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -263,6 +264,14 @@ public final class Metrics extends AbstractMetrics {
 
     public void setSecurityToken(String securityToken) {
         this.securityToken = securityToken;
+    }
+
+    public String getErrorKey() {
+        return errorKey;
+    }
+
+    public void setErrorKey(String errorKey) {
+        this.errorKey = errorKey;
     }
 
     public static Builder on(long timestamp) {
