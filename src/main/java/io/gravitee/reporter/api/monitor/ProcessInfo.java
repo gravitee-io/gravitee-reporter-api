@@ -25,4 +25,28 @@ public class ProcessInfo {
 
     public long openFileDescriptors = -1;
     public long maxFileDescriptors = -1;
+
+    public Cpu cpu = null;
+    public Mem mem = null;
+
+    public static class Cpu {
+        public short percent = -1;
+        public long total = -1;
+
+        public short getPercent() {
+            return percent;
+        }
+
+        public long getTotal() {
+            return total;
+        }
+    }
+
+    public static class Mem {
+        public long totalVirtual = -1;
+
+        public long getTotalVirtual() {
+            return totalVirtual;
+        }
+    }
 }
