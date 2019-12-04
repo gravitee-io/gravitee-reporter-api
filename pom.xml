@@ -35,6 +35,7 @@
 
     <properties>
         <gravitee-common.version>1.16.0</gravitee-common.version>
+        <gravitee-gateway-api.version>1.20.0</gravitee-gateway-api.version>
     </properties>
 
     <dependencies>
@@ -43,6 +44,13 @@
             <artifactId>gravitee-common</artifactId>
             <version>${gravitee-common.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.gravitee.gateway</groupId>
+            <artifactId>gravitee-gateway-api</artifactId>
+            <version>${gravitee-gateway-api.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
