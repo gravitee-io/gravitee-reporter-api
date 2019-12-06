@@ -54,6 +54,9 @@ public final class Metrics extends AbstractMetrics {
     private String securityToken;
     private String errorKey;
     private String subscription;
+    private String sslLocalPrincipal;
+    private String sslPeerPrincipal;
+    private String sslProtocol;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -281,6 +284,30 @@ public final class Metrics extends AbstractMetrics {
 
     public void setSubscription(String subscription) {
         this.subscription = subscription;
+    }
+
+    public String getSslLocalPrincipal() {
+        return sslLocalPrincipal;
+    }
+
+    public void setSslLocalPrincipal(String sslLocalPrincipal) {
+        this.sslLocalPrincipal = sslLocalPrincipal;
+    }
+
+    public String getSslPeerPrincipal() {
+        return sslPeerPrincipal;
+    }
+
+    public void setSslPeerPrincipal(String sslPeerPrincipal) {
+        this.sslPeerPrincipal = sslPeerPrincipal;
+    }
+
+    public String getSslProtocol() {
+        return sslProtocol;
+    }
+
+    public void setSslProtocol(String sslProtocol) {
+        this.sslProtocol = sslProtocol;
     }
 
     public static Builder on(long timestamp) {
