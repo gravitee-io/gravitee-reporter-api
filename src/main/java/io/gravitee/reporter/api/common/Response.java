@@ -16,6 +16,7 @@
 package io.gravitee.reporter.api.common;
 
 import io.gravitee.common.http.HttpHeaders;
+import io.gravitee.common.ssl.SSLInfo;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -28,6 +29,8 @@ public class Response {
     private HttpHeaders headers;
 
     private String body;
+
+    private SSLInfo sslInfo;
 
     public Response() {
     }
@@ -58,5 +61,13 @@ public class Response {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public SSLInfo getSslInfo() {
+        return sslInfo;
+    }
+
+    public void setSslInfo(SSLInfo sslInfo) {
+        this.sslInfo = sslInfo;
     }
 }
