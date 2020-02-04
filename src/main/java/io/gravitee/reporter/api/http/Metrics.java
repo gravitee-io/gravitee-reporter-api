@@ -26,9 +26,9 @@ import io.gravitee.reporter.api.log.Log;
  */
 public final class Metrics extends AbstractMetrics {
 
-    private long proxyResponseTimeMs = -1;
-    private long proxyLatencyMs = -1;
-    private long apiResponseTimeMs = -1;
+    private long proxyResponseTimeMs = 0;
+    private long proxyLatencyMs = 0;
+    private long apiResponseTimeMs = 0;
     private String requestId;
     private String api;
     private String application;
