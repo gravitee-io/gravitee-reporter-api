@@ -54,6 +54,7 @@ public final class Metrics extends AbstractMetrics {
     private String securityToken;
     private String errorKey;
     private String subscription;
+    private String zone;
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -281,6 +282,14 @@ public final class Metrics extends AbstractMetrics {
 
     public void setSubscription(String subscription) {
         this.subscription = subscription;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 
     public static Builder on(long timestamp) {
