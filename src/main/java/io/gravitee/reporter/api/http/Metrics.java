@@ -19,6 +19,9 @@ import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractMetrics;
 import io.gravitee.reporter.api.log.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author Azize ELAMRANI (azize.elamrani at graviteesource.com)
@@ -55,6 +58,7 @@ public final class Metrics extends AbstractMetrics {
     private String errorKey;
     private String subscription;
     private String zone;
+    private Map<String, String> customMetrics = new HashMap<>();
 
     private Metrics(long timestamp) {
         super(timestamp);
@@ -290,6 +294,18 @@ public final class Metrics extends AbstractMetrics {
 
     public void setZone(String zone) {
         this.zone = zone;
+    }
+
+    public Map<String, String> getCustomMetrics() {
+        return customMetrics;
+    }
+
+    public void setCustomMetrics(Map<String, String> customMetrics) {
+        this.customMetrics = customMetrics;
+    }
+
+    public void addCustomMetric(String key, String value) {
+        this.customMetrics.put(key, value);
     }
 
     public static Builder on(long timestamp) {
