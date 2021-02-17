@@ -29,6 +29,8 @@ public abstract class AbstractMetrics implements Reportable {
         this.timestamp = timestamp;
     }
 
+    public Instant getTimestamp() { return timestamp(); }
+
     @Override
     public Instant timestamp() {
         return Instant.ofEpochMilli(timestamp);
