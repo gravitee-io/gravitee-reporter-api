@@ -30,8 +30,17 @@ public class FieldFilterProvider extends SimpleFilterProvider {
      * Creates a jackson filter provider that aims to serialize only fields corresponding to the field expression passed in parameter.
      */
     public FieldFilterProvider(Rules rules) {
-        this.addFilter(JACKSON_JSON_FILTER_NAME, new FieldPropertyFilter(
-                rules.getRenameFields(), rules.getIncludeFields(), rules.getExcludeFields()
-        ));
+        if (shouldAddFilter(rules)) {
+            // Only add filter if required.
+            this.addFilter(JACKSON_JSON_FILTER_NAME, new FieldPropertyFilter(
+                    rules.getRenameFields(), rules.getIncludeFields(), rules.getExcludeFields()
+            ));
+        }
+    }
+
+    private boolean shouldAddFilter(Rules rules) {
+        return rules != null && ((rules.getRenameFields() != null && !rules.getRenameFields().isEmpty())
+                || (rules.getIncludeFields() != null && !rules.getIncludeFields().isEmpty())
+                || (rules.getExcludeFields() != null && !rules.getExcludeFields().isEmpty()));
     }
 }
