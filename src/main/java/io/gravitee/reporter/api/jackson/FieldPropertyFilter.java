@@ -46,6 +46,7 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
     private final Map<String, String> renameFields;
     private final Set<String> excludeExpressions;
     private final Set<String> includeExpressions;
+    private final boolean shouldApplyFilter;
 
     /**
      * Creates a property filter that will include or exclude json properties based on provided <code>rules</code>.
@@ -55,19 +56,30 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
         this.includeExpressions = includeExpressions;
         this.excludeExpressions = excludeExpressions;
         this.cache = new ConcurrentHashMap<>();
+        this.shouldApplyFilter = this.shouldApplyFilter();
+    }
+
+    private boolean shouldApplyFilter() {
+        return (renameFields != null && !renameFields.isEmpty())
+                || (includeExpressions != null && !includeExpressions.isEmpty())
+                || (excludeExpressions != null && !excludeExpressions.isEmpty());
     }
 
     @Override
     public void serializeAsField(Object pojo, JsonGenerator jgen, SerializerProvider provider, PropertyWriter writer) throws Exception {
-        String jsonPath = JacksonUtils.resolveJsonPath(jgen.getOutputContext(), writer);
+        if(!shouldApplyFilter) {
+            super.serializeAsField(pojo, jgen, provider, writer);
+        } else {
+            String jsonPath = JacksonUtils.resolveJsonPath(jgen.getOutputContext(), writer);
 
-        if (cache.computeIfAbsent(jsonPath, k -> include(jgen, writer))) {
-            // Check that the field to include has to be renamed
-            final JsonGenerator generator = (renameFields.containsKey(jsonPath)) ?
-                    new RenameFieldJsonGenerator(jgen, renameFields.get(jsonPath)) : jgen;
+            if (cache.computeIfAbsent(jsonPath, k -> include(jgen, writer))) {
+                // Check that the field to include has to be renamed
+                final JsonGenerator generator = (renameFields.containsKey(jsonPath)) ?
+                        new RenameFieldJsonGenerator(jgen, renameFields.get(jsonPath)) : jgen;
 
-            // Only serialize field if included.
-            super.serializeAsField(pojo, generator, provider, writer);
+                // Only serialize field if included.
+                super.serializeAsField(pojo, generator, provider, writer);
+            }
         }
     }
 
