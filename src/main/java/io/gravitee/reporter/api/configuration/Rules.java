@@ -15,6 +15,7 @@
  */
 package io.gravitee.reporter.api.configuration;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,9 +25,15 @@ import java.util.Set;
  */
 public class Rules {
 
-    private Map<String, String> renameFields;
-    private Set<String> excludeFields;
-    private Set<String> includeFields;
+    private Map<String, String> renameFields = Collections.emptyMap();
+    private Set<String> excludeFields = Collections.emptySet();
+    private Set<String> includeFields = Collections.emptySet();
+
+    public boolean containsRules() {
+        return (getRenameFields() != null && !getRenameFields().isEmpty())
+                || (getIncludeFields() != null && !getIncludeFields().isEmpty())
+                || (getExcludeFields() != null && !getExcludeFields().isEmpty());
+    }
 
     public void setRenameFields(Map<String, String> renameFields) {
         this.renameFields = renameFields;
