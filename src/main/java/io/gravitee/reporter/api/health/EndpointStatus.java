@@ -19,7 +19,6 @@ import io.gravitee.common.utils.UUID;
 import io.gravitee.reporter.api.AbstractMetrics;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,10 +73,7 @@ public class EndpointStatus extends AbstractMetrics {
      */
     private boolean transition = false;
 
-    private EndpointStatus(long timestamp,
-                           String api,
-                           String endpoint,
-                           List<Step> steps) {
+    private EndpointStatus(long timestamp, String api, String endpoint, List<Step> steps) {
         super(timestamp);
         this.id = UUID.toString(UUID.random());
         this.api = api;
@@ -171,8 +167,7 @@ public class EndpointStatus extends AbstractMetrics {
         }
 
         public EndpointStatus build() {
-            return new EndpointStatus(
-                    timestamp, api, endpoint, steps);
+            return new EndpointStatus(timestamp, api, endpoint, steps);
         }
     }
 

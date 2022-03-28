@@ -18,7 +18,6 @@ package io.gravitee.reporter.api.http;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractMetrics;
 import io.gravitee.reporter.api.log.Log;
-
 import java.util.HashMap;
 import java.util.Map;
 

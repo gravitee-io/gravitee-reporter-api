@@ -16,5 +16,7 @@
 package io.gravitee.reporter.api.http;
 
 public enum SecurityType {
-    API_KEY, OAUTH2, JWT
+    API_KEY,
+    OAUTH2,
+    JWT,
 }

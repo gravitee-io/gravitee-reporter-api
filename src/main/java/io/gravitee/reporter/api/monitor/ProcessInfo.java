@@ -30,6 +30,7 @@ public class ProcessInfo {
     public Mem mem = null;
 
     public static class Cpu {
+
         public short percent = -1;
         public long total = -1;
 
@@ -43,6 +44,7 @@ public class ProcessInfo {
     }
 
     public static class Mem {
+
         public long totalVirtual = -1;
 
         public long getTotalVirtual() {

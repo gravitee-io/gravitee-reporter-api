@@ -30,9 +30,11 @@ public class Rules {
     private Set<String> includeFields = Collections.emptySet();
 
     public boolean containsRules() {
-        return (getRenameFields() != null && !getRenameFields().isEmpty())
-                || (getIncludeFields() != null && !getIncludeFields().isEmpty())
-                || (getExcludeFields() != null && !getExcludeFields().isEmpty());
+        return (
+            (getRenameFields() != null && !getRenameFields().isEmpty()) ||
+            (getIncludeFields() != null && !getIncludeFields().isEmpty()) ||
+            (getExcludeFields() != null && !getExcludeFields().isEmpty())
+        );
     }
 
     public void setRenameFields(Map<String, String> renameFields) {

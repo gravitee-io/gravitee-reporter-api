@@ -22,7 +22,6 @@ import io.gravitee.common.service.Service;
  * @author GraviteeSource Team
  */
 public interface Reporter extends Service {
-
     void report(Reportable data);
 
     default boolean canHandle(Reportable reportable) {
