@@ -15,8 +15,8 @@
  */
 package io.gravitee.reporter.api.common;
 
-import io.gravitee.gateway.api.http.HttpHeaders;
 import io.gravitee.common.http.HttpMethod;
+import io.gravitee.gateway.api.http.HttpHeaders;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)

@@ -33,6 +33,7 @@ public final class JvmInfo {
     }
 
     public static class Mem {
+
         public long heapCommitted;
         public long heapUsed;
         public long heapMax;
@@ -50,6 +51,7 @@ public final class JvmInfo {
     }
 
     public static class MemoryPool {
+
         public String name;
         public long used;
         public long max;
@@ -87,6 +89,7 @@ public final class JvmInfo {
     }
 
     public static class Threads {
+
         public int count;
         public int peakCount;
 
@@ -100,10 +103,12 @@ public final class JvmInfo {
     }
 
     public static class GarbageCollectors {
+
         public GarbageCollector[] collectors;
     }
 
     public static class GarbageCollector {
+
         public String name;
         public long collectionCount;
         public long collectionTime;

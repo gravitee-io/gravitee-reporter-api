@@ -30,6 +30,7 @@ public class OsInfo {
     public Swap swap = null;
 
     public static class Cpu {
+
         public short percent = -1;
         public double[] loadAverage = null;
 
@@ -43,6 +44,7 @@ public class OsInfo {
     }
 
     public static class Mem {
+
         public long total = -1;
         public long free = -1;
 
@@ -68,6 +70,7 @@ public class OsInfo {
     }
 
     public static class Swap {
+
         public long total = -1;
         public long free = -1;
     }

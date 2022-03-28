@@ -32,13 +32,11 @@ public final class JacksonUtils {
 
         do {
             if (parent.hasCurrentName()) {
-                sb.insert(0, JSON_NESTED_SEPARATOR)
-                        .insert(0, parent.getCurrentName());
+                sb.insert(0, JSON_NESTED_SEPARATOR).insert(0, parent.getCurrentName());
             }
 
             parent = getRealParent(parent);
-        }
-        while (parent != null);
+        } while (parent != null);
 
         return sb.toString();
     }

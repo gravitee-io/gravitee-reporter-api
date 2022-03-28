@@ -22,6 +22,5 @@ import java.time.Instant;
  * @author GraviteeSource Team
  */
 public interface Reportable {
-
     Instant timestamp();
 }

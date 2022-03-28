@@ -22,5 +22,4 @@ import com.fasterxml.jackson.annotation.JsonFilter;
  * @author GraviteeSource Team
  */
 @JsonFilter(FieldFilterProvider.JACKSON_JSON_FILTER_NAME)
-public class FieldFilterMixin {
-}
+public class FieldFilterMixin {}

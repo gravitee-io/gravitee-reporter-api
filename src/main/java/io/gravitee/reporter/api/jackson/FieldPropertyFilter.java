@@ -22,7 +22,6 @@ import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -51,7 +50,11 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
     /**
      * Creates a property filter that will include or exclude json properties based on provided <code>rules</code>.
      */
-    public FieldPropertyFilter(final Map<String, String> renameFields, final Set<String> includeExpressions, final Set<String> excludeExpressions) {
+    public FieldPropertyFilter(
+        final Map<String, String> renameFields,
+        final Set<String> includeExpressions,
+        final Set<String> excludeExpressions
+    ) {
         this.renameFields = renameFields;
         this.includeExpressions = includeExpressions;
         this.excludeExpressions = excludeExpressions;
@@ -60,22 +63,25 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
     }
 
     private boolean shouldApplyFilter() {
-        return (renameFields != null && !renameFields.isEmpty())
-                || (includeExpressions != null && !includeExpressions.isEmpty())
-                || (excludeExpressions != null && !excludeExpressions.isEmpty());
+        return (
+            (renameFields != null && !renameFields.isEmpty()) ||
+            (includeExpressions != null && !includeExpressions.isEmpty()) ||
+            (excludeExpressions != null && !excludeExpressions.isEmpty())
+        );
     }
 
     @Override
     public void serializeAsField(Object pojo, JsonGenerator jgen, SerializerProvider provider, PropertyWriter writer) throws Exception {
-        if(!shouldApplyFilter) {
+        if (!shouldApplyFilter) {
             super.serializeAsField(pojo, jgen, provider, writer);
         } else {
             String jsonPath = JacksonUtils.resolveJsonPath(jgen.getOutputContext(), writer);
 
             if (cache.computeIfAbsent(jsonPath, k -> include(jgen, writer))) {
                 // Check that the field to include has to be renamed
-                final JsonGenerator generator = (renameFields.containsKey(jsonPath)) ?
-                        new RenameFieldJsonGenerator(jgen, renameFields.get(jsonPath)) : jgen;
+                final JsonGenerator generator = (renameFields.containsKey(jsonPath))
+                    ? new RenameFieldJsonGenerator(jgen, renameFields.get(jsonPath))
+                    : jgen;
 
                 // Only serialize field if included.
                 super.serializeAsField(pojo, generator, provider, writer);
@@ -96,9 +102,10 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
     private boolean include(JsonGenerator jgen, PropertyWriter writer) {
         String jsonPath = JacksonUtils.resolveJsonPath(jgen.getOutputContext(), writer);
 
-        return !(excludeExpressions.contains(FIELD_WILDCARD) || excludeExpressions.stream()
-                .anyMatch(s -> matchExclude(jsonPath, s))) ||
-                (includeExpressions.stream().anyMatch(e -> matchInclude(jsonPath, e, writer)));
+        return (
+            !(excludeExpressions.contains(FIELD_WILDCARD) || excludeExpressions.stream().anyMatch(s -> matchExclude(jsonPath, s))) ||
+            (includeExpressions.stream().anyMatch(e -> matchInclude(jsonPath, e, writer)))
+        );
     }
 
     /**
@@ -114,8 +121,11 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
      * </ul>
      */
     private boolean matchInclude(String jsonPath, String expression, PropertyWriter writer) {
-        return jsonPath.equals(expression) || jsonPath.startsWith(expression + JSON_NESTED_SEPARATOR)
-                || (isAStructure(writer) && expression.startsWith(jsonPath + JSON_NESTED_SEPARATOR));
+        return (
+            jsonPath.equals(expression) ||
+            jsonPath.startsWith(expression + JSON_NESTED_SEPARATOR) ||
+            (isAStructure(writer) && expression.startsWith(jsonPath + JSON_NESTED_SEPARATOR))
+        );
     }
 
     /**
@@ -131,13 +141,11 @@ public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
     }
 
     private boolean isAStructure(PropertyWriter writer) {
-        return !writer.getType()
-                .isPrimitive()
-                || writer.getType()
-                .isContainerType();
+        return !writer.getType().isPrimitive() || writer.getType().isContainerType();
     }
 
     public static class RenameFieldJsonGenerator extends JsonGenerator {
+
         private final JsonGenerator wrapped;
         private final String fieldName;
 
