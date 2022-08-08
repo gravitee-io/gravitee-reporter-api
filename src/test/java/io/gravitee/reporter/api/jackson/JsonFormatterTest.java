@@ -20,7 +20,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gravitee.common.http.HttpStatusCode;
-import io.gravitee.common.util.Maps;
 import io.gravitee.common.utils.UUID;
 import io.gravitee.reporter.api.Reportable;
 import io.gravitee.reporter.api.common.Request;
@@ -30,11 +29,11 @@ import io.gravitee.reporter.api.health.EndpointStatus;
 import io.gravitee.reporter.api.health.Step;
 import io.gravitee.reporter.api.http.Metrics;
 import io.gravitee.reporter.api.log.Log;
-import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
@@ -46,8 +45,8 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldRenameField() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getRenameFields()).thenReturn(Maps.<String, String>builder().put("application", "app").build());
+        Rules rules = new Rules();
+        rules.setRenameFields(Map.of("application", "app"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -66,8 +65,8 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldFilterField() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("application"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("application"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -85,8 +84,8 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldExcludeAllFields() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("*"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("*"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -104,9 +103,9 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldExcludeAndIncludeSameField() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("api"));
-        Mockito.when(rules.getIncludeFields()).thenReturn(Collections.singleton("api"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("api"));
+        rules.setIncludeFields(Set.of("api"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -124,9 +123,9 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldExcludeAllFields_butIncludeOneField() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("*"));
-        Mockito.when(rules.getIncludeFields()).thenReturn(Collections.singleton("api"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("*"));
+        rules.setIncludeFields(Set.of("api"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -145,8 +144,8 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldExcludeNestedFields() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("clientRequest"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("clientRequest"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -173,8 +172,8 @@ public class JsonFormatterTest {
 
     @Test
     public void shouldExcludeNestedProperty() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getExcludeFields()).thenReturn(Collections.singleton("clientRequest.uri"));
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("clientRequest.uri"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
@@ -201,9 +200,9 @@ public class JsonFormatterTest {
     }
 
     @Test
-    public void shouldRenameNestedPrgetExcludeFieldsoperty() throws JsonProcessingException {
-        Rules rules = Mockito.mock(Rules.class);
-        Mockito.when(rules.getRenameFields()).thenReturn(Maps.<String, String>builder().put("clientRequest.uri", "path").build());
+    public void shouldRenameNestedProperty() throws JsonProcessingException {
+        Rules rules = new Rules();
+        rules.setRenameFields(Map.of("clientRequest.uri", "path"));
 
         // Once rules are defined, init the object mapper
         ObjectMapper mapper = initObjectMapper(rules);
