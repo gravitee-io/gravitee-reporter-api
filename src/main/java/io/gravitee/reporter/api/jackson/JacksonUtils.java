@@ -30,13 +30,13 @@ public final class JacksonUtils {
         StringBuilder sb = new StringBuilder(writer != null ? writer.getName() : "");
         JsonStreamContext parent = getRealParent(context);
 
-        do {
+        while (parent != null) {
             if (parent.hasCurrentName()) {
                 sb.insert(0, JSON_NESTED_SEPARATOR).insert(0, parent.getCurrentName());
             }
 
             parent = getRealParent(parent);
-        } while (parent != null);
+        }
 
         return sb.toString();
     }
