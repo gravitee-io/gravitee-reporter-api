@@ -25,6 +25,8 @@ import java.util.Set;
  */
 public class Rules {
 
+    public static final String FIELD_WILDCARD = "*";
+
     private Map<String, String> renameFields = Collections.emptyMap();
     private Set<String> excludeFields = Collections.emptySet();
     private Set<String> includeFields = Collections.emptySet();

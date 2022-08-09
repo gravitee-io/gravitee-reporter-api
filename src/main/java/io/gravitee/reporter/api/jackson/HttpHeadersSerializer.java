@@ -15,6 +15,8 @@
  */
 package io.gravitee.reporter.api.jackson;
 
+import static io.gravitee.reporter.api.configuration.Rules.FIELD_WILDCARD;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -26,8 +28,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HttpHeadersSerializer extends StdSerializer<HttpHeaders> {
-
-    private static final String FIELD_WILDCARD = "*";
 
     private final transient Rules rules;
 
