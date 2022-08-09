@@ -18,6 +18,7 @@ package io.gravitee.reporter.api.jackson;
 import static org.junit.Assert.assertEquals;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.gravitee.gateway.api.http.HttpHeaders;
@@ -43,8 +44,12 @@ public class HttpHeadersSerializerTest {
         httpHeaders.add("header2", "value2");
         httpHeaders.add("header1", "value3");
 
-        String json = objectMapper.writeValueAsString(httpHeaders);
+        String output = objectMapper.writeValueAsString(httpHeaders);
 
-        assertEquals("{\"header1\":[\"value1\",\"value3\"],\"header2\":[\"value2\"]}", json);
+        JsonNode node = new ObjectMapper().readTree(output);
+
+        assertEquals("value1", node.get("header1").get(0).asText());
+        assertEquals("value3", node.get("header1").get(1).asText());
+        assertEquals("value2", node.get("header2").get(0).asText());
     }
 }
