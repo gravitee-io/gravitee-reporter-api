@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.gravitee.common.http.HttpMethod;
 import io.gravitee.common.http.HttpStatusCode;
 import io.gravitee.common.utils.UUID;
+import io.gravitee.gateway.api.http.HttpHeaders;
 import io.gravitee.reporter.api.Reportable;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
@@ -143,6 +146,120 @@ public class JsonFormatterTest {
     }
 
     @Test
+    public void shouldExcludeAllFields_butIncludeAHeaderField() throws JsonProcessingException {
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("*"));
+        rules.setIncludeFields(
+            Set.of(
+                "log.clientRequest.method",
+                "log.clientRequest.headers.host",
+                "log.clientRequest.headers.Cache-Control",
+                "log.clientResponse.status",
+                "log.clientResponse.headers.length"
+            )
+        );
+
+        // Once rules are defined, init the object mapper
+        ObjectMapper mapper = initObjectMapper(rules);
+
+        long timestamp = System.currentTimeMillis();
+        Request clientRequest = new Request();
+        clientRequest.setHeaders(
+            HttpHeaders.create().set("host", "localhost").set("content-type", "application/json").set("Cache-Control", "no-cache")
+        );
+        clientRequest.setMethod(HttpMethod.GET);
+
+        Request proxyRequest = new Request();
+        proxyRequest.setHeaders(HttpHeaders.create().set("host", "localhost-2"));
+        proxyRequest.setMethod(HttpMethod.GET);
+
+        Response clientResponse = new Response();
+        clientResponse.setHeaders(HttpHeaders.create().set("length", "10"));
+        clientResponse.setBody("{\"hello\":\"world\"}");
+        clientResponse.setStatus(200);
+
+        Log log = new Log(timestamp);
+        log.setClientRequest(clientRequest);
+        log.setProxyRequest(proxyRequest);
+        log.setClientResponse(clientResponse);
+        Metrics metrics = Metrics.on(timestamp).build();
+        metrics.setLog(log);
+
+        String output = mapper.writeValueAsString(metrics);
+
+        JsonNode node = new ObjectMapper().readTree(output);
+        Assert.assertEquals("GET", node.get("log").get("clientRequest").get("method").asText());
+        Assert.assertEquals("localhost", node.get("log").get("clientRequest").get("headers").get("host").get(0).asText());
+        Assert.assertEquals("no-cache", node.get("log").get("clientRequest").get("headers").get("Cache-Control").get(0).asText());
+        Assert.assertFalse(node.get("log").get("clientRequest").get("headers").has("content-type"));
+
+        Assert.assertFalse(node.get("log").has("proxyRequest"));
+
+        Assert.assertEquals("200", node.get("log").get("clientResponse").get("status").asText());
+        Assert.assertEquals("10", node.get("log").get("clientResponse").get("headers").get("length").get(0).asText());
+    }
+
+    @Test
+    public void shouldExcludeAllFields_butIncludeHeaders() throws JsonProcessingException {
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("*"));
+        rules.setIncludeFields(Set.of("log.clientRequest.headers"));
+
+        // Once rules are defined, init the object mapper
+        ObjectMapper mapper = initObjectMapper(rules);
+
+        long timestamp = System.currentTimeMillis();
+        Request clientRequest = new Request();
+        clientRequest.setHeaders(HttpHeaders.create().set("host", "localhost").set("content-type", "application/json"));
+        clientRequest.setMethod(HttpMethod.GET);
+
+        Log log = new Log(timestamp);
+        log.setClientRequest(clientRequest);
+
+        Metrics metrics = Metrics.on(timestamp).build();
+        metrics.setLog(log);
+
+        String output = mapper.writeValueAsString(metrics);
+
+        JsonNode node = new ObjectMapper().readTree(output);
+        Assert.assertEquals("localhost", node.get("log").get("clientRequest").get("headers").get("host").get(0).asText());
+        Assert.assertEquals("application/json", node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText());
+    }
+
+    @Test
+    public void shouldExcludeASingleHeader() throws JsonProcessingException {
+        Rules rules = new Rules();
+        rules.setExcludeFields(Set.of("log.clientRequest.headers.host"));
+
+        // Once rules are defined, init the object mapper
+        ObjectMapper mapper = initObjectMapper(rules);
+
+        long timestamp = System.currentTimeMillis();
+        Request clientRequest = new Request();
+        clientRequest.setHeaders(HttpHeaders.create().set("host", "localhost").set("content-type", "application/json"));
+        clientRequest.setMethod(HttpMethod.GET);
+
+        Request proxyRequest = new Request();
+        proxyRequest.setHeaders(HttpHeaders.create().set("host", "localhost-2"));
+        proxyRequest.setMethod(HttpMethod.GET);
+
+        Log log = new Log(timestamp);
+        log.setClientRequest(clientRequest);
+        log.setProxyRequest(proxyRequest);
+
+        Metrics metrics = Metrics.on(timestamp).build();
+        metrics.setLog(log);
+
+        String output = mapper.writeValueAsString(metrics);
+
+        JsonNode node = new ObjectMapper().readTree(output);
+        Assert.assertFalse("localhost", node.get("log").get("clientRequest").get("headers").has("host"));
+        Assert.assertEquals("application/json", node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText());
+
+        Assert.assertEquals("localhost-2", node.get("log").get("proxyRequest").get("headers").get("host").get(0).asText());
+    }
+
+    @Test
     public void shouldExcludeNestedFields() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("clientRequest"));
@@ -241,6 +358,9 @@ public class JsonFormatterTest {
         mapper.addMixIn(Step.class, FieldFilterMixin.class);
         mapper.setFilterProvider(new FieldFilterProvider(rules));
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(HttpHeaders.class, new HttpHeadersSerializer(rules));
+        mapper.registerModule(module);
 
         return mapper;
     }

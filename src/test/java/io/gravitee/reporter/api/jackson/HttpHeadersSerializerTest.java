@@ -21,17 +21,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.gravitee.gateway.api.http.HttpHeaders;
+import io.gravitee.reporter.api.configuration.Rules;
 import org.junit.Before;
 import org.junit.Test;
 
 public class HttpHeadersSerializerTest {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
     public void initializeObjectMapper() {
         SimpleModule module = new SimpleModule();
-        module.addSerializer(HttpHeaders.class, new HttpHeadersSerializer());
+        module.addSerializer(HttpHeaders.class, new HttpHeadersSerializer(new Rules()));
         objectMapper.registerModule(module);
     }
 
