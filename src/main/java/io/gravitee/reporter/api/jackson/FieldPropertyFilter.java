@@ -15,6 +15,8 @@
  */
 package io.gravitee.reporter.api.jackson;
 
+import static io.gravitee.reporter.api.configuration.Rules.FIELD_WILDCARD;
+
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.core.io.SerializedString;
@@ -38,8 +40,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FieldPropertyFilter extends SimpleBeanPropertyFilter {
 
     private static final String JSON_NESTED_SEPARATOR = ".";
-    private static final String FIELD_WILDCARD = "*";
-
     private final Map<String, Boolean> cache;
 
     private final Map<String, String> renameFields;
