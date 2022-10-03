@@ -34,7 +34,7 @@
     <name>Gravitee.io APIM - Reporter - API</name>
 
     <properties>
-        <gravitee-bom.version>2.6</gravitee-bom.version>
+        <gravitee-bom.version>2.8</gravitee-bom.version>
         <gravitee-common.version>1.27.0</gravitee-common.version>
         <gravitee-gateway-api.version>1.38.0</gravitee-gateway-api.version>
     </properties>
