@@ -16,22 +16,21 @@
 package io.gravitee.reporter.api;
 
 import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@Getter
+@Setter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractMetrics implements Reportable {
 
     private final long timestamp;
-
-    public AbstractMetrics(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
 
     @Override
     public Instant timestamp() {
