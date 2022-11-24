@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.23.1...1.24.0) (2022-11-24)
+
+
+### Features
+
+* add client id on metrics ([20b606c](https://github.com/gravitee-io/gravitee-reporter-api/commit/20b606cf5a83a358d7376bb314f527341b4b4cb2))
+
 ## [1.23.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.23.0...1.23.1) (2022-08-09)
 
 
