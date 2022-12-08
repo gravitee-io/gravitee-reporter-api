@@ -15,13 +15,13 @@
  */
 package io.gravitee.reporter.api.monitor;
 
-import io.gravitee.reporter.api.AbstractMetrics;
+import io.gravitee.reporter.api.AbstractReportable;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class Monitor extends AbstractMetrics {
+public class Monitor extends AbstractReportable {
 
     JvmInfo jvm;
     OsInfo os;

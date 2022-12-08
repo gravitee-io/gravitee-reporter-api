@@ -16,13 +16,15 @@
 package io.gravitee.reporter.api;
 
 import io.gravitee.common.service.Service;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public interface Reporter extends Service {
-    void report(Reportable data);
+public interface Reporter extends Service<Reporter> {
+    void report(Reportable reportable);
 
     default boolean canHandle(Reportable reportable) {
         return true;

@@ -16,7 +16,7 @@
 package io.gravitee.reporter.api.health;
 
 import io.gravitee.common.utils.UUID;
-import io.gravitee.reporter.api.AbstractMetrics;
+import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class EndpointStatus extends AbstractMetrics {
+public class EndpointStatus extends AbstractReportable {
 
     /**
      * Health-check identifier

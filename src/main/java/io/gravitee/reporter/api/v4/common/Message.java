@@ -13,29 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.common;
+package io.gravitee.reporter.api.v4.common;
 
 import io.gravitee.gateway.api.http.HttpHeaders;
+import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
- * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
  * @author GraviteeSource Team
  */
 @Getter
 @Setter
-@NoArgsConstructor
-public class Response {
+public class Message {
 
-    private int status;
-
+    private String id;
     private HttpHeaders headers;
-
-    private String body;
-
-    public Response(final int status) {
-        this.status = status;
-    }
+    private String payload;
+    private Map<String, Object> metadata;
+    private boolean error;
 }

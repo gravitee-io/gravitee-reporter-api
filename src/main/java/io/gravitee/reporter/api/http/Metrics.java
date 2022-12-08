@@ -16,11 +16,12 @@
 package io.gravitee.reporter.api.http;
 
 import io.gravitee.common.http.HttpMethod;
-import io.gravitee.reporter.api.AbstractMetrics;
+import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.log.Log;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -30,7 +31,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public final class Metrics extends AbstractMetrics {
+public class Metrics extends AbstractReportable {
 
     private long proxyResponseTimeMs = 0;
     private long proxyLatencyMs = 0;
@@ -64,7 +65,7 @@ public final class Metrics extends AbstractMetrics {
     private String zone;
     private Map<String, String> customMetrics = new HashMap<>();
 
-    private Metrics(long timestamp) {
+    protected Metrics(long timestamp) {
         super(timestamp);
     }
 
