@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.common;
+package io.gravitee.reporter.api;
 
-import io.gravitee.gateway.api.http.HttpHeaders;
+import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -26,16 +30,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
-public class Response {
+@SuperBuilder
+public abstract class AbstractReportable implements Reportable {
 
-    private int status;
+    private long timestamp;
 
-    private HttpHeaders headers;
-
-    private String body;
-
-    public Response(final int status) {
-        this.status = status;
+    @Override
+    public Instant timestamp() {
+        return Instant.ofEpochMilli(timestamp);
     }
 }

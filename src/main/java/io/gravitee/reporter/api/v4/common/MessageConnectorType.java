@@ -13,29 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.common;
+package io.gravitee.reporter.api.v4.common;
 
-import io.gravitee.gateway.api.http.HttpHeaders;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
  * @author GraviteeSource Team
  */
+@RequiredArgsConstructor
 @Getter
-@Setter
-@NoArgsConstructor
-public class Response {
+public enum MessageConnectorType {
+    ENDPOINT("endpoint"),
+    ENTRYPOINT("entrypoint");
 
-    private int status;
-
-    private HttpHeaders headers;
-
-    private String body;
-
-    public Response(final int status) {
-        this.status = status;
-    }
+    private final String label;
 }
