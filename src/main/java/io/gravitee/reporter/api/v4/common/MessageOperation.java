@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api;
+package io.gravitee.reporter.api.v4.common;
 
-import java.time.Instant;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 /**
- * @author David BRASSELY (david.brassely at graviteesource.com)
+ * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
  * @author GraviteeSource Team
  */
+@RequiredArgsConstructor
 @Getter
-@Setter
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class AbstractMetrics implements Reportable {
+public enum MessageOperation {
+    SUBSCRIBE("subscribe"),
+    PUBLISH("publish");
 
-    private final long timestamp;
-
-    @Override
-    public Instant timestamp() {
-        return Instant.ofEpochMilli(timestamp);
-    }
+    private final String label;
 }

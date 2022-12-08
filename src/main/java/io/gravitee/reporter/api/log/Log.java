@@ -15,7 +15,7 @@
  */
 package io.gravitee.reporter.api.log;
 
-import io.gravitee.reporter.api.AbstractMetrics;
+import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
 
@@ -23,7 +23,7 @@ import io.gravitee.reporter.api.common.Response;
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class Log extends AbstractMetrics {
+public class Log extends AbstractReportable {
 
     private String api;
 
