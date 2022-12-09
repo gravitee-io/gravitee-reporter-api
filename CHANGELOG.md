@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.0...1.24.1) (2022-12-09)
+
+
+### Bug Fixes
+
+* use latest version of gateway-api ([c514965](https://github.com/gravitee-io/gravitee-reporter-api/commit/c51496520cbde5c31058a33664a76d7f417a3b78))
+
 # [1.24.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.23.1...1.24.0) (2022-11-24)
 
 
