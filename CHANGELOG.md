@@ -1,3 +1,10 @@
+# [1.25.0-alpha.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.1...1.25.0-alpha.1) (2023-01-16)
+
+
+### Features
+
+* add support of metrics/logging of V4 api ([eaa0adb](https://github.com/gravitee-io/gravitee-reporter-api/commit/eaa0adbec15be14aa7e5a2059bc6591e40433e2d))
+
 ## [1.24.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.0...1.24.1) (2022-12-09)
 
 
