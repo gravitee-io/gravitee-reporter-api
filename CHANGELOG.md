@@ -1,3 +1,10 @@
+# [1.25.0-alpha.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.1...1.25.0-alpha.2) (2023-01-24)
+
+
+### Bug Fixes
+
+* rename metrics for message ([750d0d3](https://github.com/gravitee-io/gravitee-reporter-api/commit/750d0d354846afea3b6ba9e3d82a3564969b830a))
+
 # [1.25.0-alpha.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.1...1.25.0-alpha.1) (2023-01-16)
 
 
