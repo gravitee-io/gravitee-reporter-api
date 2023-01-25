@@ -16,7 +16,6 @@
 package io.gravitee.reporter.api.v4.metric;
 
 import io.gravitee.common.http.HttpMethod;
-import io.gravitee.gateway.jupiter.api.ApiType;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
@@ -68,7 +67,7 @@ public class Metrics extends AbstractReportable {
     private String remoteAddress;
     private String host;
     private String uri;
-    private String path;
+    private String pathInfo;
     private String mappedPath;
     private String userAgent;
 
@@ -160,7 +159,7 @@ public class Metrics extends AbstractReportable {
             logV2.setProxyResponse(log.getEndpointResponse());
             metricsV2.setLog(logV2);
         }
-        metricsV2.setPath(path);
+        metricsV2.setPath(pathInfo);
         metricsV2.setMappedPath(mappedPath);
         metricsV2.setUserAgent(userAgent);
         metricsV2.setUser(user);
