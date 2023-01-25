@@ -1,3 +1,10 @@
+# [1.25.0-alpha.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.2...1.25.0-alpha.3) (2023-01-25)
+
+
+### Bug Fixes
+
+* rename path to pathInfo on v4 metrics ([e21908e](https://github.com/gravitee-io/gravitee-reporter-api/commit/e21908e28fdf6d7a7aa238114858669fbc40e4bb))
+
 # [1.25.0-alpha.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.1...1.25.0-alpha.2) (2023-01-24)
 
 
