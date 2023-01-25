@@ -77,7 +77,7 @@ public class NoopMetrics extends Metrics {
     public void setUri(final String uri) {}
 
     @Override
-    public void setPath(final String path) {}
+    public void setPathInfo(final String pathInfo) {}
 
     @Override
     public void setMappedPath(final String mappedPath) {}
