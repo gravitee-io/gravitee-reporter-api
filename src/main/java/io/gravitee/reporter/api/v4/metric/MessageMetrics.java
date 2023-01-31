@@ -62,6 +62,9 @@ public final class MessageMetrics extends AbstractReportable {
     private long errorCount = -1;
 
     @Builder.Default
+    private boolean error = false;
+
+    @Builder.Default
     private long gatewayLatencyMs = -1;
 
     /**
