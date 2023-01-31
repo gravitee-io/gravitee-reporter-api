@@ -18,9 +18,7 @@ package io.gravitee.reporter.api.v4.common;
 import io.gravitee.gateway.api.http.HttpHeaders;
 import java.util.Map;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 /**
  * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
