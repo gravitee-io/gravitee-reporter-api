@@ -1,3 +1,10 @@
+# [1.25.0-alpha.4](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.3...1.25.0-alpha.4) (2023-02-01)
+
+
+### Features
+
+* add error status on message metrics ([57b0281](https://github.com/gravitee-io/gravitee-reporter-api/commit/57b0281247317bd332146e66a9fab7a5ff07dd0b))
+
 # [1.25.0-alpha.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.2...1.25.0-alpha.3) (2023-01-25)
 
 
