@@ -1,3 +1,18 @@
+# [1.25.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.1...1.25.0) (2023-03-17)
+
+
+### Bug Fixes
+
+* **deps:** upgrade gravitee-bom & gravitee-common ([3b3fa7a](https://github.com/gravitee-io/gravitee-reporter-api/commit/3b3fa7af307a110604e50d428154bf48fde95252))
+* rename metrics for message ([424b613](https://github.com/gravitee-io/gravitee-reporter-api/commit/424b613706d63d91c0cfff53fa9f4eb93962d4f5))
+* rename path to pathInfo on v4 metrics ([1f3e5ad](https://github.com/gravitee-io/gravitee-reporter-api/commit/1f3e5add6ff32a91feb5fab4d12229498ada930a))
+
+
+### Features
+
+* add error status on message metrics ([1b8fa32](https://github.com/gravitee-io/gravitee-reporter-api/commit/1b8fa32a0135a9141b7264b09f9342f5c2185af3))
+* add support of metrics/logging of V4 api ([f6e3af1](https://github.com/gravitee-io/gravitee-reporter-api/commit/f6e3af17eecee44c2bbdf50a0e9f569d9f28eaef))
+
 # [1.25.0-alpha.4](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0-alpha.3...1.25.0-alpha.4) (2023-02-01)
 
 
