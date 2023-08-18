@@ -23,6 +23,8 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -31,6 +33,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Jacksonized
+@SuperBuilder
 public class Metrics extends AbstractReportable {
 
     private long proxyResponseTimeMs = 0;

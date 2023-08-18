@@ -18,11 +18,16 @@ package io.gravitee.reporter.api.log;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
+import lombok.Builder;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@Jacksonized
+@SuperBuilder
 public class Log extends AbstractReportable {
 
     private String api;

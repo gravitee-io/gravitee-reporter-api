@@ -17,11 +17,15 @@ package io.gravitee.reporter.api.health;
 
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@SuperBuilder
+@Jacksonized
 public class Step {
 
     /**

@@ -18,11 +18,9 @@ package io.gravitee.reporter.api.v4.log;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
@@ -31,6 +29,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
+@Jacksonized
 public class Log extends AbstractReportable {
 
     private String apiId;

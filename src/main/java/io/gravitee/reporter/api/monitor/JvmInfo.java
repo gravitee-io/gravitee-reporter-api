@@ -15,10 +15,16 @@
  */
 package io.gravitee.reporter.api.monitor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
+
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@NoArgsConstructor
 public final class JvmInfo {
 
     public long timestamp = -1;
@@ -50,6 +56,7 @@ public final class JvmInfo {
         }
     }
 
+    @NoArgsConstructor
     public static class MemoryPool {
 
         public String name;
