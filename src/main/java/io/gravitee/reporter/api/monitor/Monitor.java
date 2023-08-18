@@ -16,11 +16,15 @@
 package io.gravitee.reporter.api.monitor;
 
 import io.gravitee.reporter.api.AbstractReportable;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@Jacksonized
+@SuperBuilder
 public class Monitor extends AbstractReportable {
 
     JvmInfo jvm;
