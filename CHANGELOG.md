@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0...1.26.0) (2023-08-28)
+
+
+### Features
+
+* add jackson deserialization capabilities ([87cf822](https://github.com/gravitee-io/gravitee-reporter-api/commit/87cf822c1f728a84af2451586563dbfc1392dfa3))
+
 # [1.25.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.24.1...1.25.0) (2023-03-17)
 
 
