@@ -37,7 +37,7 @@
         <gravitee-bom.version>4.0.0</gravitee-bom.version>
         <gravitee-common.version>2.1.0</gravitee-common.version>
         <gravitee-gateway-api.version>2.0.1</gravitee-gateway-api.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
     </properties>
 
     <dependencyManagement>
