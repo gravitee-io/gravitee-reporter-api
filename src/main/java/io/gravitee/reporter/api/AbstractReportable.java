@@ -32,7 +32,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 public abstract class AbstractReportable implements Reportable {
 
     private long timestamp;
