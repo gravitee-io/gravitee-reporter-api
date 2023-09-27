@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.26.0...1.27.0) (2023-09-27)
+
+
+### Features
+
+* define toBuilder attribute on metrics builder ([eff3f24](https://github.com/gravitee-io/gravitee-reporter-api/commit/eff3f24c110053457c0771dc4d946c9c6ba00a6d))
+
 # [1.26.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.25.0...1.26.0) (2023-08-28)
 
 
