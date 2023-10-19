@@ -16,6 +16,8 @@
 package io.gravitee.reporter.api.common;
 
 import io.gravitee.gateway.api.http.HttpHeaders;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +31,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Response {
 
+    private List<ReportAction<Response>> onReportActions;
+
     private int status;
 
     private HttpHeaders headers;
@@ -37,5 +41,15 @@ public class Response {
 
     public Response(final int status) {
         this.status = status;
+    }
+
+    public Response doOnReport(ReportAction<Response> action) {
+        if (onReportActions == null) {
+            onReportActions = new ArrayList<>();
+        }
+
+        onReportActions.add(action);
+
+        return this;
     }
 }
