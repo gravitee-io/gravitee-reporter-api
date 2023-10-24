@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.27.0...1.28.0) (2023-10-24)
+
+
+### Features
+
+* add doOnReport feature ([a132163](https://github.com/gravitee-io/gravitee-reporter-api/commit/a132163882d85da0f880ab874e2f27ed4a7a33cb))
+
 # [1.27.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.26.0...1.27.0) (2023-09-27)
 
 
