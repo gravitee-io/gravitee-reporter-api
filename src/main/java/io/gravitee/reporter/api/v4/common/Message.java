@@ -16,6 +16,10 @@
 package io.gravitee.reporter.api.v4.common;
 
 import io.gravitee.gateway.api.http.HttpHeaders;
+import io.gravitee.reporter.api.common.ReportAction;
+import io.gravitee.reporter.api.common.Request;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +32,20 @@ import lombok.Setter;
 @Setter
 public class Message {
 
+    private List<ReportAction<Message>> onReportActions;
     private String id;
     private HttpHeaders headers;
     private String payload;
     private Map<String, Object> metadata;
     private boolean error;
+
+    public Message doOnReport(ReportAction<Message> action) {
+        if (onReportActions == null) {
+            onReportActions = new ArrayList<>();
+        }
+
+        onReportActions.add(action);
+
+        return this;
+    }
 }
