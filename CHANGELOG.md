@@ -1,3 +1,12 @@
+## [1.28.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.28.0...1.28.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* add HttpHeaders Deserializer ([39e7ae2](https://github.com/gravitee-io/gravitee-reporter-api/commit/39e7ae257aa2c5ff196985a524b814421d299bdd))
+* upgrade io.gravitee.common:gravitee-common from 2.1.0 to 2.1.1 ([b5ca8bc](https://github.com/gravitee-io/gravitee-reporter-api/commit/b5ca8bc9d76a813242e9a3c493aacc4055a67d31))
+* upgrade org.projectlombok:lombok from 1.18.24 to 1.18.28 ([e0180eb](https://github.com/gravitee-io/gravitee-reporter-api/commit/e0180ebe512665fbabc14b93a0c95d9d4d021afe))
+
 # [1.28.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.27.0...1.28.0) (2023-10-24)
 
 
