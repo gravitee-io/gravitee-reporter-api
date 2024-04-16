@@ -76,6 +76,10 @@ public class Metrics extends AbstractReportable {
 
     private boolean requestEnded;
     /**
+     * Entrypoint metrics
+     */
+    private String entrypointId;
+    /**
      * Endpoint metrics
      */
     private String endpoint;
