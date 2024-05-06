@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.29.0...1.30.0) (2024-05-06)
+
+
+### Features
+
+* add count increments for MessageMetrics ([da2122e](https://github.com/gravitee-io/gravitee-reporter-api/commit/da2122ed493cb2f934b894ca997b76c87f03671d))
+
 # [1.29.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.28.1...1.29.0) (2024-04-16)
 
 
