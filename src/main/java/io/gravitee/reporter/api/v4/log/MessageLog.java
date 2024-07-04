@@ -37,6 +37,7 @@ import lombok.extern.jackson.Jacksonized;
 public class MessageLog extends AbstractReportable {
 
     private String apiId;
+    private String apiName;
     private String requestId;
     private String clientIdentifier;
     private String correlationId;

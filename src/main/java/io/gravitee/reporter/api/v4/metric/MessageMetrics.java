@@ -42,6 +42,7 @@ public final class MessageMetrics extends AbstractReportable {
      */
     private String requestId;
     private String apiId;
+    private String apiName;
     private String clientIdentifier;
     private String correlationId;
     private String parentCorrelationId;

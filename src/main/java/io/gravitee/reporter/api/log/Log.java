@@ -32,6 +32,8 @@ public class Log extends AbstractReportable {
 
     private String api;
 
+    private String apiName;
+
     /**
      * Log identifier is equivalent to the request identifier
      */
@@ -91,5 +93,13 @@ public class Log extends AbstractReportable {
 
     public void setProxyResponse(Response proxyResponse) {
         this.proxyResponse = proxyResponse;
+    }
+
+    public String getApiName() {
+        return apiName;
+    }
+
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
     }
 }

@@ -42,6 +42,7 @@ public class Metrics extends AbstractReportable {
     private long apiResponseTimeMs = 0;
     private String requestId;
     private String api;
+    private String apiName;
     private String application;
     private String transactionId;
     private String clientIdentifier;

@@ -43,6 +43,11 @@ public class EndpointStatus extends AbstractReportable {
     private final String api;
 
     /**
+     * Api Name
+     */
+    private final String apiName;
+
+    /**
      * Endpoint name.
      */
     private final String endpoint;
@@ -77,13 +82,14 @@ public class EndpointStatus extends AbstractReportable {
      */
     private boolean transition = false;
 
-    private EndpointStatus(long timestamp, String api, String endpoint, List<Step> steps) {
+    private EndpointStatus(long timestamp, String api, String endpoint, List<Step> steps, String apiName) {
         super(timestamp);
         this.id = UUID.toString(UUID.random());
         this.api = api;
         this.endpoint = endpoint;
         this.steps = steps;
         this.success = steps.stream().allMatch(Step::isSuccess);
+        this.apiName = apiName;
     }
 
     public String getId() {
@@ -138,6 +144,10 @@ public class EndpointStatus extends AbstractReportable {
         this.transition = transition;
     }
 
+    public String getApiName() {
+        return apiName;
+    }
+
     public static Builder forEndpoint(String api, String endpoint) {
         return new Builder(api, endpoint);
     }
@@ -155,6 +165,8 @@ public class EndpointStatus extends AbstractReportable {
 
         private List<Step> steps = new ArrayList<>();
 
+        private String apiName;
+
         private Builder(String api, String endpoint) {
             this.api = api;
             this.endpoint = endpoint;
@@ -170,8 +182,13 @@ public class EndpointStatus extends AbstractReportable {
             return this;
         }
 
+        public Builder apiName(String apiName) {
+            this.apiName = apiName;
+            return this;
+        }
+
         public EndpointStatus build() {
-            return new EndpointStatus(timestamp, api, endpoint, steps);
+            return new EndpointStatus(timestamp, api, endpoint, steps, apiName);
         }
     }
 
