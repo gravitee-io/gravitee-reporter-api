@@ -49,6 +49,7 @@ public class Metrics extends AbstractReportable {
     private String requestId;
     private String transactionId;
     private String apiId;
+    private String apiName;
     private String apiType;
     private String planId;
     private String applicationId;
@@ -138,6 +139,7 @@ public class Metrics extends AbstractReportable {
         metricsV2.setApiResponseTimeMs(endpointResponseTimeMs);
         metricsV2.setRequestId(requestId);
         metricsV2.setApi(apiId);
+        metricsV2.setApiName(apiName);
         metricsV2.setApplication(applicationId);
         metricsV2.setTransactionId(transactionId);
         metricsV2.setClientIdentifier(clientIdentifier);
@@ -157,6 +159,7 @@ public class Metrics extends AbstractReportable {
             io.gravitee.reporter.api.log.Log logV2 = new io.gravitee.reporter.api.log.Log(log.getTimestamp());
             logV2.setRequestId(log.getRequestId());
             logV2.setApi(log.getApiId());
+            logV2.setApiName(log.getApiName());
             logV2.setClientRequest(log.getEntrypointRequest());
             logV2.setClientResponse(log.getEntrypointResponse());
             logV2.setProxyRequest(log.getEndpointRequest());

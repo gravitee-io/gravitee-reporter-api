@@ -33,6 +33,7 @@ import lombok.extern.jackson.Jacksonized;
 public class Log extends AbstractReportable {
 
     private String apiId;
+    private String apiName;
 
     /**
      * Log identifier is equivalent to the request identifier
