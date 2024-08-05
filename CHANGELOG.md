@@ -1,3 +1,10 @@
+## [1.31.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.0...1.31.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* Include api name in health check report ([0640ca1](https://github.com/gravitee-io/gravitee-reporter-api/commit/0640ca10f2ef1e0a96dae28ecf83333e3fed05c3))
+
 # [1.31.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.30.0...1.31.0) (2024-07-10)
 
 
