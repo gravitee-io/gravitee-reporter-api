@@ -148,8 +148,8 @@ public class EndpointStatus extends AbstractReportable {
         return apiName;
     }
 
-    public static Builder forEndpoint(String api, String endpoint) {
-        return new Builder(api, endpoint);
+    public static Builder forEndpoint(String api, String apiName, String endpoint) {
+        return new Builder(api, apiName, endpoint);
     }
 
     public static StepBuilder forStep(String step) {
@@ -167,9 +167,10 @@ public class EndpointStatus extends AbstractReportable {
 
         private String apiName;
 
-        private Builder(String api, String endpoint) {
+        private Builder(String api, String apiName, String endpoint) {
             this.api = api;
             this.endpoint = endpoint;
+            this.apiName = apiName;
         }
 
         public Builder on(long timestamp) {
