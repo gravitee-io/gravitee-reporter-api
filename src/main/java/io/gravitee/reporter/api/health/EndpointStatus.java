@@ -148,6 +148,10 @@ public class EndpointStatus extends AbstractReportable {
         return apiName;
     }
 
+    public static Builder forEndpoint(String api, String endpoint) {
+        return forEndpoint(api, null, endpoint);
+    }
+
     public static Builder forEndpoint(String api, String apiName, String endpoint) {
         return new Builder(api, apiName, endpoint);
     }
