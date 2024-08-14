@@ -1,3 +1,10 @@
+## [1.31.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.1...1.31.2) (2024-08-14)
+
+
+### Bug Fixes
+
+* Add backward compatibility for EndpointStatus.forEndpoint ([a7692d1](https://github.com/gravitee-io/gravitee-reporter-api/commit/a7692d1766d06f02527c27c7f70554f9c5cdd629))
+
 ## [1.31.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.0...1.31.1) (2024-08-05)
 
 
