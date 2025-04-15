@@ -24,7 +24,7 @@
     <parent>
         <groupId>io.gravitee</groupId>
         <artifactId>gravitee-parent</artifactId>
-        <version>21.0.1</version>
+        <version>22.3.0</version>
     </parent>
 
     <groupId>io.gravitee.reporter</groupId>
@@ -34,10 +34,9 @@
     <name>Gravitee.io APIM - Reporter - API</name>
 
     <properties>
-        <gravitee-bom.version>4.0.3</gravitee-bom.version>
-        <gravitee-common.version>2.3.0</gravitee-common.version>
-        <gravitee-gateway-api.version>2.1.0</gravitee-gateway-api.version>
-        <lombok.version>1.18.38</lombok.version>
+        <gravitee-bom.version>8.2.22</gravitee-bom.version>
+        <gravitee-gateway-api.version>3.11.1</gravitee-gateway-api.version>
+        <gravitee-common.version>4.6.1</gravitee-common.version>
     </properties>
 
     <dependencyManagement>
@@ -83,7 +82,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -99,25 +97,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.hubspot.maven.plugins</groupId>
-                <artifactId>prettier-maven-plugin</artifactId>
-                <version>0.18</version>
-                <configuration>
-                    <prettierJavaVersion>1.6.2</prettierJavaVersion>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
