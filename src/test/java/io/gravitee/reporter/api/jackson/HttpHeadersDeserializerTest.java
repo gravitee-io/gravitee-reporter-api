@@ -15,46 +15,40 @@
  */
 package io.gravitee.reporter.api.jackson;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.gravitee.gateway.api.http.HttpHeaders;
-import io.gravitee.reporter.api.configuration.Rules;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Kamiel Ahmadpour (kamiel.ahmadpour at graviteesource.com)
  * @author GraviteeSource Team
  */
-public class HttpHeadersDeserializerTest {
+class HttpHeadersDeserializerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Before
-    public void initializeObjectMapper() {
+    @BeforeEach
+    void initializeObjectMapper() {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(HttpHeaders.class, new HttpHeadersDeserializer());
         objectMapper.registerModule(module);
     }
 
     @Test
-    public void shouldSerializeHttpHeaders() throws JsonProcessingException {
-        Map<String, List<String>> header = new HashMap<>();
-        header.put("header1", List.of("value1"));
-        header.put("header2", List.of("value2"));
-        header.put("header3", List.of("value3"));
+    void shouldSerializeHttpHeaders() throws JsonProcessingException {
+        Map<String, List<String>> header = Map.of("header1", List.of("value1"), "header2", List.of("value2"), "header3", List.of("value3"));
 
         HttpHeaders httpHeaders = objectMapper.readValue(objectMapper.writeValueAsString(header), HttpHeaders.class);
 
-        assertEquals("value1", httpHeaders.getAll("header1").get(0));
-        assertEquals("value2", httpHeaders.getAll("header2").get(0));
-        assertEquals("value3", httpHeaders.getAll("header3").get(0));
+        assertThat(httpHeaders.getAll("header1")).first().isEqualTo("value1");
+        assertThat(httpHeaders.getAll("header2")).first().isEqualTo("value2");
+        assertThat(httpHeaders.getAll("header3")).first().isEqualTo("value3");
     }
 }

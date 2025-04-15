@@ -15,6 +15,8 @@
  */
 package io.gravitee.reporter.api.jackson;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,20 +36,16 @@ import io.gravitee.reporter.api.http.Metrics;
 import io.gravitee.reporter.api.log.Log;
 import java.util.Map;
 import java.util.Set;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-@RunWith(MockitoJUnitRunner.class)
-public class JsonFormatterTest {
+class JsonFormatterTest {
 
     @Test
-    public void shouldRenameField() throws JsonProcessingException {
+    void shouldRenameField() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setRenameFields(Map.of("application", "app"));
 
@@ -62,12 +60,12 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertFalse(node.has("application"));
-        Assert.assertTrue(node.has("app"));
+        assertThat(node.has("application")).isFalse();
+        assertThat(node.has("app")).isTrue();
     }
 
     @Test
-    public void shouldFilterField() throws JsonProcessingException {
+    void shouldFilterField() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("application"));
 
@@ -82,11 +80,11 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertFalse(node.has("application"));
+        assertThat(node.has("application")).isFalse();
     }
 
     @Test
-    public void shouldExcludeAllFields() throws JsonProcessingException {
+    void shouldExcludeAllFields() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("*"));
 
@@ -101,11 +99,11 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals(0, node.size());
+        assertThat(node).isEmpty();
     }
 
     @Test
-    public void shouldExcludeAndIncludeSameField() throws JsonProcessingException {
+    void shouldExcludeAndIncludeSameField() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("api"));
         rules.setIncludeFields(Set.of("api"));
@@ -121,11 +119,11 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertTrue(node.has("api"));
+        assertThat(node.has("api")).isTrue();
     }
 
     @Test
-    public void shouldExcludeAllFields_butIncludeOneField() throws JsonProcessingException {
+    void shouldExcludeAllFields_butIncludeOneField() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("*"));
         rules.setIncludeFields(Set.of("api"));
@@ -141,12 +139,12 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals(1, node.size());
-        Assert.assertTrue(node.has("api"));
+        assertThat(node.has("api")).isTrue();
+        assertThat(node).hasSize(1);
     }
 
     @Test
-    public void shouldExcludeAllFields_butIncludeAHeaderField() throws JsonProcessingException {
+    void shouldExcludeAllFields_butIncludeAHeaderField() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("*"));
         rules.setIncludeFields(
@@ -188,19 +186,19 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals("GET", node.get("log").get("clientRequest").get("method").asText());
-        Assert.assertEquals("localhost", node.get("log").get("clientRequest").get("headers").get("host").get(0).asText());
-        Assert.assertEquals("no-cache", node.get("log").get("clientRequest").get("headers").get("Cache-Control").get(0).asText());
-        Assert.assertFalse(node.get("log").get("clientRequest").get("headers").has("content-type"));
+        assertThat(node.get("log").get("clientRequest").get("method").asText()).isEqualTo("GET");
+        assertThat(node.get("log").get("clientRequest").get("headers").get("host").get(0).asText()).isEqualTo("localhost");
+        assertThat(node.get("log").get("clientRequest").get("headers").get("Cache-Control").get(0).asText()).isEqualTo("no-cache");
+        assertThat(node.get("log").get("clientRequest").get("headers").has("content-type")).isFalse();
 
-        Assert.assertFalse(node.get("log").has("proxyRequest"));
+        assertThat(node.get("log").has("proxyRequest")).isFalse();
 
-        Assert.assertEquals("200", node.get("log").get("clientResponse").get("status").asText());
-        Assert.assertEquals("10", node.get("log").get("clientResponse").get("headers").get("length").get(0).asText());
+        assertThat(node.get("log").get("clientResponse").get("status").asText()).isEqualTo("200");
+        assertThat(node.get("log").get("clientResponse").get("headers").get("length").get(0).asText()).isEqualTo("10");
     }
 
     @Test
-    public void shouldExcludeAllFields_butIncludeHeaders() throws JsonProcessingException {
+    void shouldExcludeAllFields_butIncludeHeaders() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("*"));
         rules.setIncludeFields(Set.of("log.clientRequest.headers"));
@@ -222,12 +220,12 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals("localhost", node.get("log").get("clientRequest").get("headers").get("host").get(0).asText());
-        Assert.assertEquals("application/json", node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText());
+        assertThat(node.get("log").get("clientRequest").get("headers").get("host").get(0).asText()).isEqualTo("localhost");
+        assertThat(node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText()).isEqualTo("application/json");
     }
 
     @Test
-    public void shouldExcludeASingleHeader() throws JsonProcessingException {
+    void shouldExcludeASingleHeader() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("log.clientRequest.headers.host"));
 
@@ -253,14 +251,14 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(metrics);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertFalse("localhost", node.get("log").get("clientRequest").get("headers").has("host"));
-        Assert.assertEquals("application/json", node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText());
 
-        Assert.assertEquals("localhost-2", node.get("log").get("proxyRequest").get("headers").get("host").get(0).asText());
+        assertThat(node.get("log").get("clientRequest").get("headers").has("host")).isFalse();
+        assertThat(node.get("log").get("clientRequest").get("headers").get("content-type").get(0).asText()).isEqualTo("application/json");
+        assertThat(node.get("log").get("proxyRequest").get("headers").get("host").get(0).asText()).isEqualTo("localhost-2");
     }
 
     @Test
-    public void shouldExcludeNestedFields() throws JsonProcessingException {
+    void shouldExcludeNestedFields() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("clientRequest"));
 
@@ -283,12 +281,12 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(log);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals(4, node.size());
-        Assert.assertFalse(node.has("clientRequest"));
+        assertThat(node).hasSize(4);
+        assertThat(node.has("clientRequest")).isFalse();
     }
 
     @Test
-    public void shouldExcludeNestedProperty() throws JsonProcessingException {
+    void shouldExcludeNestedProperty() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setExcludeFields(Set.of("clientRequest.uri"));
 
@@ -311,13 +309,13 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(log);
 
         JsonNode node = new ObjectMapper().readTree(output);
-        Assert.assertEquals(5, node.size());
-        Assert.assertTrue(node.has("clientRequest"));
-        Assert.assertEquals(0, node.get("clientRequest").size());
+        assertThat(node).hasSize(5);
+        assertThat(node.has("clientRequest")).isTrue();
+        assertThat(node.get("clientRequest")).isEmpty();
     }
 
     @Test
-    public void shouldRenameNestedProperty() throws JsonProcessingException {
+    void shouldRenameNestedProperty() throws JsonProcessingException {
         Rules rules = new Rules();
         rules.setRenameFields(Map.of("clientRequest.uri", "path"));
 
@@ -340,12 +338,11 @@ public class JsonFormatterTest {
         String output = mapper.writeValueAsString(log);
 
         JsonNode node = new ObjectMapper().readTree(output);
-
-        Assert.assertEquals(5, node.size());
-        Assert.assertTrue(node.has("clientRequest"));
-        Assert.assertEquals(1, node.get("clientRequest").size());
-        Assert.assertFalse(node.get("clientRequest").has("uri"));
-        Assert.assertTrue(node.get("clientRequest").has("path"));
+        assertThat(node).hasSize(5);
+        assertThat(node.has("clientRequest")).isTrue();
+        assertThat(node.get("clientRequest")).hasSize(1);
+        assertThat(node.get("clientRequest").has("uri")).isFalse();
+        assertThat(node.get("clientRequest").has("path")).isTrue();
     }
 
     private ObjectMapper initObjectMapper(Rules rules) {
