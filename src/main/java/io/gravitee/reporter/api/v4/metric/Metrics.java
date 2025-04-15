@@ -75,7 +75,7 @@ public class Metrics extends AbstractReportable {
     private String userAgent;
 
     @Builder.Default
-    private long requestContentLength = -1;
+    private long requestContentLength = 0;
 
     private boolean requestEnded;
     /**
@@ -88,7 +88,7 @@ public class Metrics extends AbstractReportable {
     private String endpoint;
 
     @Builder.Default
-    private long endpointResponseTimeMs = -1;
+    private long endpointResponseTimeMs = 0;
 
     /**
      * Response metrics
@@ -96,13 +96,13 @@ public class Metrics extends AbstractReportable {
     private int status;
 
     @Builder.Default
-    private long responseContentLength = -1;
+    private long responseContentLength = 0;
 
     @Builder.Default
-    private long gatewayResponseTimeMs = -1;
+    private long gatewayResponseTimeMs = 0;
 
     @Builder.Default
-    private long gatewayLatencyMs = -1;
+    private long gatewayLatencyMs = 0;
 
     @Nullable
     private AIMetrics aiMetrics;
