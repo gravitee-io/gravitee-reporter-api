@@ -15,7 +15,7 @@
  */
 package io.gravitee.reporter.api.jackson;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,22 +23,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.gravitee.gateway.api.http.HttpHeaders;
 import io.gravitee.reporter.api.configuration.Rules;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class HttpHeadersSerializerTest {
+class HttpHeadersSerializerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Before
-    public void initializeObjectMapper() {
+    @BeforeEach
+    void initializeObjectMapper() {
         SimpleModule module = new SimpleModule();
         module.addSerializer(HttpHeaders.class, new HttpHeadersSerializer(new Rules()));
         objectMapper.registerModule(module);
     }
 
     @Test
-    public void shouldSerializeHttpHeaders() throws JsonProcessingException {
+    void shouldSerializeHttpHeaders() throws JsonProcessingException {
         HttpHeaders httpHeaders = HttpHeaders.create();
         httpHeaders.add("header1", "value1");
         httpHeaders.add("header2", "value2");
@@ -48,8 +48,8 @@ public class HttpHeadersSerializerTest {
 
         JsonNode node = new ObjectMapper().readTree(output);
 
-        assertEquals("value1", node.get("header1").get(0).asText());
-        assertEquals("value3", node.get("header1").get(1).asText());
-        assertEquals("value2", node.get("header2").get(0).asText());
+        assertThat(node.get("header1").get(0).asText()).isEqualTo("value1");
+        assertThat(node.get("header1").get(1).asText()).isEqualTo("value3");
+        assertThat(node.get("header2").get(0).asText()).isEqualTo("value2");
     }
 }
