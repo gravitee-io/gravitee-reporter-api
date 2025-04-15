@@ -21,6 +21,8 @@ import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalLong;
+import javax.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -102,6 +104,9 @@ public class Metrics extends AbstractReportable {
     @Builder.Default
     private long gatewayLatencyMs = -1;
 
+    @Nullable
+    private AIMetrics aiMetrics;
+
     /**
      * Security metrics
      */
@@ -177,5 +182,18 @@ public class Metrics extends AbstractReportable {
         metricsV2.setZone(zone);
         metricsV2.setCustomMetrics(customMetrics);
         return metricsV2;
+    }
+
+    public Metrics aiTokens(long input, long output) {
+        aiMetrics = new AIMetrics(input, output);
+        return this;
+    }
+
+    public OptionalLong aiInputTokens() {
+        return aiMetrics == null ? OptionalLong.empty() : OptionalLong.of(aiMetrics.inputTokens());
+    }
+
+    public OptionalLong aiOutputTokens() {
+        return aiMetrics == null ? OptionalLong.empty() : OptionalLong.of(aiMetrics.outputTokens());
     }
 }
