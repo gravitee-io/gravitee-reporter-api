@@ -13,14 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api;
+package io.gravitee.reporter.api.v4.metric;
 
-import java.time.Instant;
-
-/**
- * @author David BRASSELY (david.brassely at graviteesource.com)
- * @author GraviteeSource Team
- */
-public interface Reportable {
-    Instant timestamp();
-}
+record AIMetrics(long inputTokens, long outputTokens) {}
