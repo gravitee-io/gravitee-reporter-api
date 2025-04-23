@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.2...1.32.0) (2025-04-23)
+
+
+### Features
+
+* create news metrics for AI ([f450d95](https://github.com/gravitee-io/gravitee-reporter-api/commit/f450d95135533d6725916b86a55c6139dce5123c))
+
 ## [1.31.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.1...1.31.2) (2024-08-14)
 
 
