@@ -21,7 +21,9 @@ import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.OptionalLong;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -104,8 +106,7 @@ public class Metrics extends AbstractReportable {
     @Builder.Default
     private long gatewayLatencyMs = 0;
 
-    @Nullable
-    private AIMetrics aiMetrics;
+    private final Map<String, Object> additionalMetrics = new HashMap<>();
 
     /**
      * Security metrics
@@ -123,7 +124,7 @@ public class Metrics extends AbstractReportable {
     /**
      * Custom metrics
      */
-    private Map<String, String> customMetrics;
+    private Map<String, String> customMetrics = new HashMap<>();
 
     /**
      * Log
@@ -184,16 +185,77 @@ public class Metrics extends AbstractReportable {
         return metricsV2;
     }
 
-    public Metrics aiTokens(long input, long output) {
-        aiMetrics = new AIMetrics(input, output);
+    /**
+     * @param key the metric key, MUST starts with 'long_'
+     * @param value the metric value
+     * @return updated Metrics object
+     */
+    public Metrics putAdditionalMetric(String key, Long value) {
+        if (!key.startsWith("long_")) {
+            throw new IllegalArgumentException("Invalid key: " + key + ". Key of long metrics must start with 'long_'.");
+        }
+        additionalMetrics.put(key, value);
         return this;
     }
 
-    public OptionalLong aiInputTokens() {
-        return aiMetrics == null ? OptionalLong.empty() : OptionalLong.of(aiMetrics.inputTokens());
+    @Nullable
+    public Map<String, Long> longAdditionalMetrics() {
+        return additionalMetrics((key, value) -> key.startsWith("long_") && value instanceof Long);
     }
 
-    public OptionalLong aiOutputTokens() {
-        return aiMetrics == null ? OptionalLong.empty() : OptionalLong.of(aiMetrics.outputTokens());
+    /**
+     * @param key the metric key, MUST starts with 'keyword_'
+     * @param value the metric value
+     * @return updated Metrics object
+     */
+    public Metrics putAdditionalKeywordMetric(String key, String value) {
+        if (!key.startsWith("keyword_")) {
+            throw new IllegalArgumentException("Invalid key: " + key + ". Key of keywords must start with 'keyword_'.");
+        }
+        additionalMetrics.put(key, value);
+        return this;
+    }
+
+    @Nullable
+    public Map<String, String> keywordAdditionalMetrics() {
+        return additionalMetrics((key, value) -> key.startsWith("keyword_") && value instanceof String);
+    }
+
+    /**
+     * @param key the metric key, MUST starts with 'bool_'
+     * @param value the metric value
+     * @return updated Metrics object
+     */
+    public Metrics putAdditionalMetric(String key, Boolean value) {
+        if (!key.startsWith("bool_")) {
+            throw new IllegalArgumentException("Invalid key: " + key + ". Key of booleans must start with 'bool_'.");
+        }
+        additionalMetrics.put(key, value);
+        return this;
+    }
+
+    @Nullable
+    public Map<String, String> boolAdditionalMetrics() {
+        return additionalMetrics((key, value) -> key.startsWith("bool_") && value instanceof Boolean);
+    }
+
+    private <T> Map<String, T> additionalMetrics(BiPredicate<String, Object> typeGard) {
+        Map<String, T> collect = additionalMetrics
+            .entrySet()
+            .stream()
+            .flatMap(entry -> this.<T>safeCast(typeGard, entry))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return !collect.isEmpty() ? collect : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> Stream<Map.Entry<String, T>> safeCast(BiPredicate<String, Object> typeGard, Map.Entry<String, Object> entry) {
+        try {
+            return typeGard.test(entry.getKey(), entry.getValue())
+                ? Stream.of(Map.entry(entry.getKey(), (T) entry.getValue()))
+                : Stream.empty();
+        } catch (ClassCastException e) {
+            return Stream.empty();
+        }
     }
 }
