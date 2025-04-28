@@ -1,3 +1,10 @@
+## [1.32.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.0...1.32.1) (2025-04-28)
+
+
+### Bug Fixes
+
+* update default response and latency time values from -1 to 0 ([b6ca763](https://github.com/gravitee-io/gravitee-reporter-api/commit/b6ca7632ecbf1c96e7a9def77eab4c1783b9965b))
+
 # [1.32.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.31.2...1.32.0) (2025-04-23)
 
 
