@@ -1,3 +1,10 @@
+## [1.32.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.1...1.32.2) (2025-05-02)
+
+
+### Bug Fixes
+
+* add long metrics for policies ([225c01c](https://github.com/gravitee-io/gravitee-reporter-api/commit/225c01cb3af21d094b8c170cdf0f973fad88644f))
+
 ## [1.32.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.0...1.32.1) (2025-04-28)
 
 
