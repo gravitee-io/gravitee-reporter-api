@@ -1,3 +1,10 @@
+## [1.32.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.2...1.32.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* fix boolean types ([d88146a](https://github.com/gravitee-io/gravitee-reporter-api/commit/d88146a64e0ebef2745c960447d03cae076a018b))
+
 ## [1.32.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.1...1.32.2) (2025-05-02)
 
 
