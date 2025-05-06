@@ -235,7 +235,7 @@ public class Metrics extends AbstractReportable {
     }
 
     @Nullable
-    public Map<String, String> boolAdditionalMetrics() {
+    public Map<String, Boolean> boolAdditionalMetrics() {
         return additionalMetrics((key, value) -> key.startsWith("bool_") && value instanceof Boolean);
     }
 
