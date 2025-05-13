@@ -204,6 +204,24 @@ public class Metrics extends AbstractReportable {
     }
 
     /**
+     * @param key the metric key, MUST starts with 'double_'
+     * @param value the metric value
+     * @return updated Metrics object
+     */
+    public Metrics putAdditionalMetric(String key, Double value) {
+        if (!key.startsWith("double_")) {
+            throw new IllegalArgumentException("Invalid key: " + key + ". Key of double metrics must start with 'double_'.");
+        }
+        additionalMetrics.put(key, value);
+        return this;
+    }
+
+    @Nullable
+    public Map<String, Double> doubleAdditionalMetrics() {
+        return additionalMetrics((key, value) -> key.startsWith("double_") && value instanceof Double);
+    }
+
+    /**
      * @param key the metric key, MUST starts with 'keyword_'
      * @param value the metric value
      * @return updated Metrics object
