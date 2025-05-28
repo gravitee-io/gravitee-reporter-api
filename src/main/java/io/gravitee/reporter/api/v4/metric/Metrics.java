@@ -200,7 +200,7 @@ public class Metrics extends AbstractReportable {
 
     @Nullable
     public Map<String, Long> longAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("long_") && value instanceof Long);
+        return additionalMetrics((key, value) -> key.startsWith("long_"));
     }
 
     /**
@@ -218,7 +218,7 @@ public class Metrics extends AbstractReportable {
 
     @Nullable
     public Map<String, Double> doubleAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("double_") && value instanceof Double);
+        return additionalMetrics((key, value) -> key.startsWith("double_"));
     }
 
     /**
@@ -236,7 +236,7 @@ public class Metrics extends AbstractReportable {
 
     @Nullable
     public Map<String, String> keywordAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("keyword_") && value instanceof String);
+        return additionalMetrics((key, value) -> key.startsWith("keyword_"));
     }
 
     /**
@@ -254,7 +254,7 @@ public class Metrics extends AbstractReportable {
 
     @Nullable
     public Map<String, Boolean> boolAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("bool_") && value instanceof Boolean);
+        return additionalMetrics((key, value) -> key.startsWith("bool_"));
     }
 
     private <T> Map<String, T> additionalMetrics(BiPredicate<String, Object> typeGard) {
