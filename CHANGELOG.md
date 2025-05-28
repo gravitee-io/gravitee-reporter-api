@@ -1,3 +1,10 @@
+## [1.33.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.33.0...1.33.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* remove instanceof check when getting an additional metric ([6d3871b](https://github.com/gravitee-io/gravitee-reporter-api/commit/6d3871b44c254a94c0610e9bd49759f441b49094))
+
 # [1.33.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.32.3...1.33.0) (2025-05-13)
 
 
