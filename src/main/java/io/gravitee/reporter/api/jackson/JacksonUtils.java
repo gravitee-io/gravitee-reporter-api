@@ -15,16 +15,50 @@
  */
 package io.gravitee.reporter.api.jackson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonStreamContext;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
+import io.gravitee.gateway.api.http.HttpHeaders;
+import io.gravitee.reporter.api.Reportable;
+import io.gravitee.reporter.api.common.Request;
+import io.gravitee.reporter.api.common.Response;
+import io.gravitee.reporter.api.configuration.Rules;
+import io.gravitee.reporter.api.health.EndpointStatus;
+import io.gravitee.reporter.api.health.Step;
+import io.gravitee.reporter.api.v4.metric.AdditionalMetric;
+import javax.annotation.Nullable;
+import lombok.experimental.UtilityClass;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
+@UtilityClass
 public final class JacksonUtils {
 
     private static final char JSON_NESTED_SEPARATOR = '.';
+
+    public static ObjectMapper mapper(@Nullable Rules rules) {
+        var mapper = new ObjectMapper();
+
+        if (rules != null && rules.containsRules()) {
+            mapper
+                .addMixIn(Reportable.class, FieldFilterMixin.class)
+                .addMixIn(Request.class, FieldFilterMixin.class)
+                .addMixIn(Response.class, FieldFilterMixin.class)
+                .addMixIn(EndpointStatus.class, FieldFilterMixin.class)
+                .addMixIn(Step.class, FieldFilterMixin.class)
+                .setFilterProvider(new FieldFilterProvider(rules));
+        }
+
+        var module = new SimpleModule()
+            .addSerializer(HttpHeaders.class, new HttpHeadersSerializer(rules))
+            .addDeserializer(AdditionalMetric.class, new AdditionalMetricDeserialization())
+            .addDeserializer(HttpHeaders.class, new HttpHeadersDeserializer());
+        return mapper.registerModule(module).setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     public static String resolveJsonPath(JsonStreamContext context, PropertyWriter writer) {
         StringBuilder sb = new StringBuilder(writer != null ? writer.getName() : "");

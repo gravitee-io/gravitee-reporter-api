@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 
 public class HttpHeadersSerializer extends StdSerializer<HttpHeaders> {
 
@@ -43,7 +44,7 @@ public class HttpHeadersSerializer extends StdSerializer<HttpHeaders> {
         this.rules = new Rules();
     }
 
-    public HttpHeadersSerializer(Rules rules) {
+    public HttpHeadersSerializer(@Nullable Rules rules) {
         super(HttpHeaders.class);
         this.rules = Objects.requireNonNullElseGet(rules, Rules::new);
     }
