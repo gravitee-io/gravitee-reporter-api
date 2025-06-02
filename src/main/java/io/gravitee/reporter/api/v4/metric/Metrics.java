@@ -19,9 +19,11 @@ import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
@@ -106,7 +108,7 @@ public class Metrics extends AbstractReportable {
     @Builder.Default
     private long gatewayLatencyMs = 0;
 
-    private final Map<String, Object> additionalMetrics = new HashMap<>();
+    private final Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
 
     /**
      * Security metrics
@@ -191,16 +193,15 @@ public class Metrics extends AbstractReportable {
      * @return updated Metrics object
      */
     public Metrics putAdditionalMetric(String key, Long value) {
-        if (!key.startsWith("long_")) {
-            throw new IllegalArgumentException("Invalid key: " + key + ". Key of long metrics must start with 'long_'.");
-        }
-        additionalMetrics.put(key, value);
+        addAdditionalMetric(new AdditionalMetric.LongMetric(key, value));
         return this;
     }
 
     @Nullable
     public Map<String, Long> longAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("long_"));
+        return additionalMetrics(entry ->
+            entry instanceof AdditionalMetric.LongMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
+        );
     }
 
     /**
@@ -209,16 +210,15 @@ public class Metrics extends AbstractReportable {
      * @return updated Metrics object
      */
     public Metrics putAdditionalMetric(String key, Double value) {
-        if (!key.startsWith("double_")) {
-            throw new IllegalArgumentException("Invalid key: " + key + ". Key of double metrics must start with 'double_'.");
-        }
-        additionalMetrics.put(key, value);
+        addAdditionalMetric(new AdditionalMetric.DoubleMetric(key, value));
         return this;
     }
 
     @Nullable
     public Map<String, Double> doubleAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("double_"));
+        return additionalMetrics(entry ->
+            entry instanceof AdditionalMetric.DoubleMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
+        );
     }
 
     /**
@@ -227,16 +227,15 @@ public class Metrics extends AbstractReportable {
      * @return updated Metrics object
      */
     public Metrics putAdditionalKeywordMetric(String key, String value) {
-        if (!key.startsWith("keyword_")) {
-            throw new IllegalArgumentException("Invalid key: " + key + ". Key of keywords must start with 'keyword_'.");
-        }
-        additionalMetrics.put(key, value);
+        addAdditionalMetric(new AdditionalMetric.KeywordMetric(key, value));
         return this;
     }
 
     @Nullable
     public Map<String, String> keywordAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("keyword_"));
+        return additionalMetrics(entry ->
+            entry instanceof AdditionalMetric.KeywordMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
+        );
     }
 
     /**
@@ -245,35 +244,27 @@ public class Metrics extends AbstractReportable {
      * @return updated Metrics object
      */
     public Metrics putAdditionalMetric(String key, Boolean value) {
-        if (!key.startsWith("bool_")) {
-            throw new IllegalArgumentException("Invalid key: " + key + ". Key of booleans must start with 'bool_'.");
-        }
-        additionalMetrics.put(key, value);
+        addAdditionalMetric(new AdditionalMetric.BooleanMetric(key, value));
         return this;
     }
 
     @Nullable
     public Map<String, Boolean> boolAdditionalMetrics() {
-        return additionalMetrics((key, value) -> key.startsWith("bool_"));
+        return additionalMetrics(entry ->
+            entry instanceof AdditionalMetric.BooleanMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
+        );
     }
 
-    private <T> Map<String, T> additionalMetrics(BiPredicate<String, Object> typeGard) {
+    private void addAdditionalMetric(AdditionalMetric metric) {
+        additionalMetrics.removeIf(m -> m.name().equals(metric.name()));
+        additionalMetrics.add(metric);
+    }
+
+    private <T> Map<String, T> additionalMetrics(Function<AdditionalMetric, Stream<Map.Entry<String, T>>> typeGard) {
         Map<String, T> collect = additionalMetrics
-            .entrySet()
             .stream()
-            .flatMap(entry -> this.<T>safeCast(typeGard, entry))
+            .flatMap(typeGard)
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         return !collect.isEmpty() ? collect : null;
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> Stream<Map.Entry<String, T>> safeCast(BiPredicate<String, Object> typeGard, Map.Entry<String, Object> entry) {
-        try {
-            return typeGard.test(entry.getKey(), entry.getValue())
-                ? Stream.of(Map.entry(entry.getKey(), (T) entry.getValue()))
-                : Stream.empty();
-        } catch (ClassCastException e) {
-            return Stream.empty();
-        }
     }
 }
