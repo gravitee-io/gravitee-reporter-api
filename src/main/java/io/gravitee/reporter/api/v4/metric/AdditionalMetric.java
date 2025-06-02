@@ -17,7 +17,10 @@ package io.gravitee.reporter.api.v4.metric;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.gravitee.reporter.api.jackson.AdditionalMetricDeserialization;
 
+@JsonDeserialize(using = AdditionalMetricDeserialization.class)
 public sealed interface AdditionalMetric {
     String name();
 

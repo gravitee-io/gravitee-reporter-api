@@ -22,22 +22,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.gravitee.reporter.api.v4.metric.AdditionalMetric;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AdditionalMetricDeserializationTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    @BeforeEach
-    void initializeObjectMapper() {
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(AdditionalMetric.class, new AdditionalMetricDeserialization());
-        objectMapper.registerModule(module);
-    }
+    private final ObjectMapper objectMapper = JacksonUtils.mapper(null);
 
     @Test
     void shouldSerialize() throws JsonProcessingException {
