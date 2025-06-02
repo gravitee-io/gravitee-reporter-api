@@ -1,3 +1,15 @@
+# [1.34.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.33.1...1.34.0) (2025-06-02)
+
+
+### Bug Fixes
+
+* getter control serialization ([3cea075](https://github.com/gravitee-io/gravitee-reporter-api/commit/3cea0750177168e875462c04986fcd64e3b31bca))
+
+
+### Features
+
+* create a reusable ObjectMapper ([2540328](https://github.com/gravitee-io/gravitee-reporter-api/commit/254032829699215ff83f845fa98a1089bc0e952f))
+
 ## [1.33.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.33.0...1.33.1) (2025-05-28)
 
 
