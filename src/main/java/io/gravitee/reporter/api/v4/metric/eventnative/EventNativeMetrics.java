@@ -30,12 +30,12 @@ public class EventNativeMetrics extends AbstractReportable {
     /**
      * Base dimensions
      */
-    private String planId;
-    private String apiId;
-    private String applicationId;
     private String gatewayId;
-    private String environmentId;
     private String organizationId;
+    private String environmentId;
+    private String apiId;
+    private String planId;
+    private String applicationId;
     private String topic;
     /**
      * Metrics
@@ -54,32 +54,30 @@ public class EventNativeMetrics extends AbstractReportable {
     public EventNativeMetrics() {}
 
     public EventNativeMetrics(
-        @NonNull Long timestamp,
-        @NonNull String planId,
-        @NonNull String apiId,
-        @NonNull String applicationId,
         @NonNull String gatewayId,
-        @NonNull String environmentId,
         @NonNull String organizationId,
+        @NonNull String environmentId,
+        @NonNull String apiId,
+        @NonNull String planId,
+        @NonNull String applicationId,
         @Nullable String topic
     ) {
-        super(timestamp);
         log.trace(
-            "Creating event native metrics at timestamp:{} for plan:{} api:{} application:{} gateway:{} environment:{} organization:{}",
-            timestamp,
-            planId,
-            apiId,
-            applicationId,
+            "Creating event native metrics for gateway:{} organization:{} environment:{} api:{} plan:{} application:{} topic:{}",
             gatewayId,
+            organizationId,
             environmentId,
-            organizationId
+            apiId,
+            planId,
+            applicationId,
+            topic
         );
-        this.planId = planId;
-        this.apiId = apiId;
-        this.applicationId = applicationId;
         this.gatewayId = gatewayId;
-        this.environmentId = environmentId;
         this.organizationId = organizationId;
+        this.environmentId = environmentId;
+        this.apiId = apiId;
+        this.planId = planId;
+        this.applicationId = applicationId;
         this.topic = topic;
     }
 }
