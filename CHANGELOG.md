@@ -1,3 +1,10 @@
+# [1.35.0-alpha.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.1...1.35.0-alpha.2) (2025-07-01)
+
+
+### Features
+
+* add native kafka metrics ES document model ([0d54fa6](https://github.com/gravitee-io/gravitee-reporter-api/commit/0d54fa65d27d4970c37178e3b669ab5de976058c))
+
 # [1.35.0-alpha.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.34.0...1.35.0-alpha.1) (2025-06-30)
 
 
