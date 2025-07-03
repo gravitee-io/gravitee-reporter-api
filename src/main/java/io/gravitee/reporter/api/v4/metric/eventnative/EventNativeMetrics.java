@@ -20,11 +20,13 @@ import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter
 @Setter
+@ToString(callSuper = true)
 public class EventNativeMetrics extends AbstractReportable {
 
     /**
@@ -62,16 +64,6 @@ public class EventNativeMetrics extends AbstractReportable {
         @NonNull String applicationId,
         @Nullable String topic
     ) {
-        log.trace(
-            "Creating event native metrics for gateway:{} organization:{} environment:{} api:{} plan:{} application:{} topic:{}",
-            gatewayId,
-            organizationId,
-            environmentId,
-            apiId,
-            planId,
-            applicationId,
-            topic
-        );
         this.gatewayId = gatewayId;
         this.organizationId = organizationId;
         this.environmentId = environmentId;
