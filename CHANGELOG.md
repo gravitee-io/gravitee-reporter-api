@@ -1,3 +1,10 @@
+# [1.35.0-alpha.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.2...1.35.0-alpha.3) (2025-07-03)
+
+
+### Bug Fixes
+
+* add ToString annotation and prefer log a trace in the reactor when report ([7307f47](https://github.com/gravitee-io/gravitee-reporter-api/commit/7307f4774ecc4c82c0513ccbd2c36bddb95007ef))
+
 # [1.35.0-alpha.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.1...1.35.0-alpha.2) (2025-07-01)
 
 
