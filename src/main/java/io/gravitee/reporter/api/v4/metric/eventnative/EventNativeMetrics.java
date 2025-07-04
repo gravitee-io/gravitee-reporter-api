@@ -39,6 +39,7 @@ public class EventNativeMetrics extends AbstractReportable {
     private String planId;
     private String applicationId;
     private String topic;
+
     /**
      * Metrics
      */
@@ -52,16 +53,25 @@ public class EventNativeMetrics extends AbstractReportable {
     private Number upstreamSubscribeMessageBytes;
     private Number downstreamActiveConnections;
     private Number upstreamActiveConnections;
+    private Number downstreamAuthenticatedConnections;
+    private Number upstreamAuthenticatedConnections;
+    private Number downstreamAuthenticationFailuresTotal;
+    private Number upstreamAuthenticationFailuresTotal;
+    private Number downstreamAuthorizationSuccessesTotal;
+    private Number upstreamAuthorizationSuccessesTotal;
 
     public EventNativeMetrics() {}
 
+    /**
+     * Constructor with all identifiers.
+     */
     public EventNativeMetrics(
         @NonNull String gatewayId,
         @NonNull String organizationId,
         @NonNull String environmentId,
         @NonNull String apiId,
-        @NonNull String planId,
-        @NonNull String applicationId,
+        @Nullable String planId,
+        @Nullable String applicationId,
         @Nullable String topic
     ) {
         this.gatewayId = gatewayId;
