@@ -1,3 +1,10 @@
+# [1.35.0-alpha.4](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.3...1.35.0-alpha.4) (2025-07-07)
+
+
+### Features
+
+* add more metrics to EventNativeMetrics ([4ba0ab8](https://github.com/gravitee-io/gravitee-reporter-api/commit/4ba0ab88513cfdad0addf33f9ceaff36ef67f9ff))
+
 # [1.35.0-alpha.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.2...1.35.0-alpha.3) (2025-07-03)
 
 
