@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.v4.metric.eventnative;
+package io.gravitee.reporter.api.v4.metric;
 
 import io.gravitee.reporter.api.AbstractReportable;
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class EventNativeMetrics extends AbstractReportable {
+public class EventMetrics extends AbstractReportable {
 
     /**
      * Base dimensions
@@ -60,12 +60,12 @@ public class EventNativeMetrics extends AbstractReportable {
     private Number downstreamAuthorizationSuccessesTotal;
     private Number upstreamAuthorizationSuccessesTotal;
 
-    public EventNativeMetrics() {}
+    public EventMetrics() {}
 
     /**
      * Constructor with all identifiers.
      */
-    public EventNativeMetrics(
+    public EventMetrics(
         @NonNull String gatewayId,
         @NonNull String organizationId,
         @NonNull String environmentId,
