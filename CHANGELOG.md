@@ -1,3 +1,10 @@
+# [1.35.0-alpha.5](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.4...1.35.0-alpha.5) (2025-07-15)
+
+
+### Features
+
+* renamed EventNativeMetrics.java to EventMetrics.java ([9353145](https://github.com/gravitee-io/gravitee-reporter-api/commit/93531457bafffafec265ce8a1defb63f925abc2c))
+
 # [1.35.0-alpha.4](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.3...1.35.0-alpha.4) (2025-07-07)
 
 
