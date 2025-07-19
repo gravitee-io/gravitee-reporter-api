@@ -28,8 +28,8 @@ import io.gravitee.reporter.api.configuration.Rules;
 import io.gravitee.reporter.api.health.EndpointStatus;
 import io.gravitee.reporter.api.health.Step;
 import io.gravitee.reporter.api.v4.metric.AdditionalMetric;
-import javax.annotation.Nullable;
 import lombok.experimental.UtilityClass;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
