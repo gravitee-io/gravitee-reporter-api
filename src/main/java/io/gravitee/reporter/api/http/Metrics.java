@@ -18,7 +18,10 @@ package io.gravitee.reporter.api.http;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.log.Log;
+import io.gravitee.reporter.api.v4.metric.Diagnostic;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
@@ -68,6 +71,8 @@ public class Metrics extends AbstractReportable {
     private String subscription;
     private String zone;
     private Map<String, String> customMetrics = new HashMap<>();
+    private Diagnostic failure;
+    private Collection<Diagnostic> warnings = null;
 
     protected Metrics(long timestamp) {
         super(timestamp);
