@@ -1,3 +1,10 @@
+# [1.35.0-alpha.6](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.5...1.35.0-alpha.6) (2025-09-13)
+
+
+### Features
+
+* add diagnostic metrics to handle errors ([c6ca5a8](https://github.com/gravitee-io/gravitee-reporter-api/commit/c6ca5a810fc23330c56c847d051fe7014ca632ac))
+
 # [1.35.0-alpha.5](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.4...1.35.0-alpha.5) (2025-07-15)
 
 
