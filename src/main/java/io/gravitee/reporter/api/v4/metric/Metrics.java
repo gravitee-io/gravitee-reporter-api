@@ -19,10 +19,7 @@ import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -124,8 +121,17 @@ public class Metrics extends AbstractReportable {
     private String errorKey;
 
     /**
+     * Error metrics
+     */
+    private Diagnostic failure;
+
+    @Builder.Default
+    private Collection<Diagnostic> warnings = null;
+
+    /**
      * Custom metrics
      */
+    @Builder.Default
     private Map<String, String> customMetrics = new HashMap<>();
 
     /**
@@ -138,6 +144,16 @@ public class Metrics extends AbstractReportable {
             this.customMetrics = new HashMap<>();
         }
         this.customMetrics.put(key, value);
+    }
+
+    /**
+     * Add a warning diagnostic to the metrics
+     */
+    public void addWarning(Diagnostic executionWarn) {
+        if (this.warnings == null) {
+            this.warnings = new LinkedList<>();
+        }
+        this.warnings.add(executionWarn);
     }
 
     public io.gravitee.reporter.api.http.Metrics toV2() {
@@ -184,6 +200,8 @@ public class Metrics extends AbstractReportable {
         metricsV2.setSubscription(subscriptionId);
         metricsV2.setZone(zone);
         metricsV2.setCustomMetrics(customMetrics);
+        metricsV2.setFailure(failure);
+        metricsV2.setWarnings(warnings);
         return metricsV2;
     }
 
