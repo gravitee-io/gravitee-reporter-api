@@ -1,3 +1,19 @@
+# [1.35.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.34.0...1.35.0) (2025-09-17)
+
+
+### Bug Fixes
+
+* add ToString annotation and prefer log a trace in the reactor when report ([7307f47](https://github.com/gravitee-io/gravitee-reporter-api/commit/7307f4774ecc4c82c0513ccbd2c36bddb95007ef))
+
+
+### Features
+
+* add diagnostic metrics to handle errors ([c6ca5a8](https://github.com/gravitee-io/gravitee-reporter-api/commit/c6ca5a810fc23330c56c847d051fe7014ca632ac))
+* add more metrics to EventNativeMetrics ([4ba0ab8](https://github.com/gravitee-io/gravitee-reporter-api/commit/4ba0ab88513cfdad0addf33f9ceaff36ef67f9ff))
+* add native kafka metrics ES document model ([0d54fa6](https://github.com/gravitee-io/gravitee-reporter-api/commit/0d54fa65d27d4970c37178e3b669ab5de976058c))
+* add native kafka metrics ES document model ([df724f9](https://github.com/gravitee-io/gravitee-reporter-api/commit/df724f9fafc32584affad3a224ebf6f1af1fe822))
+* renamed EventNativeMetrics.java to EventMetrics.java ([9353145](https://github.com/gravitee-io/gravitee-reporter-api/commit/93531457bafffafec265ce8a1defb63f925abc2c))
+
 # [1.35.0-alpha.6](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0-alpha.5...1.35.0-alpha.6) (2025-09-13)
 
 
