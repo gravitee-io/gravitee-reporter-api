@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.35.0...1.35.1) (2025-10-15)
+
+
+### Bug Fixes
+
+* add empty constructor to Diagnostic ([6e1f818](https://github.com/gravitee-io/gravitee-reporter-api/commit/6e1f81857c4a606b0d064fa9d717eff560c1826c))
+
 # [1.35.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.34.0...1.35.0) (2025-09-17)
 
 
