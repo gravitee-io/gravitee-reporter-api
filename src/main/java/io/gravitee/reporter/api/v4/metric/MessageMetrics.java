@@ -18,11 +18,10 @@ package io.gravitee.reporter.api.v4.metric;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.v4.common.MessageConnectorType;
 import io.gravitee.reporter.api.v4.common.MessageOperation;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -34,8 +33,9 @@ import lombok.extern.jackson.Jacksonized;
 @Setter
 @SuperBuilder
 @Jacksonized
+@NoArgsConstructor
 @ToString(callSuper = true)
-public final class MessageMetrics extends AbstractReportable {
+public final class MessageMetrics extends AbstractReportable implements WithAdditional {
 
     /**
      * Identifiers
@@ -80,4 +80,8 @@ public final class MessageMetrics extends AbstractReportable {
      * Custom metrics
      */
     private Map<String, String> customMetrics;
+
+    @Builder.Default
+    @Setter(onParam_ = @NonNull)
+    private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
 }

@@ -20,16 +20,8 @@ import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.jspecify.annotations.Nullable;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -41,7 +33,7 @@ import org.jspecify.annotations.Nullable;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Metrics extends AbstractReportable {
+public class Metrics extends AbstractReportable implements WithAdditional {
 
     @Builder.Default
     private boolean enabled = true;
@@ -105,7 +97,9 @@ public class Metrics extends AbstractReportable {
     @Builder.Default
     private long gatewayLatencyMs = 0;
 
-    private final Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
+    @Builder.Default
+    @Setter(onParam_ = @NonNull)
+    private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
 
     /**
      * Security metrics
@@ -203,86 +197,5 @@ public class Metrics extends AbstractReportable {
         metricsV2.setFailure(failure);
         metricsV2.setWarnings(warnings);
         return metricsV2;
-    }
-
-    /**
-     * @param key the metric key, MUST starts with 'long_'
-     * @param value the metric value
-     * @return updated Metrics object
-     */
-    public Metrics putAdditionalMetric(String key, Long value) {
-        addAdditionalMetric(new AdditionalMetric.LongMetric(key, value));
-        return this;
-    }
-
-    @Nullable
-    public Map<String, Long> longAdditionalMetrics() {
-        return additionalMetrics(entry ->
-            entry instanceof AdditionalMetric.LongMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
-        );
-    }
-
-    /**
-     * @param key the metric key, MUST starts with 'double_'
-     * @param value the metric value
-     * @return updated Metrics object
-     */
-    public Metrics putAdditionalMetric(String key, Double value) {
-        addAdditionalMetric(new AdditionalMetric.DoubleMetric(key, value));
-        return this;
-    }
-
-    @Nullable
-    public Map<String, Double> doubleAdditionalMetrics() {
-        return additionalMetrics(entry ->
-            entry instanceof AdditionalMetric.DoubleMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
-        );
-    }
-
-    /**
-     * @param key the metric key, MUST starts with 'keyword_'
-     * @param value the metric value
-     * @return updated Metrics object
-     */
-    public Metrics putAdditionalKeywordMetric(String key, String value) {
-        addAdditionalMetric(new AdditionalMetric.KeywordMetric(key, value));
-        return this;
-    }
-
-    @Nullable
-    public Map<String, String> keywordAdditionalMetrics() {
-        return additionalMetrics(entry ->
-            entry instanceof AdditionalMetric.KeywordMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
-        );
-    }
-
-    /**
-     * @param key the metric key, MUST starts with 'bool_'
-     * @param value the metric value
-     * @return updated Metrics object
-     */
-    public Metrics putAdditionalMetric(String key, Boolean value) {
-        addAdditionalMetric(new AdditionalMetric.BooleanMetric(key, value));
-        return this;
-    }
-
-    @Nullable
-    public Map<String, Boolean> boolAdditionalMetrics() {
-        return additionalMetrics(entry ->
-            entry instanceof AdditionalMetric.BooleanMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
-        );
-    }
-
-    private void addAdditionalMetric(AdditionalMetric metric) {
-        additionalMetrics.removeIf(m -> m.name().equals(metric.name()));
-        additionalMetrics.add(metric);
-    }
-
-    private <T> Map<String, T> additionalMetrics(Function<AdditionalMetric, Stream<Map.Entry<String, T>>> typeGard) {
-        Map<String, T> collect = additionalMetrics
-            .stream()
-            .flatMap(typeGard)
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        return !collect.isEmpty() ? collect : null;
     }
 }
