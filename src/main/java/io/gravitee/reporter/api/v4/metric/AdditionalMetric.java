@@ -22,12 +22,25 @@ import io.gravitee.reporter.api.jackson.AdditionalMetricDeserialization;
 
 @JsonDeserialize(using = AdditionalMetricDeserialization.class)
 public sealed interface AdditionalMetric {
+    String VALUE_FIELD = "value";
+
     String name();
 
     record LongMetric(String name, Long value) implements AdditionalMetric {
         public LongMetric {
             if (!name.startsWith("long_")) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Key of long metrics must start with 'long_'.");
+            }
+            if (value == null) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
+            }
+        }
+    }
+
+    record IntegerMetric(String name, Integer value) implements AdditionalMetric {
+        public IntegerMetric {
+            if (!name.startsWith("int_")) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Key of integer metrics must start with 'int_'.");
             }
             if (value == null) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
@@ -68,13 +81,38 @@ public sealed interface AdditionalMetric {
         }
     }
 
+    record StringMetric(String name, String value) implements AdditionalMetric {
+        public StringMetric {
+            if (!name.startsWith("string_")) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Key of string metrics must start with 'string_'.");
+            }
+            if (value == null) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
+            }
+        }
+    }
+
+    record JSONMetric(String name, String value) implements AdditionalMetric {
+        public JSONMetric {
+            if (!name.startsWith("json_")) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Key of string metrics must start with 'json_'.");
+            }
+            if (value == null) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
+            }
+        }
+    }
+
     static AdditionalMetric deserialize(JsonNode json) throws JsonParseException {
         String name = json.get("name").asText();
         return switch (name.split("_")[0]) {
-            case "long" -> new AdditionalMetric.LongMetric(name, json.get("value").asLong());
-            case "bool" -> new AdditionalMetric.BooleanMetric(name, json.get("value").asBoolean());
-            case "double" -> new AdditionalMetric.DoubleMetric(name, json.get("value").asDouble());
-            case "keyword" -> new AdditionalMetric.KeywordMetric(name, json.get("value").asText());
+            case "long" -> new AdditionalMetric.LongMetric(name, json.get(VALUE_FIELD).asLong());
+            case "int" -> new AdditionalMetric.IntegerMetric(name, json.get(VALUE_FIELD).asInt());
+            case "bool" -> new AdditionalMetric.BooleanMetric(name, json.get(VALUE_FIELD).asBoolean());
+            case "double" -> new AdditionalMetric.DoubleMetric(name, json.get(VALUE_FIELD).asDouble());
+            case "keyword" -> new AdditionalMetric.KeywordMetric(name, json.get(VALUE_FIELD).asText());
+            case "string" -> new AdditionalMetric.StringMetric(name, json.get(VALUE_FIELD).asText());
+            case "json" -> new AdditionalMetric.JSONMetric(name, json.get(VALUE_FIELD).asText());
             default -> throw new JsonParseException("Impossible to deserialize metric: " + name);
         };
     }
