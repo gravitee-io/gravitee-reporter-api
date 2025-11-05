@@ -55,7 +55,9 @@ public class Metrics extends AbstractReportable {
     private String apiName;
     private String apiType;
     private String planId;
+    private String planName;
     private String applicationId;
+    private String applicationName;
     private String subscriptionId;
     private String clientIdentifier;
     /**
@@ -165,11 +167,13 @@ public class Metrics extends AbstractReportable {
         metricsV2.setApi(apiId);
         metricsV2.setApiName(apiName);
         metricsV2.setApplication(applicationId);
+        metricsV2.setApplicationName(applicationName);
         metricsV2.setTransactionId(transactionId);
         metricsV2.setClientIdentifier(clientIdentifier);
         metricsV2.setTenant(tenant);
         metricsV2.setMessage(errorMessage);
         metricsV2.setPlan(planId);
+        metricsV2.setPlanName(planName);
         metricsV2.setLocalAddress(localAddress);
         metricsV2.setRemoteAddress(remoteAddress);
         metricsV2.setHttpMethod(httpMethod);

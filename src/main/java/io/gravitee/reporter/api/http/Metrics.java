@@ -46,11 +46,13 @@ public class Metrics extends AbstractReportable {
     private String api;
     private String apiName;
     private String application;
+    private String applicationName;
     private String transactionId;
     private String clientIdentifier;
     private String tenant;
     private String message;
     private String plan;
+    private String planName;
     private String localAddress;
     private String remoteAddress;
     private HttpMethod httpMethod;
