@@ -21,6 +21,7 @@ import io.gravitee.reporter.api.v4.common.MessageOperation;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
@@ -82,6 +83,11 @@ public final class MessageMetrics extends AbstractReportable implements WithAddi
     private Map<String, String> customMetrics;
 
     @Builder.Default
-    @Setter(onParam_ = @NonNull)
     private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
+
+    @Override
+    public void setAdditionalMetrics(Collection<AdditionalMetric> additionalMetrics) {
+        Objects.requireNonNull(additionalMetrics, "Additional metrics must not be null");
+        this.additionalMetrics = additionalMetrics;
+    }
 }
