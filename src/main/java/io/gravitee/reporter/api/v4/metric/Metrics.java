@@ -98,8 +98,13 @@ public class Metrics extends AbstractReportable implements WithAdditional {
     private long gatewayLatencyMs = 0;
 
     @Builder.Default
-    @Setter(onParam_ = @NonNull)
     private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
+
+    @Override
+    public void setAdditionalMetrics(Collection<AdditionalMetric> additionalMetrics) {
+        Objects.requireNonNull(additionalMetrics, "Additional metrics must not be null");
+        this.additionalMetrics = additionalMetrics;
+    }
 
     /**
      * Security metrics
