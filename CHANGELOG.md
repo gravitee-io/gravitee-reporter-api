@@ -1,3 +1,10 @@
+## [1.36.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.1...1.36.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* remove problematic usage of lombok ([0ce97be](https://github.com/gravitee-io/gravitee-reporter-api/commit/0ce97be1e182413fdf80f0c012a0bed81f60ee62))
+
 ## [1.36.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.0...1.36.1) (2025-11-17)
 
 
