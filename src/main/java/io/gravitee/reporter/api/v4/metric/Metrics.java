@@ -33,7 +33,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Metrics extends AbstractReportable implements WithAdditional {
+public class Metrics extends AbstractReportable implements WithAdditional<Metrics> {
 
     @Builder.Default
     private boolean enabled = true;
