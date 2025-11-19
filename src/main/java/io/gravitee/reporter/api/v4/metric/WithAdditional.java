@@ -26,14 +26,15 @@ import org.jspecify.annotations.Nullable;
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */
-public interface WithAdditional {
+public interface WithAdditional<T extends WithAdditional<T>> {
     /**
      * Add a new additional metric of type {@link AdditionalMetric.LongMetric}.
      * @param key   the metric key must start with 'long_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalMetric(String key, Long value) {
-        addAdditionalMetric(new AdditionalMetric.LongMetric(key, value));
+    default T putAdditionalMetric(String key, Long value) {
+        return addAdditionalMetric(new AdditionalMetric.LongMetric(key, value));
     }
 
     /**
@@ -52,9 +53,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'double_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalMetric(String key, Double value) {
-        addAdditionalMetric(new AdditionalMetric.DoubleMetric(key, value));
+    default T putAdditionalMetric(String key, Double value) {
+        return addAdditionalMetric(new AdditionalMetric.DoubleMetric(key, value));
     }
 
     /**
@@ -73,9 +75,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'keyword_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalKeywordMetric(String key, String value) {
-        addAdditionalMetric(new AdditionalMetric.KeywordMetric(key, value));
+    default T putAdditionalKeywordMetric(String key, String value) {
+        return addAdditionalMetric(new AdditionalMetric.KeywordMetric(key, value));
     }
 
     /**
@@ -94,9 +97,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'json_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalJSONMetric(String key, String value) {
-        addAdditionalMetric(new AdditionalMetric.JSONMetric(key, value));
+    default T putAdditionalJSONMetric(String key, String value) {
+        return addAdditionalMetric(new AdditionalMetric.JSONMetric(key, value));
     }
 
     /**
@@ -115,9 +119,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'bool_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalMetric(String key, Boolean value) {
-        addAdditionalMetric(new AdditionalMetric.BooleanMetric(key, value));
+    default T putAdditionalMetric(String key, Boolean value) {
+        return addAdditionalMetric(new AdditionalMetric.BooleanMetric(key, value));
     }
 
     /**
@@ -136,9 +141,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'int_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalMetric(String key, Integer value) {
-        addAdditionalMetric(new AdditionalMetric.IntegerMetric(key, value));
+    default T putAdditionalMetric(String key, Integer value) {
+        return addAdditionalMetric(new AdditionalMetric.IntegerMetric(key, value));
     }
 
     /**
@@ -157,9 +163,10 @@ public interface WithAdditional {
     /**
      * @param key   the metric key must start with 'string_'
      * @param value the metric value
+     * @return the current instance
      */
-    default void putAdditionalMetric(String key, String value) {
-        addAdditionalMetric(new AdditionalMetric.StringMetric(key, value));
+    default T putAdditionalMetric(String key, String value) {
+        return addAdditionalMetric(new AdditionalMetric.StringMetric(key, value));
     }
 
     /**
@@ -181,9 +188,10 @@ public interface WithAdditional {
      * @param metric the additional metric to be added; must be an implementation of {@link AdditionalMetric}
      *               and correctly follow the naming conventions defined for its type.
      */
-    private void addAdditionalMetric(AdditionalMetric metric) {
+    private T addAdditionalMetric(AdditionalMetric metric) {
         getAdditionalMetrics().removeIf(m -> m.name().equals(metric.name()));
         getAdditionalMetrics().add(metric);
+        return (T) this;
     }
 
     /**

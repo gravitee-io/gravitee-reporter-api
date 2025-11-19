@@ -36,7 +36,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @NoArgsConstructor
 @ToString(callSuper = true)
-public final class MessageMetrics extends AbstractReportable implements WithAdditional {
+public final class MessageMetrics extends AbstractReportable implements WithAdditional<MessageMetrics> {
 
     /**
      * Identifiers
