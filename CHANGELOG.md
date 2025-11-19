@@ -1,3 +1,10 @@
+## [1.36.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.2...1.36.3) (2025-11-19)
+
+
+### Bug Fixes
+
+* keep the fluent API for compatibility ([755260a](https://github.com/gravitee-io/gravitee-reporter-api/commit/755260ab57aa46cff086bc6247b28d7422d9a652))
+
 ## [1.36.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.1...1.36.2) (2025-11-17)
 
 
