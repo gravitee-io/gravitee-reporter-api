@@ -15,29 +15,22 @@
  */
 package io.gravitee.reporter.api.v4.metric;
 
-import io.gravitee.reporter.api.AbstractReportable;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import io.gravitee.reporter.api.v4.metric.event.BaseEventMetrics;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
-import org.jspecify.annotations.Nullable;
+import lombok.experimental.SuperBuilder;
 
-@Slf4j
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
+@SuperBuilder
 @ToString(callSuper = true)
-public class EventMetrics extends AbstractReportable {
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+public class EventMetrics extends BaseEventMetrics {
 
-    /**
-     * Base dimensions
-     */
-    private String gatewayId;
-    private String organizationId;
-    private String environmentId;
-    private String apiId;
-    private String planId;
-    private String applicationId;
+    private static final String DOCUMENT_TYPE = "event-metrics";
+
     private String topic;
 
     /**
@@ -60,26 +53,13 @@ public class EventMetrics extends AbstractReportable {
     private Number downstreamAuthorizationSuccessesTotal;
     private Number upstreamAuthorizationSuccessesTotal;
 
-    public EventMetrics() {}
+    @Override
+    public String getDocumentType() {
+        return DOCUMENT_TYPE;
+    }
 
-    /**
-     * Constructor with all identifiers.
-     */
-    public EventMetrics(
-        @NonNull String gatewayId,
-        @NonNull String organizationId,
-        @NonNull String environmentId,
-        @NonNull String apiId,
-        @Nullable String planId,
-        @Nullable String applicationId,
-        @Nullable String topic
-    ) {
-        this.gatewayId = gatewayId;
-        this.organizationId = organizationId;
-        this.environmentId = environmentId;
-        this.apiId = apiId;
-        this.planId = planId;
-        this.applicationId = applicationId;
-        this.topic = topic;
+    @Override
+    public String dimensionsKey() {
+        return String.format("%s:%s", super.dimensionsKey(), getTopic());
     }
 }
