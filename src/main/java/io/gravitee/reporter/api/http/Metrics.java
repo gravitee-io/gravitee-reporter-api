@@ -48,6 +48,8 @@ public class Metrics extends AbstractReportable {
     private String application;
     private String transactionId;
     private String clientIdentifier;
+    private String organizationId;
+    private String environmentId;
     private String tenant;
     private String message;
     private String plan;
@@ -73,6 +75,8 @@ public class Metrics extends AbstractReportable {
     private Map<String, String> customMetrics = new HashMap<>();
     private Diagnostic failure;
     private Collection<Diagnostic> warnings = null;
+    private Long quotaCounter;
+    private Long quotaLimit;
 
     protected Metrics(long timestamp) {
         super(timestamp);

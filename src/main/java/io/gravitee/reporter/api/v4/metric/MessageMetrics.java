@@ -47,6 +47,8 @@ public final class MessageMetrics extends AbstractReportable implements WithAddi
     private String clientIdentifier;
     private String correlationId;
     private String parentCorrelationId;
+    private String organizationId;
+    private String environmentId;
 
     /**
      * Metrics
@@ -81,6 +83,12 @@ public final class MessageMetrics extends AbstractReportable implements WithAddi
      * Custom metrics
      */
     private Map<String, String> customMetrics;
+
+    /**
+     * Quota metrics
+     */
+    private Long quotaCounter;
+    private Long quotaLimit;
 
     @Builder.Default
     private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
