@@ -29,7 +29,7 @@
 
     <groupId>io.gravitee.reporter</groupId>
     <artifactId>gravitee-reporter-api</artifactId>
-    <version>1.36.3</version>
+    <version>1.37.0</version>
 
     <name>Gravitee.io APIM - Reporter - API</name>
 

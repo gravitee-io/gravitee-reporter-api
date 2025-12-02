@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.3...1.37.0) (2025-12-02)
+
+
+### Features
+
+* add operation metrics ([007bf58](https://github.com/gravitee-io/gravitee-reporter-api/commit/007bf587dc6166c6533a3645acd3e4d69ec9e55e))
+
 ## [1.36.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.2...1.36.3) (2025-11-19)
 
 
