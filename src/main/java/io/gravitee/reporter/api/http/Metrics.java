@@ -18,11 +18,11 @@ package io.gravitee.reporter.api.http;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.log.Log;
+import io.gravitee.reporter.api.v4.metric.AdditionalMetric;
 import io.gravitee.reporter.api.v4.metric.Diagnostic;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import io.gravitee.reporter.api.v4.metric.WithAdditional;
+import java.util.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -37,7 +37,7 @@ import lombok.extern.jackson.Jacksonized;
 @Setter
 @Jacksonized
 @SuperBuilder
-public class Metrics extends AbstractReportable {
+public class Metrics extends AbstractReportable implements WithAdditional<Metrics> {
 
     private long proxyResponseTimeMs = 0;
     private long proxyLatencyMs = 0;
@@ -72,7 +72,13 @@ public class Metrics extends AbstractReportable {
     private String errorKey;
     private String subscription;
     private String zone;
+
+    @Builder.Default
     private Map<String, String> customMetrics = new HashMap<>();
+
+    @Builder.Default
+    private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
+
     private Diagnostic failure;
     private Collection<Diagnostic> warnings = null;
 
@@ -80,24 +86,16 @@ public class Metrics extends AbstractReportable {
         super(timestamp);
     }
 
-    public static Builder on(long timestamp) {
-        return new Builder(timestamp);
+    public static MetricsBuilder on(long timestamp) {
+        return Metrics.builder().timestamp(timestamp);
+    }
+
+    public void setAdditionalMetrics(Collection<AdditionalMetric> additionalMetrics) {
+        Objects.requireNonNull(additionalMetrics, "Additional metrics must not be null");
+        this.additionalMetrics = additionalMetrics;
     }
 
     public void addCustomMetric(String key, String value) {
         this.customMetrics.put(key, value);
-    }
-
-    public static class Builder {
-
-        private final long timestamp;
-
-        private Builder(long timestamp) {
-            this.timestamp = timestamp;
-        }
-
-        public Metrics build() {
-            return new Metrics(timestamp);
-        }
     }
 }
