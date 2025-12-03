@@ -47,6 +47,8 @@ public final class MessageMetrics extends AbstractReportable implements WithAddi
     private String clientIdentifier;
     private String correlationId;
     private String parentCorrelationId;
+    private String organizationId;
+    private String environmentId;
 
     /**
      * Metrics
