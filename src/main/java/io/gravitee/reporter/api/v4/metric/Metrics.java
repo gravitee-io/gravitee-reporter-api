@@ -50,6 +50,8 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private String applicationId;
     private String subscriptionId;
     private String clientIdentifier;
+    private String organizationId;
+    private String environmentId;
     /**
      * Tenant
      */
@@ -201,6 +203,8 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
         metricsV2.setCustomMetrics(customMetrics);
         metricsV2.setFailure(failure);
         metricsV2.setWarnings(warnings);
+        metricsV2.setOrganizationId(organizationId);
+        metricsV2.setEnvironmentId(environmentId);
         return metricsV2;
     }
 }
