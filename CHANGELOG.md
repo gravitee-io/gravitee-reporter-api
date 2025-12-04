@@ -1,3 +1,11 @@
+# [1.38.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.37.0...1.38.0) (2025-12-04)
+
+
+### Features
+
+* add additonal metrics to v2 ([3239a91](https://github.com/gravitee-io/gravitee-reporter-api/commit/3239a91260c3a778537f7debc2822b0858446d6a))
+* add environmentId and organizationId to metrics ([524a1f5](https://github.com/gravitee-io/gravitee-reporter-api/commit/524a1f5b9da03f1753cbb15556c035492865b208))
+
 # [1.37.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.36.3...1.37.0) (2025-12-02)
 
 
