@@ -1,3 +1,10 @@
+## [1.38.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.0...1.38.1) (2025-12-04)
+
+
+### Bug Fixes
+
+* **metrics:** revert to custom builder for Javadoc compatibility ([4085fdd](https://github.com/gravitee-io/gravitee-reporter-api/commit/4085fdd5e9929174a36a6ba1dde918cc78857e99))
+
 # [1.38.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.37.0...1.38.0) (2025-12-04)
 
 
