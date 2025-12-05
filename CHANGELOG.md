@@ -1,3 +1,10 @@
+## [1.38.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.1...1.38.2) (2025-12-05)
+
+
+### Bug Fixes
+
+* set additionalMetrics to v2 ([68f2f75](https://github.com/gravitee-io/gravitee-reporter-api/commit/68f2f75c915cf6bb25c296182cadec482b2e269d))
+
 ## [1.38.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.0...1.38.1) (2025-12-04)
 
 
