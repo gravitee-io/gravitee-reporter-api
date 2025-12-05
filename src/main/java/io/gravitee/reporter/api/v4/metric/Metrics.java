@@ -205,6 +205,7 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
         metricsV2.setWarnings(warnings);
         metricsV2.setOrganizationId(organizationId);
         metricsV2.setEnvironmentId(environmentId);
+        metricsV2.setAdditionalMetrics(additionalMetrics);
         return metricsV2;
     }
 }
