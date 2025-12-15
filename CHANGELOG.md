@@ -1,3 +1,10 @@
+## [1.38.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.2...1.38.3) (2025-12-15)
+
+
+### Bug Fixes
+
+* use official release of gateway-api ([c27a21a](https://github.com/gravitee-io/gravitee-reporter-api/commit/c27a21a5f694ee7779043d46d6daed7a105c493c))
+
 ## [1.38.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.1...1.38.2) (2025-12-05)
 
 
