@@ -13,29 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.v4.metric;
+package io.gravitee.reporter.api.v4.metric.event;
 
-import io.gravitee.reporter.api.v4.metric.event.BaseEventMetrics;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * @author GraviteeSource Team
+ */
 @EqualsAndHashCode(callSuper = true)
-@Data
 @SuperBuilder
+@Data
 @ToString(callSuper = true)
-@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class EventMetrics extends BaseEventMetrics {
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED, force = true)
+public class TopicEventMetrics extends BaseEventMetrics {
 
-    private static final String DOCUMENT_TYPE = "event-metrics";
+    private static final String DOCUMENT_TYPE = "topic";
 
+    @NonNull
     private String topic;
 
-    /**
-     * Metrics
-     */
     private Number downstreamPublishMessagesCountIncrement;
     private Number downstreamPublishMessageBytesIncrement;
     private Number upstreamPublishMessagesCountIncrement;
@@ -44,14 +45,6 @@ public class EventMetrics extends BaseEventMetrics {
     private Number downstreamSubscribeMessageBytesIncrement;
     private Number upstreamSubscribeMessagesCountIncrement;
     private Number upstreamSubscribeMessageBytesIncrement;
-    private Number downstreamActiveConnections;
-    private Number upstreamActiveConnections;
-    private Number downstreamAuthenticatedConnections;
-    private Number upstreamAuthenticatedConnections;
-    private Number downstreamAuthenticationFailuresCountIncrement;
-    private Number upstreamAuthenticationFailuresCountIncrement;
-    private Number downstreamAuthenticationSuccessesCountIncrement;
-    private Number upstreamAuthenticationSuccessesCountIncrement;
 
     @Override
     public String getDocumentType() {
