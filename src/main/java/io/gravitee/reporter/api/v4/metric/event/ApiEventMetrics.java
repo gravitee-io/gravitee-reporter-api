@@ -18,12 +18,10 @@ package io.gravitee.reporter.api.v4.metric.event;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * @author Anthony CALLAERT (anthony.callaert at graviteesource.com)
  * @author GraviteeSource Team
  */
 @EqualsAndHashCode(callSuper = true)
@@ -31,28 +29,16 @@ import lombok.experimental.SuperBuilder;
 @Data
 @ToString(callSuper = true)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED, force = true)
-public class OperationEventMetrics extends BaseEventMetrics {
+public class ApiEventMetrics extends BaseEventMetrics {
 
-    private static final String DOCUMENT_TYPE = "operation";
+    private static final String DOCUMENT_TYPE = "api";
 
-    @NonNull
-    private final String operation;
-
-    private Long upstreamDurationsMillis;
-    private Long downstreamDurationsMillis;
-    private Long endpointDurationsMillis;
-    private Integer upstreamCountIncrement; // Number of upstream requests received between two reports
-    private Integer downstreamCountIncrement; // Number of downstream requests sent between two reports
-    private Integer endpointUpstreamCountIncrement; // Number of upstream requests sent to then endpoint(broker) between two reports
-    private Integer endpointDownstreamCountIncrement; // Number of downstream requests received from the endpoint(broker) between two reports
+    private Number downstreamActiveConnections;
+    private Number upstreamActiveConnections;
+    private Number downstreamAuthenticationFailuresCountIncrement;
 
     @Override
     public String getDocumentType() {
         return DOCUMENT_TYPE;
-    }
-
-    @Override
-    public String dimensionsKey() {
-        return String.format("%s:%s", super.dimensionsKey(), getOperation());
     }
 }

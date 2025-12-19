@@ -13,42 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.v4.metric;
+package io.gravitee.reporter.api.v4.metric.event;
 
-import io.gravitee.reporter.api.v4.metric.event.BaseEventMetrics;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * @author GraviteeSource Team
+ */
 @EqualsAndHashCode(callSuper = true)
-@Data
 @SuperBuilder
+@Data
 @ToString(callSuper = true)
-@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class EventMetrics extends BaseEventMetrics {
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED, force = true)
+public class ApplicationEventMetrics extends BaseEventMetrics {
 
-    private static final String DOCUMENT_TYPE = "event-metrics";
+    private static final String DOCUMENT_TYPE = "application";
 
-    private String topic;
-
-    /**
-     * Metrics
-     */
-    private Number downstreamPublishMessagesCountIncrement;
-    private Number downstreamPublishMessageBytesIncrement;
-    private Number upstreamPublishMessagesCountIncrement;
-    private Number upstreamPublishMessageBytesIncrement;
-    private Number downstreamSubscribeMessagesCountIncrement;
-    private Number downstreamSubscribeMessageBytesIncrement;
-    private Number upstreamSubscribeMessagesCountIncrement;
-    private Number upstreamSubscribeMessageBytesIncrement;
-    private Number downstreamActiveConnections;
-    private Number upstreamActiveConnections;
     private Number downstreamAuthenticatedConnections;
     private Number upstreamAuthenticatedConnections;
-    private Number downstreamAuthenticationFailuresCountIncrement;
     private Number upstreamAuthenticationFailuresCountIncrement;
     private Number downstreamAuthenticationSuccessesCountIncrement;
     private Number upstreamAuthenticationSuccessesCountIncrement;
@@ -56,10 +42,5 @@ public class EventMetrics extends BaseEventMetrics {
     @Override
     public String getDocumentType() {
         return DOCUMENT_TYPE;
-    }
-
-    @Override
-    public String dimensionsKey() {
-        return String.format("%s:%s", super.dimensionsKey(), getTopic());
     }
 }
