@@ -38,9 +38,9 @@ public class OperationEventMetrics extends BaseEventMetrics {
     @NonNull
     private final String operation;
 
-    private Long upstreamDurationsMillis;
-    private Long downstreamDurationsMillis;
-    private Long endpointDurationsMillis;
+    private Long upstreamDurationsNanos;
+    private Long downstreamDurationsNanos;
+    private Long endpointDurationsNanos;
     private Integer upstreamCountIncrement; // Number of upstream requests received between two reports
     private Integer downstreamCountIncrement; // Number of downstream requests sent between two reports
     private Integer endpointUpstreamCountIncrement; // Number of upstream requests sent to then endpoint(broker) between two reports
