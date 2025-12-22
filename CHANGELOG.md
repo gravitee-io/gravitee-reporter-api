@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.3...2.0.0) (2025-12-22)
+
+
+### Bug Fixes
+
+* change millis to nanos for operationEventMetrics duration ([635db0d](https://github.com/gravitee-io/gravitee-reporter-api/commit/635db0d3f3a61d7196054542d9b3010c43d1d439))
+
+
+### Code Refactoring
+
+* change kafka analytics to mesure increment between two reports ([ed5a393](https://github.com/gravitee-io/gravitee-reporter-api/commit/ed5a393af49e6ee163460d360fb341f5ac4bfe74))
+
+
+### BREAKING CHANGES
+
+* change kafka analytics to mesure increment between two reports
+
 ## [1.38.3](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.2...1.38.3) (2025-12-15)
 
 
