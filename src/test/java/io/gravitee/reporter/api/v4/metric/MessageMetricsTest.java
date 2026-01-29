@@ -17,6 +17,7 @@ package io.gravitee.reporter.api.v4.metric;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -73,5 +74,33 @@ class MessageMetricsTest {
         assertThat(underTest.boolAdditionalMetrics()).containsEntry("bool_name", true);
         assertThat(underTest.keywordAdditionalMetrics()).containsEntry("keyword_name", "bar");
         assertThat(underTest.jsonAdditionalMetrics()).containsEntry("json_name", "{\"hello\":\"world\"}");
+    }
+
+    @Test
+    void should_not_throw_error_in_case_of_setAdditionalMetrics_with_immutable_collection() {
+        // GIVEN
+        underTest = new MessageMetrics();
+
+        // WHEN
+        underTest.setAdditionalMetrics(List.of(new AdditionalMetric.LongMetric("long_name", 42L)));
+        var metrics = underTest.putAdditionalMetric("int_name", 12);
+
+        // THEN
+        assertThat(metrics.getAdditionalMetrics())
+            .containsOnly(new AdditionalMetric.LongMetric("long_name", 42L), new AdditionalMetric.IntegerMetric("int_name", 12));
+    }
+
+    @Test
+    void should_not_throw_error_in_case_of_setAdditionalMetrics_with_duplicate() {
+        // GIVEN
+        underTest = new MessageMetrics();
+
+        // WHEN
+        underTest.setAdditionalMetrics(
+            List.of(new AdditionalMetric.LongMetric("long_name", 42L), new AdditionalMetric.LongMetric("long_name", 42L))
+        );
+
+        // THEN
+        assertThat(underTest.getAdditionalMetrics()).containsOnly(new AdditionalMetric.LongMetric("long_name", 42L));
     }
 }

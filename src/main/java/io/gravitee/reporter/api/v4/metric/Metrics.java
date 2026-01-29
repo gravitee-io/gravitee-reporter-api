@@ -105,7 +105,8 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     @Override
     public void setAdditionalMetrics(Collection<AdditionalMetric> additionalMetrics) {
         Objects.requireNonNull(additionalMetrics, "Additional metrics must not be null");
-        this.additionalMetrics = additionalMetrics;
+        this.additionalMetrics = new HashSet<>(additionalMetrics.size());
+        this.additionalMetrics.addAll(additionalMetrics);
     }
 
     /**

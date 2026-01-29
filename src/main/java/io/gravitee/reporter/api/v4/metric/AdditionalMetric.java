@@ -35,6 +35,15 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
     }
 
     record IntegerMetric(String name, Integer value) implements AdditionalMetric {
@@ -45,6 +54,15 @@ public sealed interface AdditionalMetric {
             if (value == null) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
+        }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
         }
     }
 
@@ -57,6 +75,15 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
     }
 
     record BooleanMetric(String name, Boolean value) implements AdditionalMetric {
@@ -67,6 +94,15 @@ public sealed interface AdditionalMetric {
             if (value == null) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
+        }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
         }
     }
 
@@ -79,6 +115,15 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
     }
 
     record StringMetric(String name, String value) implements AdditionalMetric {
@@ -90,6 +135,15 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
     }
 
     record JSONMetric(String name, String value) implements AdditionalMetric {
@@ -100,6 +154,16 @@ public sealed interface AdditionalMetric {
             if (value == null) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
         }
     }
 
