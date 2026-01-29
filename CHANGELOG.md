@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.0.0...2.1.0) (2026-01-29)
+
+
+### Features
+
+* ensure metrics collection is mutable in Metris & MessageMetrics ([ba3ed3e](https://github.com/gravitee-io/gravitee-reporter-api/commit/ba3ed3e6911f594c9e87db8462beb151266c6351))
+
 # [2.0.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/1.38.3...2.0.0) (2025-12-22)
 
 
