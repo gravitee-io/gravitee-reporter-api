@@ -16,6 +16,7 @@
 package io.gravitee.reporter.api.v4.log;
 
 import io.gravitee.reporter.api.AbstractReportable;
+import io.gravitee.reporter.api.AbstractTraceable;
 import io.gravitee.reporter.api.v4.common.Message;
 import io.gravitee.reporter.api.v4.common.MessageConnectorType;
 import io.gravitee.reporter.api.v4.common.MessageOperation;

@@ -17,6 +17,7 @@ package io.gravitee.reporter.api.common;
 
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.gateway.api.http.HttpHeaders;
+import io.gravitee.reporter.api.AbstractTraceable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -28,7 +29,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Request {
+public class Request extends AbstractTraceable {
 
     private List<ReportAction<Request>> onReportActions;
 

@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.reporter.api.v4.common;
+package io.gravitee.reporter.api;
 
-import io.gravitee.gateway.api.http.HttpHeaders;
-import io.gravitee.reporter.api.AbstractTraceable;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author Guillaume LAMIRAND (guillaume.lamirand at graviteesource.com)
+ * @author Remi Baptiste (remi.baptiste at graviteesource.com)
  * @author GraviteeSource Team
  */
 @Getter
 @Setter
-public class Message extends AbstractTraceable {
+public abstract class AbstractTraceable implements Traceable {
 
-    private String id;
-    private HttpHeaders headers;
-    private String payload;
-    private Map<String, Object> metadata;
-    private boolean error;
+    private String spanId;
+    private String traceId;
 }
