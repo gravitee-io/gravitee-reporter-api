@@ -45,6 +45,7 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private String transactionId;
     private String apiId;
     private String apiName;
+    private String apiProductId;
     private String apiType;
     private String planId;
     private String applicationId;

@@ -43,6 +43,7 @@ class MetricsToV2MappingTest {
             .planId("plan-x")
             .applicationId("app-id")
             .subscriptionId("sub-1")
+            .apiProductId("product-1")
             .clientIdentifier("client-xyz")
             .organizationId("org-7")
             .environmentId("env-6")
@@ -109,6 +110,7 @@ class MetricsToV2MappingTest {
         assertThat(v2.getPlan()).isEqualTo("plan-x");
         assertThat(v2.getSubscription()).isEqualTo("sub-1");
         assertThat(v2.getClientIdentifier()).isEqualTo("client-xyz");
+        // apiProductId is v4-only — not forwarded to v2 (v2 APIs do not support API Products)
         assertThat(v2.getOrganizationId()).isEqualTo("org-7");
         assertThat(v2.getEnvironmentId()).isEqualTo("env-6");
 
