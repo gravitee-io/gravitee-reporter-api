@@ -34,6 +34,7 @@ public class Log extends AbstractReportable {
 
     private String apiId;
     private String apiName;
+    private String apiProductId;
 
     /**
      * Log identifier is equivalent to the request identifier
