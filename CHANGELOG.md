@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.1.0...2.2.0) (2026-04-13)
+
+
+### Features
+
+* add apiProductId to v4 Metrics and Log ([#130](https://github.com/gravitee-io/gravitee-reporter-api/issues/130)) ([fdb9cf5](https://github.com/gravitee-io/gravitee-reporter-api/commit/fdb9cf5be39880900eea62362d02bbeaf40c84c4))
+
 # [2.1.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.0.0...2.1.0) (2026-01-29)
 
 
