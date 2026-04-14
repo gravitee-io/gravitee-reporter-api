@@ -40,6 +40,10 @@ public class Request {
 
     private String body;
 
+    private String traceId;
+
+    private String spanId;
+
     public Request doOnReport(ReportAction<Request> action) {
         if (onReportActions == null) {
             onReportActions = new ArrayList<>();
