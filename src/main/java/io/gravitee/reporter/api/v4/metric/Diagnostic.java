@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Data
 @AllArgsConstructor
@@ -30,4 +32,36 @@ public class Diagnostic {
     private String message;
     private String componentType;
     private String componentName;
+
+    /**
+     * Builds a diagnostic from a throwable. The {@code key} is the root cause's fully qualified
+     * class name; the {@code message} is resolved via {@link #resolveErrorMessage(Throwable)}.
+     * Returns {@code null} when {@code error} is {@code null} — callers can skip reporting.
+     */
+    public static Diagnostic fromError(Throwable error, String componentType, String componentName) {
+        if (error == null) {
+            return null;
+        }
+        Throwable root = ExceptionUtils.getRootCause(error);
+        return new Diagnostic(root.getClass().getName(), resolveErrorMessage(error), componentType, componentName);
+    }
+
+    /**
+     * Resolves a non-null throwable to its most informative message. Priority: non-blank message
+     * of the root cause (last distinct node, cycle-safe via identity tracking in
+     * {@link ExceptionUtils}) → first non-blank message walking outer-to-inner → root's fully
+     * qualified class name.
+     */
+    private static String resolveErrorMessage(Throwable error) {
+        Throwable root = ExceptionUtils.getRootCause(error);
+        if (StringUtils.isNotBlank(root.getMessage())) {
+            return root.getMessage();
+        }
+        for (Throwable t : ExceptionUtils.getThrowableList(error)) {
+            if (StringUtils.isNotBlank(t.getMessage())) {
+                return t.getMessage();
+            }
+        }
+        return root.getClass().getName();
+    }
 }
