@@ -39,6 +39,10 @@ public class Response {
 
     private String body;
 
+    private String traceId;
+
+    private String spanId;
+
     public Response(final int status) {
         this.status = status;
     }

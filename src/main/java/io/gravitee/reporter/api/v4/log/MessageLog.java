@@ -46,4 +46,6 @@ public class MessageLog extends AbstractReportable {
     private MessageConnectorType connectorType;
     private String connectorId;
     private Message message;
+    private String traceId;
+    private String spanId;
 }
