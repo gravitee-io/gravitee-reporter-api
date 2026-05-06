@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.2.0...2.3.0) (2026-05-06)
+
+
+### Features
+
+* **APIM-13616:** add traceId and spanId fields to log model classes ([6414b5f](https://github.com/gravitee-io/gravitee-reporter-api/commit/6414b5f3bfcfa86976048f2e4822b5d079789534))
+
 # [2.2.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.1.0...2.2.0) (2026-04-13)
 
 
