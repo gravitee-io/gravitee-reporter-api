@@ -40,6 +40,8 @@ public class MessageLog extends AbstractReportable {
     private String apiName;
     private String requestId;
     private String clientIdentifier;
+    private String organizationId;
+    private String environmentId;
     private String correlationId;
     private String parentCorrelationId;
     private MessageOperation operation;

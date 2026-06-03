@@ -41,6 +41,8 @@ public class Log extends AbstractReportable {
      */
     private String requestId;
     private String clientIdentifier;
+    private String organizationId;
+    private String environmentId;
     private boolean requestEnded;
     private Request entrypointRequest;
     private Request endpointRequest;
