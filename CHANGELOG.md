@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.3.0...2.4.0) (2026-06-04)
+
+
+### Features
+
+* **log:** add organizationId and environmentId to v4 Log and MessageLog ([e85631d](https://github.com/gravitee-io/gravitee-reporter-api/commit/e85631d77d00487493576ffcd6a16e0dc5942385))
+
 # [2.3.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.2.0...2.3.0) (2026-05-06)
 
 
