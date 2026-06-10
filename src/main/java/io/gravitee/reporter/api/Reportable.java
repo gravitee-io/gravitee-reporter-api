@@ -15,7 +15,9 @@
  */
 package io.gravitee.reporter.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Instant;
+import java.util.Set;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -23,4 +25,18 @@ import java.time.Instant;
  */
 public interface Reportable {
     Instant timestamp();
+
+    /**
+     * Returns the set of {@link ReportTarget}s this reportable is intended for.
+     * The dispatch layer uses this to route the reportable only to reporters
+     * whose {@link Reporter#supportedTargets()} intersect with this set.
+     *
+     * <p>Defaults to {@link ReportTarget#DEFAULT} ({@code ANALYTICS}) — the historical
+     * behavior before the OTel reporter was introduced. Only reportables that explicitly
+     * opt in to {@code TRACING} are dispatched to tracing reporters.
+     */
+    @JsonIgnore
+    default Set<ReportTarget> getTargets() {
+        return ReportTarget.DEFAULT;
+    }
 }
