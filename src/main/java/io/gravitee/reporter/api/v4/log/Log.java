@@ -15,9 +15,12 @@
  */
 package io.gravitee.reporter.api.v4.log;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.gravitee.reporter.api.AbstractReportable;
+import io.gravitee.reporter.api.ReportTarget;
 import io.gravitee.reporter.api.common.Request;
 import io.gravitee.reporter.api.common.Response;
+import java.util.Set;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
@@ -31,6 +34,15 @@ import lombok.extern.jackson.Jacksonized;
 @SuperBuilder
 @Jacksonized
 public class Log extends AbstractReportable {
+
+    @JsonIgnore
+    @Builder.Default
+    private Set<ReportTarget> targets = ReportTarget.DEFAULT;
+
+    @Override
+    public Set<ReportTarget> getTargets() {
+        return targets != null ? targets : ReportTarget.DEFAULT;
+    }
 
     private String apiId;
     private String apiName;
