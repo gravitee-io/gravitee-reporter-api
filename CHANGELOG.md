@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.4.0...2.5.0) (2026-06-16)
+
+
+### Features
+
+* add ReportTarget routing for reporter dispatch ([b0d7559](https://github.com/gravitee-io/gravitee-reporter-api/commit/b0d7559583c8467e5a1b063490e08fee11ab644f))
+
 # [2.4.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.3.0...2.4.0) (2026-06-04)
 
 
