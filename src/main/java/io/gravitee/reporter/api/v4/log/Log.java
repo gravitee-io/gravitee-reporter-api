@@ -55,6 +55,12 @@ public class Log extends AbstractReportable {
     private String clientIdentifier;
     private String organizationId;
     private String environmentId;
+    private String applicationId;
+    private String applicationName;
+    private String planId;
+    private String subscriptionId;
+    private String errorKey;
+    private String errorMessage;
     private boolean requestEnded;
     private Request entrypointRequest;
     private Request endpointRequest;
