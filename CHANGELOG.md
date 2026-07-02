@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.5.0...2.6.0) (2026-07-02)
+
+
+### Features
+
+* add applicationName to Metrics and error/subscription fields to Log ([543d88c](https://github.com/gravitee-io/gravitee-reporter-api/commit/543d88c7fa1161e227af5d7d7716a93a7671e0f5))
+
 # [2.5.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.4.0...2.5.0) (2026-06-16)
 
 
