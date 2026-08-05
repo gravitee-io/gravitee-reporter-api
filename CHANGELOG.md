@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.6.0...2.7.0) (2026-08-05)
+
+
+### Features
+
+* **metrics:** add AuthzEventMetrics event type ([91010e9](https://github.com/gravitee-io/gravitee-reporter-api/commit/91010e92dbc5b418c1b0dea9a7ce5e459f6e55e0))
+
 # [2.6.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.5.0...2.6.0) (2026-07-02)
 
 
