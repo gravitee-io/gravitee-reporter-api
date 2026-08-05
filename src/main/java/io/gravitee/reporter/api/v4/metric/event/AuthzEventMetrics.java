@@ -49,7 +49,7 @@ public class AuthzEventMetrics extends BaseEventMetrics {
     public static final String EFFECT_FORBID = "FORBID";
 
     public static final String CALLER_PEP = "pep";
-    public static final String CALLER_REACTOR = "reactor";
+    public static final String CALLER_GATEWAY = "gateway";
     public static final String CALLER_AUTHZEN = "authzen";
     public static final String CALLER_UNKNOWN = "unknown";
 
