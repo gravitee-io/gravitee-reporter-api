@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.7.0...2.7.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* **metrics:** name the gateway caller 'gateway' rather than 'reactor' ([cc3ceda](https://github.com/gravitee-io/gravitee-reporter-api/commit/cc3cedaac9da46e6c0c31635507e96d15f1b8457))
+
 # [2.7.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.6.0...2.7.0) (2026-08-05)
 
 
