@@ -15,6 +15,7 @@
  */
 package io.gravitee.reporter.api.v4.metric;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.AbstractReportable;
 import io.gravitee.reporter.api.http.SecurityType;
@@ -84,8 +85,55 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
      */
     private String endpoint;
 
+    /**
+     * Time elapsed until the endpoint response has been fully received, last byte of the body included, in
+     * milliseconds. Counterpart of nginx's {@code $upstream_response_time}.
+     * <p>
+     * Connectors that do not stream a response body leave it equal to {@link #endpointResponseTtfbMs}.
+     */
     @Builder.Default
     private long endpointResponseTimeMs = 0;
+
+    /**
+     * Time elapsed until the first byte of the endpoint response, i.e. up to its headers, in milliseconds.
+     * Counterpart of nginx's {@code $upstream_header_time}. {@code -1} when the endpoint was never invoked.
+     */
+    @Builder.Default
+    private long endpointResponseTtfbMs = -1;
+
+    /**
+     * Time spent acquiring a connection to the endpoint, in milliseconds. Counterpart of nginx's
+     * {@code $upstream_connect_time}: it tells a wait on a saturated connection pool apart from a slow backend,
+     * both of which are otherwise indistinguishable inside {@link #endpointResponseTtfbMs}. {@code -1} when no
+     * connection was acquired.
+     */
+    @Builder.Default
+    private long endpointConnectTimeMs = -1;
+
+    /**
+     * The three durations above, in nanoseconds. The gateway adds a fraction of a millisecond to a couple of
+     * milliseconds to a request, so the millisecond is too coarse to measure its own overhead; nanoseconds also come
+     * from a monotonic clock, which is the correct primitive for a duration.
+     * <p>
+     * They are the measured values: the millisecond counterparts are derived from them (see {@link #toMillis(long)}),
+     * so both sets always agree. {@code -1} when nothing was measured.
+     */
+    @Builder.Default
+    private long endpointResponseTimeNs = -1;
+
+    @Builder.Default
+    private long endpointResponseTtfbNs = -1;
+
+    @Builder.Default
+    private long endpointConnectTimeNs = -1;
+
+    /**
+     * Monotonic start of the endpoint invocation, the common origin the endpoint durations are derived from. Internal
+     * bookkeeping: it is never reported and is meaningless once the request has been processed.
+     */
+    @JsonIgnore
+    @Builder.Default
+    private long endpointRequestStartNs = -1;
 
     /**
      * Response metrics
@@ -100,6 +148,25 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
 
     @Builder.Default
     private long gatewayLatencyMs = 0;
+
+    /**
+     * The two durations above, in nanoseconds — measured values, the milliseconds being derived from them.
+     * {@code -1} when nothing was measured.
+     */
+    @Builder.Default
+    private long gatewayResponseTimeNs = -1;
+
+    @Builder.Default
+    private long gatewayLatencyNs = -1;
+
+    /**
+     * Monotonic start of the request, the origin {@link #gatewayResponseTimeNs} is derived from. Internal bookkeeping:
+     * never reported. {@link #getTimestamp()} stays a wall clock — it is what the request is indexed on — and cannot
+     * serve here, an adjustable clock being unfit to measure a duration.
+     */
+    @JsonIgnore
+    @Builder.Default
+    private long requestStartNs = -1;
 
     @Builder.Default
     private Collection<AdditionalMetric> additionalMetrics = new HashSet<>();
@@ -142,6 +209,48 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
      * Log
      */
     private Log log;
+
+    /**
+     * The nanosecond durations are the measured ones; setting any of them derives its millisecond counterpart, so the
+     * two sets cannot drift apart. The millisecond setters remain writable on their own for callers that only have
+     * milliseconds to offer (the v2 policy adapter, mainly).
+     */
+    public void setEndpointResponseTimeNs(final long endpointResponseTimeNs) {
+        this.endpointResponseTimeNs = endpointResponseTimeNs;
+        this.endpointResponseTimeMs = toMillis(endpointResponseTimeNs);
+    }
+
+    public void setEndpointResponseTtfbNs(final long endpointResponseTtfbNs) {
+        this.endpointResponseTtfbNs = endpointResponseTtfbNs;
+        this.endpointResponseTtfbMs = toMillis(endpointResponseTtfbNs);
+    }
+
+    public void setEndpointConnectTimeNs(final long endpointConnectTimeNs) {
+        this.endpointConnectTimeNs = endpointConnectTimeNs;
+        this.endpointConnectTimeMs = toMillis(endpointConnectTimeNs);
+    }
+
+    public void setGatewayResponseTimeNs(final long gatewayResponseTimeNs) {
+        this.gatewayResponseTimeNs = gatewayResponseTimeNs;
+        this.gatewayResponseTimeMs = toMillis(gatewayResponseTimeNs);
+    }
+
+    public void setGatewayLatencyNs(final long gatewayLatencyNs) {
+        this.gatewayLatencyNs = gatewayLatencyNs;
+        this.gatewayLatencyMs = toMillis(gatewayLatencyNs);
+    }
+
+    /**
+     * Rounds a duration to the nearest millisecond, rather than truncating it.
+     * <p>
+     * A difference of two {@code currentTimeMillis()} readings — how these durations used to be obtained — counts the
+     * millisecond boundaries crossed, so a 0.75 ms duration reads 1 ms three times out of four and averages out to the
+     * real duration. Truncating would instead bias every value down by half a millisecond, which is enough to report a
+     * sub-millisecond gateway latency as a flat zero. Negative values mean "not measured" and are left alone.
+     */
+    private static long toMillis(final long nanos) {
+        return nanos < 0 ? nanos : (nanos + 500_000L) / 1_000_000L;
+    }
 
     public void addCustomMetric(String key, String value) {
         if (this.customMetrics == null) {
