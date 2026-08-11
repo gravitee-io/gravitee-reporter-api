@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.7.1...2.8.0) (2026-08-11)
+
+
+### Features
+
+* **metrics:** add endpoint ttfb, connect time and nanosecond durations ([e57efcc](https://github.com/gravitee-io/gravitee-reporter-api/commit/e57efccef3a3a49864858135c80ccd1112607d47))
+
 ## [2.7.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.7.0...2.7.1) (2026-08-06)
 
 
