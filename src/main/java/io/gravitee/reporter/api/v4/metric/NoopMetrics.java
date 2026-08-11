@@ -95,6 +95,27 @@ public class NoopMetrics extends Metrics {
     public void setEndpointResponseTimeMs(final long endpointResponseTimeMs) {}
 
     @Override
+    public void setEndpointResponseTtfbMs(final long endpointResponseTtfbMs) {}
+
+    @Override
+    public void setEndpointConnectTimeMs(final long endpointConnectTimeMs) {}
+
+    @Override
+    public void setEndpointResponseTimeNs(final long endpointResponseTimeNs) {}
+
+    @Override
+    public void setEndpointResponseTtfbNs(final long endpointResponseTtfbNs) {}
+
+    @Override
+    public void setEndpointConnectTimeNs(final long endpointConnectTimeNs) {}
+
+    @Override
+    public void setEndpointRequestStartNs(final long endpointRequestStartNs) {}
+
+    @Override
+    public void setRequestStartNs(final long requestStartNs) {}
+
+    @Override
     public void setStatus(final int status) {}
 
     @Override
@@ -105,6 +126,12 @@ public class NoopMetrics extends Metrics {
 
     @Override
     public void setGatewayLatencyMs(final long gatewayLatencyMs) {}
+
+    @Override
+    public void setGatewayResponseTimeNs(final long gatewayResponseTimeNs) {}
+
+    @Override
+    public void setGatewayLatencyNs(final long gatewayLatencyNs) {}
 
     @Override
     public void setUser(final String user) {}
