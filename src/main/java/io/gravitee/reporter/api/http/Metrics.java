@@ -42,6 +42,8 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private long proxyLatencyMs = 0;
     private long apiResponseTimeMs = 0;
     private String requestId;
+    private String traceId;
+    private String spanId;
     private String api;
     private String apiName;
     private String application;

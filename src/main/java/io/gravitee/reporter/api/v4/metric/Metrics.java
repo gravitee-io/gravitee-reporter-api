@@ -55,6 +55,8 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private String clientIdentifier;
     private String organizationId;
     private String environmentId;
+    private String traceId;
+    private String spanId;
     /**
      * Tenant
      */
