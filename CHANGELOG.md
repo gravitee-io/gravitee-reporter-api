@@ -1,3 +1,11 @@
+# [2.9.0-beta.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.8.0...2.9.0-beta.1) (2026-09-07)
+
+
+### Features
+
+* add support for traceId and spanId in Metrics objects ([52c4e7d](https://github.com/gravitee-io/gravitee-reporter-api/commit/52c4e7d6b4f776e9ee118cff81ac60d739ffdaf5))
+* **metrics:** record decisions from any point that says yes or no ([1849d16](https://github.com/gravitee-io/gravitee-reporter-api/commit/1849d161299e8600410316007e1ccd7341647457))
+
 # [2.8.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.7.1...2.8.0) (2026-08-11)
 
 
