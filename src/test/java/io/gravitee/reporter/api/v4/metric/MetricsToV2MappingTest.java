@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
@@ -83,6 +84,7 @@ class MetricsToV2MappingTest {
 
         // additional metrics
         v4.putAdditionalKeywordMetric("keyword_b", "keyword");
+        v4.putAdditionalKeywordListMetric("keyword_n", List.of("keyword", "list"));
         v4.putAdditionalJSONMetric("json_c", "{\"hello\":\"world\"}");
         v4.putAdditionalMetric("int_d", 123);
         v4.putAdditionalMetric("double_e", 456.789);
@@ -153,7 +155,7 @@ class MetricsToV2MappingTest {
         assertThat(v2.getCustomMetrics()).containsEntry("k1", "v1");
 
         // Additional metrics
-        assertThat(v2.getAdditionalMetrics()).hasSize(8);
+        assertThat(v2.getAdditionalMetrics()).hasSize(9);
 
         // Log
         assertThat(v2.getLog()).isNotNull();

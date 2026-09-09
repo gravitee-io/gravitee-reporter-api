@@ -22,6 +22,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gravitee.reporter.api.v4.metric.AdditionalMetric;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -38,6 +40,7 @@ class AdditionalMetricDeserializationTest {
             new AdditionalMetric.LongMetric("long_value", 12L),
             new AdditionalMetric.BooleanMetric("bool_value", true),
             new AdditionalMetric.KeywordMetric("keyword_value", "foo"),
+            new AdditionalMetric.KeywordListMetric("keyword_values", List.of("foo", "bar")),
             new AdditionalMetric.DoubleMetric("double_value", 3.14),
             new AdditionalMetric.IntegerMetric("int_value", 42),
             new AdditionalMetric.StringMetric("string_value", "bar"),
@@ -51,6 +54,7 @@ class AdditionalMetricDeserializationTest {
                 new AdditionalMetric.LongMetric("long_value", 12L),
                 new AdditionalMetric.BooleanMetric("bool_value", true),
                 new AdditionalMetric.KeywordMetric("keyword_value", "foo"),
+                new AdditionalMetric.KeywordListMetric("keyword_values", List.of("foo", "bar")),
                 new AdditionalMetric.DoubleMetric("double_value", 3.14),
                 new AdditionalMetric.IntegerMetric("int_value", 42),
                 new AdditionalMetric.StringMetric("string_value", "bar"),
@@ -78,6 +82,7 @@ class AdditionalMetricDeserializationTest {
         assertThatCode(() -> new AdditionalMetric.LongMetric("foo", 12L)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.BooleanMetric("foo", true)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.KeywordMetric("foo", "foo")).isInstanceOf(IllegalArgumentException.class);
+        assertThatCode(() -> new AdditionalMetric.KeywordListMetric("foo", List.of("foo"))).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.DoubleMetric("foo", 3.14)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.IntegerMetric("foo", 42)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.StringMetric("foo", "bar")).isInstanceOf(IllegalArgumentException.class);
@@ -89,9 +94,68 @@ class AdditionalMetricDeserializationTest {
         assertThatCode(() -> new AdditionalMetric.LongMetric("long_value", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.BooleanMetric("bool_value", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.KeywordMetric("keyword_value", null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatCode(() -> new AdditionalMetric.KeywordListMetric("keyword_values", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.DoubleMetric("double_value", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.IntegerMetric("int_value", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.StringMetric("string_value", null)).isInstanceOf(IllegalArgumentException.class);
         assertThatCode(() -> new AdditionalMetric.JSONMetric("json_value", null)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void should_deserialize_a_keyword_metric_as_a_list_when_its_value_is_an_array() throws JsonProcessingException {
+        var input =
+            """
+            [
+              { "name": "keyword_value", "value": "foo" },
+              { "name": "keyword_empty-values", "value": [] },
+              { "name": "keyword_values", "value": ["foo", "bar"] }
+            ]
+            """;
+
+        var result = objectMapper.readValue(input, new TypeReference<List<AdditionalMetric>>() {});
+
+        assertThat(result).extracting(AdditionalMetric::name).containsExactly("keyword_value", "keyword_empty-values", "keyword_values");
+        assertThat(result.get(0))
+            .isInstanceOfSatisfying(AdditionalMetric.KeywordMetric.class, metric -> assertThat(metric.value()).isEqualTo("foo"));
+        assertThat(result.get(1))
+            .isInstanceOfSatisfying(AdditionalMetric.KeywordListMetric.class, metric -> assertThat(metric.value()).isEmpty());
+        assertThat(result.get(2))
+            .isInstanceOfSatisfying(
+                AdditionalMetric.KeywordListMetric.class,
+                metric -> assertThat(metric.value()).containsExactly("foo", "bar")
+            );
+    }
+
+    @Test
+    void should_ignore_non_scalar_elements_of_a_keyword_list() throws JsonProcessingException {
+        var input = """
+            [{ "name": "keyword_mixed", "value": [1, true, {"a":1}, ["x"], null, "ok"] }]
+            """;
+
+        var result = objectMapper.readValue(input, new TypeReference<List<AdditionalMetric>>() {});
+
+        assertThat(result.get(0))
+            .isInstanceOfSatisfying(
+                AdditionalMetric.KeywordListMetric.class,
+                metric -> assertThat(metric.value()).containsExactly("1", "true", "ok")
+            );
+    }
+
+    @Test
+    void should_not_share_the_list_given_to_a_keyword_list_metric() {
+        var values = new ArrayList<>(List.of("foo"));
+
+        var metric = new AdditionalMetric.KeywordListMetric("keyword_values", values);
+        values.add("bar");
+
+        var metricValues = metric.value();
+        assertThat(metricValues).containsExactly("foo");
+        assertThatCode(() -> metricValues.add("bar")).isInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void should_fail_on_a_keyword_list_holding_a_null_value() {
+        assertThatCode(() -> new AdditionalMetric.KeywordListMetric("keyword_values", Arrays.asList("foo", null)))
+            .isInstanceOf(IllegalArgumentException.class);
     }
 }
