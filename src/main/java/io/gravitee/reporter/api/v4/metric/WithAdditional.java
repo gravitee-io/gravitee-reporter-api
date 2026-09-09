@@ -16,6 +16,7 @@
 package io.gravitee.reporter.api.v4.metric;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -91,6 +92,28 @@ public interface WithAdditional<T extends WithAdditional<T>> {
     default Map<String, String> keywordAdditionalMetrics() {
         return additionalMetrics(entry ->
             entry instanceof AdditionalMetric.KeywordMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
+        );
+    }
+
+    /**
+     * @param key    the metric key must start with 'keyword_'
+     * @param values the metric values, possibly empty but not null
+     * @return the current instance
+     */
+    default T putAdditionalKeywordListMetric(String key, List<String> values) {
+        return addAdditionalMetric(new AdditionalMetric.KeywordListMetric(key, values));
+    }
+
+    /**
+     * Returns a map of additional metrics where the key is a metric name and the value is a {@code List<String>}.
+     * Only metrics of type {@link AdditionalMetric.KeywordListMetric} are included in the returned map.
+     *
+     * @return a map containing the keyword list additional metrics, or {@code null} if no such metrics exist
+     */
+    @Nullable
+    default Map<String, List<String>> keywordListAdditionalMetrics() {
+        return additionalMetrics(entry ->
+            entry instanceof AdditionalMetric.KeywordListMetric d ? Stream.of(Map.entry(d.name(), d.value())) : Stream.empty()
         );
     }
 
