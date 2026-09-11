@@ -1,3 +1,10 @@
+# [2.9.0-beta.2](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.9.0-beta.1...2.9.0-beta.2) (2026-09-11)
+
+
+### Features
+
+* **metrics:** add a multi-valued keyword additional metric ([4b2dbe3](https://github.com/gravitee-io/gravitee-reporter-api/commit/4b2dbe38f03609fd56c756b4dedab7eacce8ad8a))
+
 # [2.9.0-beta.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.8.0...2.9.0-beta.1) (2026-09-07)
 
 
