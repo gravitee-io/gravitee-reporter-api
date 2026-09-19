@@ -35,6 +35,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());
@@ -55,6 +56,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());
@@ -75,6 +77,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());
@@ -95,6 +98,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());
@@ -115,6 +119,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());
@@ -135,6 +140,7 @@ public sealed interface AdditionalMetric {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
         }
+
         @Override
         public boolean equals(Object o) {
             return o instanceof AdditionalMetric metric && metric.name().equals(name());

@@ -82,8 +82,10 @@ class MetricsTest {
         var metrics = underTest.putAdditionalMetric("int_name", 12);
 
         // THEN
-        assertThat(metrics.getAdditionalMetrics())
-            .containsOnly(new AdditionalMetric.LongMetric("long_name", 42L), new AdditionalMetric.IntegerMetric("int_name", 12));
+        assertThat(metrics.getAdditionalMetrics()).containsOnly(
+            new AdditionalMetric.LongMetric("long_name", 42L),
+            new AdditionalMetric.IntegerMetric("int_name", 12)
+        );
     }
 
     @Test

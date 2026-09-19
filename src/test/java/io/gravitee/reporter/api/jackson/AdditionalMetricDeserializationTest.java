@@ -46,27 +46,25 @@ class AdditionalMetricDeserializationTest {
 
         var result = objectMapper.readValue(objectMapper.writeValueAsString(input), new TypeReference<List<AdditionalMetric>>() {});
 
-        assertThat(result)
-            .containsExactly(
-                new AdditionalMetric.LongMetric("long_value", 12L),
-                new AdditionalMetric.BooleanMetric("bool_value", true),
-                new AdditionalMetric.KeywordMetric("keyword_value", "foo"),
-                new AdditionalMetric.DoubleMetric("double_value", 3.14),
-                new AdditionalMetric.IntegerMetric("int_value", 42),
-                new AdditionalMetric.StringMetric("string_value", "bar"),
-                new AdditionalMetric.JSONMetric("json_value", "{\"hello\":\"world\"}")
-            );
+        assertThat(result).containsExactly(
+            new AdditionalMetric.LongMetric("long_value", 12L),
+            new AdditionalMetric.BooleanMetric("bool_value", true),
+            new AdditionalMetric.KeywordMetric("keyword_value", "foo"),
+            new AdditionalMetric.DoubleMetric("double_value", 3.14),
+            new AdditionalMetric.IntegerMetric("int_value", 42),
+            new AdditionalMetric.StringMetric("string_value", "bar"),
+            new AdditionalMetric.JSONMetric("json_value", "{\"hello\":\"world\"}")
+        );
     }
 
     @Test
     void should_fail_on_type() {
-        var input =
-            """
-                        [{
-                        "name": "badtype_value",
-                        "value": 12
-                        }]
-                        """;
+        var input = """
+            [{
+            "name": "badtype_value",
+            "value": 12
+            }]
+            """;
 
         Exception exception = catchException(() -> objectMapper.readValue(input, new TypeReference<List<AdditionalMetric>>() {}));
 
