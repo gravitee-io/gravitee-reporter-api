@@ -39,7 +39,10 @@ public class HttpHeadersDeserializer extends StdDeserializer<HttpHeaders> {
     public HttpHeaders deserialize(JsonParser jp, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode jn = jp.getCodec().readTree(jp);
         HttpHeaders httpHeaders = HttpHeaders.create();
-        jp.getCodec().treeToValue(jn, Map.class).forEach((k, v) -> httpHeaders.add((CharSequence) k, (List<CharSequence>) v));
+        jp
+            .getCodec()
+            .treeToValue(jn, Map.class)
+            .forEach((k, v) -> httpHeaders.add((CharSequence) k, (List<CharSequence>) v));
         return httpHeaders;
     }
 }

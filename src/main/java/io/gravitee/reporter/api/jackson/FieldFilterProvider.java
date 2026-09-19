@@ -31,8 +31,8 @@ public class FieldFilterProvider extends SimpleFilterProvider {
      */
     public FieldFilterProvider(Rules rules) {
         this.addFilter(
-                JACKSON_JSON_FILTER_NAME,
-                new FieldPropertyFilter(rules.getRenameFields(), rules.getIncludeFields(), rules.getExcludeFields())
-            );
+            JACKSON_JSON_FILTER_NAME,
+            new FieldPropertyFilter(rules.getRenameFields(), rules.getIncludeFields(), rules.getExcludeFields())
+        );
     }
 }

@@ -32,9 +32,8 @@ class ReportTargetTest {
 
     @Test
     void all_should_be_unmodifiable() {
-        org.junit.jupiter.api.Assertions.assertThrows(
-            UnsupportedOperationException.class,
-            () -> ReportTarget.ALL.add(ReportTarget.ANALYTICS)
+        org.junit.jupiter.api.Assertions.assertThrows(UnsupportedOperationException.class, () ->
+            ReportTarget.ALL.add(ReportTarget.ANALYTICS)
         );
     }
 
@@ -45,9 +44,8 @@ class ReportTargetTest {
 
     @Test
     void default_should_be_unmodifiable() {
-        org.junit.jupiter.api.Assertions.assertThrows(
-            UnsupportedOperationException.class,
-            () -> ReportTarget.DEFAULT.add(ReportTarget.TRACING)
+        org.junit.jupiter.api.Assertions.assertThrows(UnsupportedOperationException.class, () ->
+            ReportTarget.DEFAULT.add(ReportTarget.TRACING)
         );
     }
 
