@@ -51,6 +51,36 @@ public final class MessageMetrics extends AbstractReportable implements WithAddi
     private String environmentId;
 
     /**
+     * Dimensions of the connection that carried this message.
+     *
+     * <p>Named and typed exactly as on the connection metrics, because they are the same concepts.
+     * They are duplicated onto every message on purpose: message analytics filtering on a plan, an
+     * application or an entrypoint otherwise has to resolve the matching connections first and narrow
+     * the message query by their ids — a join that is expensive, bounded by
+     * {@code index.max_terms_count}, and that silently drops the messages of any stream opened before
+     * the query window. Carrying the dimension here removes the need for it.
+     *
+     * <p>Nullable: a message reported by a gateway that predates this carries none of them, which is
+     * what {@link #schemaVersion} is for.
+     */
+    private String planId;
+
+    private String applicationId;
+
+    private String entrypointId;
+
+    /**
+     * Version of the message document's shape, stamped by the writer.
+     *
+     * <p>Its presence is what tells a reader that this document was written by a gateway carrying the
+     * connection dimensions above — a question the dimensions themselves cannot answer, since a
+     * message may legitimately have no plan and an absent field is indistinguishable from an absent
+     * writer. Analytics uses it to decide, per query window, whether the connection join is still
+     * required for the data in that window.
+     */
+    private Integer schemaVersion;
+
+    /**
      * Metrics
      */
     private MessageOperation operation;
