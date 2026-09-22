@@ -52,7 +52,7 @@ public final class JvmInfo {
             if (heapMax == 0) {
                 return -1;
             }
-            return (short) (heapUsed * 100 / heapMax);
+            return (short) ((heapUsed * 100) / heapMax);
         }
     }
 
