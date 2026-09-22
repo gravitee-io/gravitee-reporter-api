@@ -32,8 +32,7 @@ class MetricsToV2MappingTest {
         failure.setKey("fail");
         failure.setMessage("failure");
 
-        Metrics v4 = Metrics
-            .builder()
+        Metrics v4 = Metrics.builder()
             .enabled(true)
             .requestId("req-123")
             .transactionId("tx-999")
