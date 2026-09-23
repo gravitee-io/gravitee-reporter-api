@@ -19,6 +19,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.gravitee.reporter.api.jackson.AdditionalMetricDeserialization;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @JsonDeserialize(using = AdditionalMetricDeserialization.class)
 public sealed interface AdditionalMetric {
@@ -76,6 +79,31 @@ public sealed interface AdditionalMetric {
             if (value == null) {
                 throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof AdditionalMetric metric && metric.name().equals(name());
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
+    }
+
+    record KeywordListMetric(String name, List<String> value) implements AdditionalMetric {
+        public KeywordListMetric {
+            if (!name.startsWith("keyword_")) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Key of keywords must start with 'keyword_'.");
+            }
+            if (value == null) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Value must not be null.");
+            }
+            if (value.stream().anyMatch(Objects::isNull)) {
+                throw new IllegalArgumentException("Invalid key: " + name + ". Values must not contain null.");
+            }
+            value = List.copyOf(value);
         }
 
         @Override
@@ -173,6 +201,19 @@ public sealed interface AdditionalMetric {
         }
     }
 
+    private static AdditionalMetric keywordMetric(String name, JsonNode value) {
+        if (!value.isArray()) {
+            return new AdditionalMetric.KeywordMetric(name, value.asText());
+        }
+        List<String> values = new ArrayList<>(value.size());
+        value.forEach(element -> {
+            if (element.isValueNode() && !element.isNull()) {
+                values.add(element.asText());
+            }
+        });
+        return new AdditionalMetric.KeywordListMetric(name, values);
+    }
+
     static AdditionalMetric deserialize(JsonNode json) throws JsonParseException {
         String name = json.get("name").asText();
         return switch (name.split("_")[0]) {
@@ -180,7 +221,7 @@ public sealed interface AdditionalMetric {
             case "int" -> new AdditionalMetric.IntegerMetric(name, json.get(VALUE_FIELD).asInt());
             case "bool" -> new AdditionalMetric.BooleanMetric(name, json.get(VALUE_FIELD).asBoolean());
             case "double" -> new AdditionalMetric.DoubleMetric(name, json.get(VALUE_FIELD).asDouble());
-            case "keyword" -> new AdditionalMetric.KeywordMetric(name, json.get(VALUE_FIELD).asText());
+            case "keyword" -> keywordMetric(name, json.get(VALUE_FIELD));
             case "string" -> new AdditionalMetric.StringMetric(name, json.get(VALUE_FIELD).asText());
             case "json" -> new AdditionalMetric.JSONMetric(name, json.get(VALUE_FIELD).asText());
             default -> throw new JsonParseException("Impossible to deserialize metric: " + name);
