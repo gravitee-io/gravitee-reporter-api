@@ -41,6 +41,7 @@ class MessageMetricsTest {
         underTest.putAdditionalMetric("string_name", "foo");
         underTest.putAdditionalMetric("bool_name", true);
         underTest.putAdditionalKeywordMetric("keyword_name", "bar");
+        underTest.putAdditionalKeywordListMetric("keyword_names", List.of("bar", "baz"));
         underTest.putAdditionalJSONMetric("json_name", "{\"hello\":\"world\"}");
 
         assertThat(underTest.longAdditionalMetrics()).containsEntry("long_name", 42L);
@@ -49,6 +50,7 @@ class MessageMetricsTest {
         assertThat(underTest.stringAdditionalMetrics()).containsEntry("string_name", "foo");
         assertThat(underTest.boolAdditionalMetrics()).containsEntry("bool_name", true);
         assertThat(underTest.keywordAdditionalMetrics()).containsEntry("keyword_name", "bar");
+        assertThat(underTest.keywordListAdditionalMetrics()).containsEntry("keyword_names", List.of("bar", "baz"));
         assertThat(underTest.jsonAdditionalMetrics()).containsEntry("json_name", "{\"hello\":\"world\"}");
     }
 
@@ -63,6 +65,7 @@ class MessageMetricsTest {
                 new AdditionalMetric.StringMetric("string_name", "foo"),
                 new AdditionalMetric.BooleanMetric("bool_name", true),
                 new AdditionalMetric.KeywordMetric("keyword_name", "bar"),
+                new AdditionalMetric.KeywordListMetric("keyword_names", List.of("bar", "baz")),
                 new AdditionalMetric.JSONMetric("json_name", "{\"hello\":\"world\"}")
             )
         );
@@ -73,6 +76,7 @@ class MessageMetricsTest {
         assertThat(underTest.stringAdditionalMetrics()).containsEntry("string_name", "foo");
         assertThat(underTest.boolAdditionalMetrics()).containsEntry("bool_name", true);
         assertThat(underTest.keywordAdditionalMetrics()).containsEntry("keyword_name", "bar");
+        assertThat(underTest.keywordListAdditionalMetrics()).containsEntry("keyword_names", List.of("bar", "baz"));
         assertThat(underTest.jsonAdditionalMetrics()).containsEntry("json_name", "{\"hello\":\"world\"}");
     }
 
