@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.0.0...3.1.0) (2026-09-24)
+
+
+### Features
+
+* **decision:** report decisions as DecisionReport, a sibling of event metrics ([efef933](https://github.com/gravitee-io/gravitee-reporter-api/commit/efef9333bd937e64aef0f7bdcf0fa70194403b29))
+
 # [3.0.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/2.8.0...3.0.0) (2026-09-23)
 
 
