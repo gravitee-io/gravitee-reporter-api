@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.1.0...3.2.0) (2026-09-25)
+
+
+### Features
+
+* carry the connection dimensions on the message metrics ([0becebc](https://github.com/gravitee-io/gravitee-reporter-api/commit/0becebc1176e72b1e2f27b0caf893f03785c394e))
+
 # [3.1.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.0.0...3.1.0) (2026-09-24)
 
 
