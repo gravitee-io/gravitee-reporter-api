@@ -206,8 +206,10 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private Map<String, String> customMetrics = new HashMap<>();
 
     /**
-     * Log
+     * Log of the request. Internal bookkeeping: the log is reported on its own, to the targets it carries, so it is
+     * never serialised with the metrics.
      */
+    @JsonIgnore
     private Log log;
 
     /**

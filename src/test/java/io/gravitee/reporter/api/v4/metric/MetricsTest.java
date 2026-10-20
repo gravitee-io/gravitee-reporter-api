@@ -17,6 +17,11 @@ package io.gravitee.reporter.api.v4.metric;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.gravitee.reporter.api.common.Request;
+import io.gravitee.reporter.api.jackson.JacksonUtils;
+import io.gravitee.reporter.api.v4.log.Log;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -104,5 +109,25 @@ class MetricsTest {
 
         // THEN
         assertThat(underTest.getAdditionalMetrics()).containsOnly(new AdditionalMetric.LongMetric("long_name", 42L));
+    }
+
+    @Test
+    void should_not_serialize_the_log() throws Exception {
+        // GIVEN
+        Request entrypointRequest = new Request();
+        entrypointRequest.setUri("/echo");
+        entrypointRequest.setBody("{\"card\":\"secret\"}");
+        Log log = Log.builder().timestamp(System.currentTimeMillis()).requestId("req-1").entrypointRequest(entrypointRequest).build();
+        underTest = Metrics.builder().timestamp(System.currentTimeMillis()).requestId("req-1").apiId("api-1").status(200).log(log).build();
+
+        // WHEN
+        JsonNode node = new ObjectMapper().readTree(JacksonUtils.mapper(null).writeValueAsString(underTest));
+
+        // THEN
+        assertThat(node.has("log")).isFalse();
+        assertThat(node.toString()).doesNotContain("secret");
+        assertThat(node.get("apiId").asText()).isEqualTo("api-1");
+        assertThat(node.get("status").asInt()).isEqualTo(200);
+        assertThat(underTest.getLog()).isSameAs(log);
     }
 }
