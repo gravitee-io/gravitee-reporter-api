@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.2.0...3.2.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **metrics:** stop serialising the request log with the v4 metrics ([c6db309](https://github.com/gravitee-io/gravitee-reporter-api/commit/c6db3096299156f2bd23bf72cda85d78388471c5))
+
 # [3.2.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.1.0...3.2.0) (2026-09-25)
 
 
