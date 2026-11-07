@@ -18,6 +18,7 @@ package io.gravitee.reporter.api.v4.metric;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.reporter.api.http.SecurityType;
 import io.gravitee.reporter.api.v4.log.Log;
+import java.util.List;
 import java.util.Map;
 import lombok.experimental.SuperBuilder;
 
@@ -54,6 +55,16 @@ public class NoopMetrics extends Metrics {
 
     @Override
     public void setClientIdentifier(final String clientIdentifier) {}
+
+    @Override
+    public void setDecisionId(final List<String> decisionId) {
+        // Noop metrics hold no value: the decisions of the call are reported on their own.
+    }
+
+    @Override
+    public void addDecisionId(final String decisionId) {
+        // Noop metrics hold no value: the decisions of the call are reported on their own.
+    }
 
     @Override
     public void setTenant(final String tenant) {}
