@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.2.1...3.3.0) (2026-11-07)
+
+
+### Features
+
+* add support for traceId and spanId in Metrics objects ([c730323](https://github.com/gravitee-io/gravitee-reporter-api/commit/c730323c247a621510489f01434e62d797f84479))
+
 ## [3.2.1](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.2.0...3.2.1) (2026-10-21)
 
 
