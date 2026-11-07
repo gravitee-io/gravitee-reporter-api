@@ -57,10 +57,14 @@ public class NoopMetrics extends Metrics {
     public void setClientIdentifier(final String clientIdentifier) {}
 
     @Override
-    public void setDecisionId(final List<String> decisionId) {}
+    public void setDecisionId(final List<String> decisionId) {
+        // Noop metrics hold no value: the decisions of the call are reported on their own.
+    }
 
     @Override
-    public void addDecisionId(final String decisionId) {}
+    public void addDecisionId(final String decisionId) {
+        // Noop metrics hold no value: the decisions of the call are reported on their own.
+    }
 
     @Override
     public void setTenant(final String tenant) {}
