@@ -58,6 +58,11 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
     private String traceId;
     private String spanId;
     /**
+     * The ids of the decisions taken on this request, as {@code eventId} of their
+     * {@link io.gravitee.reporter.api.v4.report.DecisionReport}, in the order they were taken. {@code null} when none.
+     */
+    private List<String> decisionId;
+    /**
      * Tenant
      */
     private String tenant;
@@ -261,6 +266,16 @@ public class Metrics extends AbstractReportable implements WithAdditional<Metric
             this.customMetrics = new HashMap<>();
         }
         this.customMetrics.put(key, value);
+    }
+
+    /**
+     * Add the id of a decision taken on this request
+     */
+    public void addDecisionId(String decisionId) {
+        if (this.decisionId == null) {
+            this.decisionId = new ArrayList<>();
+        }
+        this.decisionId.add(decisionId);
     }
 
     /**

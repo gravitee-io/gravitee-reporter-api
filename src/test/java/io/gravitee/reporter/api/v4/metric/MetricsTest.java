@@ -34,6 +34,31 @@ class MetricsTest {
     Metrics underTest;
 
     @Test
+    void should_have_no_decision_id_by_default() {
+        assertThat(Metrics.builder().build().getDecisionId()).isNull();
+    }
+
+    @Test
+    void should_keep_the_decision_ids_in_order() {
+        underTest = Metrics.builder().build();
+
+        underTest.addDecisionId("first");
+        underTest.addDecisionId("second");
+
+        assertThat(underTest.getDecisionId()).containsExactly("first", "second");
+    }
+
+    @Test
+    void should_ignore_the_decision_ids_when_noop() {
+        underTest = new NoopMetrics();
+
+        underTest.addDecisionId("first");
+        underTest.setDecisionId(List.of("second"));
+
+        assertThat(underTest.getDecisionId()).isNull();
+    }
+
+    @Test
     void should_extract_additional_metrics_by_type() {
         underTest = Metrics.builder().build();
         underTest.putAdditionalMetric("long_name", 42L);
