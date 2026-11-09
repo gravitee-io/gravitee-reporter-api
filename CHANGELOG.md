@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.3.0...3.4.0) (2026-11-09)
+
+
+### Features
+
+* add the decision ids to the v4 metrics ([b254d64](https://github.com/gravitee-io/gravitee-reporter-api/commit/b254d641c1c0abb3ad36bb22343426af9dd1d20e))
+
 # [3.3.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.2.1...3.3.0) (2026-11-07)
 
 
