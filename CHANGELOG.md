@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.4.0...3.5.0) (2026-11-12)
+
+
+### Features
+
+* allow copying a v4 log through its builder ([e318aae](https://github.com/gravitee-io/gravitee-reporter-api/commit/e318aae552b49cdacd7fb51b9ed9ee9916212f20))
+
 # [3.4.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.3.0...3.4.0) (2026-11-09)
 
 
