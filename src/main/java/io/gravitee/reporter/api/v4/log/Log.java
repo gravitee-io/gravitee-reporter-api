@@ -31,7 +31,7 @@ import lombok.extern.jackson.Jacksonized;
  */
 @Getter
 @Setter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @Jacksonized
 public class Log extends AbstractReportable {
 
