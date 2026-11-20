@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.5.0...3.6.0) (2026-11-20)
+
+
+### Features
+
+* flag the logged bodies that were truncated ([eb0f68b](https://github.com/gravitee-io/gravitee-reporter-api/commit/eb0f68b3866c4cb984bb5fce0979269970acf4aa))
+
 # [3.5.0](https://github.com/gravitee-io/gravitee-reporter-api/compare/3.4.0...3.5.0) (2026-11-12)
 
 
