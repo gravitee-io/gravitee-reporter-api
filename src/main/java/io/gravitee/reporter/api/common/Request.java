@@ -15,6 +15,7 @@
  */
 package io.gravitee.reporter.api.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.gravitee.common.http.HttpMethod;
 import io.gravitee.gateway.api.http.HttpHeaders;
 import java.util.ArrayList;
@@ -39,6 +40,12 @@ public class Request {
     private String uri;
 
     private String body;
+
+    /**
+     * Whether the logged {@link #body} was cut, for instance because it exceeded the maximum size of a logged body.
+     */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private boolean bodyTruncated;
 
     private String traceId;
 
